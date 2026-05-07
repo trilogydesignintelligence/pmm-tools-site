@@ -1,0 +1,532 @@
+/* ═══════════════════════════════════════════════════════════════════
+   PMM TOOLS — User Guide Page Styles
+   Editorial · Documentation
+   ═══════════════════════════════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Eagle Light';
+  src: url('../fonts/eagle-light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+
+:root {
+  --cream-50:  #FDFAF5;
+  --cream-100: #F5F0E5;
+  --cream-200: #EDE5D5;
+  --cream-300: #D8CAAA;
+  --cream-400: #C4B088;
+  --burg-900: #2A0808;
+  --burg-800: #3A0C08;
+  --burg-700: #5A1A10;
+  --burg-600: #7A2818;
+  --burg-500: #9A3820;
+  --burg-100: #F5E8E5;
+  --gold-900: #5A3408;
+  --gold-700: #8B6020;
+  --gold-500: #C8922A;
+  --gold-400: #D8A840;
+  --gold-300: #E5BD68;
+  --gold-100: #FBF3DC;
+  --ink:      #1A0808;
+  --ink-soft: #4A2818;
+  --rule:     #D8CAAA;
+  --rule-soft:#EDE5D5;
+  --success-text: #1E5E1E;
+  --success-bg:   #EAF5EA;
+  --warn-text: #8B5A20;
+  --warn-bg:   #FBF3DC;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Libre Baskerville', Georgia, serif;
+  --font-ui:      'Barlow Condensed', sans-serif;
+  --font-prose:   'Barlow', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-50);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ═══════════ TOP BAR (mini) ═══════════ */
+.guide-topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(253, 250, 245, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.85rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.guide-back {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--burg-700);
+  display: flex; align-items: center; gap: 0.5rem;
+  transition: color 0.2s;
+}
+.guide-back:hover { color: var(--burg-900); }
+.guide-tools-link {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--burg-800);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.guide-tools-link em {
+  font-style: italic;
+  color: var(--gold-500);
+}
+
+/* ═══════════ LAYOUT ═══════════ */
+.guide-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 0;
+  align-items: start;
+}
+
+/* ═══════════ SIDEBAR (TOC) ═══════════ */
+.guide-toc {
+  position: sticky;
+  top: 60px;
+  padding: 3rem 2rem 3rem 2.5rem;
+  border-right: 1px solid var(--rule);
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+}
+.toc-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  margin-bottom: 0.5rem;
+}
+.toc-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--burg-900);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.toc-rule {
+  height: 1px;
+  background: var(--gold-500);
+  margin-bottom: 1.5rem;
+  width: 60%;
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+}
+.toc-list li {
+  margin-bottom: 0.4rem;
+}
+.toc-list a {
+  display: block;
+  padding: 0.45rem 0.75rem;
+  font-family: var(--font-prose);
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+.toc-list a:hover {
+  color: var(--burg-700);
+  border-left-color: var(--gold-500);
+  background: var(--cream-100);
+}
+.toc-list a.active {
+  color: var(--burg-800);
+  border-left-color: var(--gold-500);
+  font-weight: 600;
+  background: var(--gold-100);
+}
+.toc-list .toc-part {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  font-weight: 700;
+  margin-top: 1.5rem;
+  padding: 0.4rem 0.75rem;
+  display: block;
+}
+.toc-list .toc-part:first-child { margin-top: 0; }
+
+/* ═══════════ ARTICLE ═══════════ */
+.guide-article {
+  padding: 3rem 4rem 6rem;
+  max-width: 820px;
+}
+
+/* Title block */
+.guide-masthead {
+  border-bottom: 2px solid var(--gold-500);
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+}
+.guide-eyebrow {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--burg-600);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.guide-eyebrow .dot {
+  width: 4px; height: 4px;
+  background: var(--gold-500);
+  border-radius: 50%;
+  display: inline-block;
+}
+.guide-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--burg-900);
+  line-height: 0.95;
+  margin-bottom: 1rem;
+}
+.guide-title em {
+  font-style: italic;
+  color: var(--gold-500);
+}
+.guide-subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--ink-soft);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.guide-meta {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--gold-700);
+  letter-spacing: 0.05em;
+  flex-wrap: wrap;
+}
+.guide-meta span::before {
+  content: '◆ ';
+  color: var(--gold-500);
+}
+
+/* Part headers */
+.part-header {
+  margin: 4.5rem 0 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+}
+.part-number {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--gold-700);
+  letter-spacing: 0.15em;
+}
+.part-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--burg-900);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* Section headings */
+.guide-article h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--burg-800);
+  margin: 3rem 0 1rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.guide-article h3 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--burg-700);
+  margin: 2rem 0 0.85rem;
+  letter-spacing: -0.01em;
+}
+.guide-article h4 {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  margin: 1.75rem 0 0.5rem;
+}
+
+/* Body text */
+.guide-article p {
+  font-size: 1.02rem;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+  color: var(--ink);
+}
+.guide-article p.lede {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--burg-800);
+  line-height: 1.55;
+  margin-bottom: 2rem;
+}
+
+.guide-article a {
+  color: var(--burg-700);
+  text-decoration: underline;
+  text-decoration-color: var(--gold-400);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.guide-article a:hover { color: var(--gold-500); }
+
+.guide-article strong {
+  font-weight: 700;
+  color: var(--burg-800);
+}
+.guide-article em {
+  font-style: italic;
+  color: var(--burg-700);
+}
+
+/* Lists */
+.guide-article ul,
+.guide-article ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+}
+.guide-article li {
+  margin-bottom: 0.5rem;
+  line-height: 1.75;
+}
+.guide-article ul li::marker {
+  color: var(--gold-500);
+}
+.guide-article ol li::marker {
+  color: var(--gold-700);
+  font-family: var(--font-mono);
+  font-weight: 600;
+}
+
+/* Code */
+.guide-article code {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--cream-100);
+  color: var(--burg-700);
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
+  border: 1px solid var(--rule-soft);
+}
+.guide-article pre {
+  background: var(--burg-900);
+  color: var(--cream-100);
+  padding: 1.5rem 1.75rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-left: 3px solid var(--gold-500);
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  position: relative;
+}
+.guide-article pre code {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0;
+  font-size: inherit;
+}
+.guide-article pre::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 0.5rem; right: 0.85rem;
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-300);
+}
+
+/* Tables */
+.guide-article table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  border: 1px solid var(--rule);
+}
+.guide-article th {
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-50);
+  background: var(--burg-800);
+  padding: 0.85rem 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+.guide-article td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--rule-soft);
+  vertical-align: top;
+}
+.guide-article tr:last-child td { border-bottom: none; }
+.guide-article tr:nth-child(even) td { background: var(--cream-100); }
+
+/* Callouts */
+.callout {
+  border-left: 3px solid var(--gold-500);
+  background: var(--gold-100);
+  padding: 1.25rem 1.5rem;
+  margin: 1.75rem 0;
+  border-radius: 2px;
+}
+.callout-tag {
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.callout p { margin-bottom: 0; color: var(--burg-800); }
+.callout-warn {
+  border-left-color: var(--burg-500);
+  background: var(--burg-100);
+}
+.callout-warn .callout-tag { color: var(--burg-700); }
+.callout-success {
+  border-left-color: var(--success-text);
+  background: var(--success-bg);
+}
+.callout-success .callout-tag { color: var(--success-text); }
+
+/* Footer block */
+.guide-footer {
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 2px solid var(--gold-500);
+  text-align: center;
+  font-family: var(--font-display);
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.guide-footer .credit {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  display: block;
+}
+.guide-footer .tag {
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* Hr */
+.guide-article hr {
+  border: none;
+  height: 1px;
+  background: var(--rule);
+  margin: 3rem 0;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .guide-layout { grid-template-columns: 1fr; }
+  .guide-toc {
+    position: static;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 2rem;
+  }
+  .guide-article { padding: 2rem 1.5rem 4rem; }
+}
+
+@media (max-width: 600px) {
+  .guide-topbar { padding: 0.75rem 1rem; }
+  .guide-tools-link { font-size: 0.95rem; }
+  .guide-article h2 { font-size: 1.6rem; }
+  .guide-article h3 { font-size: 1.25rem; }
+  .part-title { font-size: 1.85rem; }
+  .guide-meta { gap: 0.75rem; font-size: 0.7rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Eagle Light retrofit
+   Display headings adopt Eagle Light; the wordmark italic em stays in
+   Cormorant Garamond for the elegant Trilogy contrast.
+   ═══════════════════════════════════════════════════════════════════ */
+.guide-title,
+.guide-article h2,
+.toc-title,
+.guide-tools-link {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+}
+.guide-title em,
+.guide-tools-link em,
+.toc-title em,
+.guide-article h2 em {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  text-transform: none;
+}
+.guide-eyebrow,
+.toc-part,
+.callout-label {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.22em !important;
+}

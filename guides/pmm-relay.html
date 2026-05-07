@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+<title>PMM Relay — User Guide · Trilogy Design Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Eagle Light';
+  src: url('../assets/fonts/eagle-light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+/* ── Eagle Light retrofit — for cover & display headings ── */
+.cover h2.title,
+.cover h1.title,
+.section > h2,
+.section h2,
+.part-divider h2,
+.pillar-title,
+.flow-step .step-name,
+.guides-table .tool-name {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase;
+}
+.cover-eyebrow,
+.part-divider .label,
+.toc-part,
+.callout-label,
+.cover-header h1.brand .sub,
+.topbar .brand .sub,
+.drawer .drawer-sub,
+.section h2 .num,
+th {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase;
+}
+.section h2 .num {
+  letter-spacing: 0.04em !important;
+  font-style: normal;
+}
+
+  :root {
+    --ink: #2a1a14; --maroon: #6b1f24; --maroon-light: #8a3338;
+    --brass: #b08544; --brass-light: #c9a86a;
+    --cream: #f5efe5; --cream-light: #faf6ec; --paper: #fbf7ed;
+    --stone: #8a847a; --stone-light: #c5beb1;
+    --rule: #d9d1c0;
+    --shadow: rgba(42,26,20,0.08); --shadow-strong: rgba(42,26,20,0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--brass-light); color: var(--ink); }
+  .shell { max-width: 880px; margin: 0 auto; background: var(--paper); box-shadow: 0 0 60px var(--shadow); min-height: 100vh; }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 14px;
+    backdrop-filter: blur(8px);
+    background: rgba(245,239,229,0.94);
+  }
+  .topbar .logo { width: 32px; height: 32px; border: 1.5px solid var(--maroon); border-radius: 50%; display: grid; place-items: center; background: var(--paper); }
+  .topbar .logo svg { width: 18px; height: 18px; fill: var(--maroon); }
+  .topbar .brand { font-family: 'Crimson Pro', serif; font-size: 17px; line-height: 1; }
+  .topbar .brand .sub {
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 9px; font-weight: 600;
+    color: var(--brass); letter-spacing: 0.22em;
+    margin-top: 4px; text-transform: uppercase;
+  }
+  .topbar .menu-btn {
+    margin-left: auto; background: none;
+    border: 1px solid var(--rule); color: var(--ink);
+    padding: 8px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px;
+  }
+  .topbar .menu-btn:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  .cover {
+    padding: 80px 64px 100px; border-bottom: 1px solid var(--rule);
+    background: radial-gradient(ellipse at top right, rgba(176,133,68,0.08), transparent 60%), var(--paper);
+  }
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.32em; color: var(--maroon);
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .cover-header { display: flex; align-items: center; gap: 16px; margin-bottom: 80px; }
+  .cover-header .logo { width: 56px; height: 56px; border: 2px solid var(--maroon); border-radius: 50%; display: grid; place-items: center; }
+  .cover-header .logo svg { width: 30px; height: 30px; fill: var(--maroon); }
+  .cover-header h1.brand { font-family: 'Crimson Pro', serif; font-size: 32px; line-height: 1.05; }
+  .cover-header h1.brand .sub {
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--brass); letter-spacing: 0.28em;
+    margin-top: 6px; text-transform: uppercase;
+  }
+  .cover h2.title {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(56px, 9vw, 96px); font-weight: 400;
+    color: var(--maroon); letter-spacing: -0.02em; line-height: 1;
+    margin-bottom: 20px;
+  }
+  .cover .subtitle {
+    font-family: 'Crimson Pro', serif; font-style: italic;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--brass); margin-bottom: 32px;
+  }
+  .cover-rule { width: 60px; height: 2px; background: var(--brass); margin-bottom: 80px; }
+  .cover .meta { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--stone); }
+  .cover .meta strong { color: var(--ink); font-weight: 600; }
+  .cover-attr { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 14px; color: var(--stone); margin-top: 200px; line-height: 1.6; }
+
+  .section { padding: 72px 64px 56px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+  .part-divider {
+    padding: 80px 64px; background: var(--cream);
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .part-divider .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.3em; color: var(--brass);
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .part-divider h2 { font-family: 'Crimson Pro', serif; font-size: 56px; font-weight: 400; color: var(--maroon); letter-spacing: -0.02em; margin-bottom: 18px; }
+  .part-divider .description { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 18px; color: var(--stone); max-width: 540px; }
+
+  .section h2 { font-family: 'Crimson Pro', serif; font-size: 40px; font-weight: 400; color: var(--maroon); margin-bottom: 28px; letter-spacing: -0.01em; line-height: 1.15; }
+  .section h2 .num { color: var(--brass); font-style: italic; font-weight: 300; margin-right: 14px; }
+  .section h3 { font-family: 'Crimson Pro', serif; font-size: 22px; font-weight: 500; font-style: italic; color: var(--brass); margin: 36px 0 14px; }
+  .section p { margin-bottom: 16px; color: var(--ink); }
+  .section p.lede { font-size: 19px; line-height: 1.55; margin-bottom: 24px; }
+  .section ol, .section ul { margin: 12px 0 18px 0; padding-left: 26px; }
+  .section li { margin-bottom: 10px; }
+  .section ol li::marker { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--maroon); font-size: 14px; }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; background: var(--cream);
+    padding: 2px 7px; border-radius: 3px;
+    color: var(--maroon); border: 1px solid var(--rule);
+  }
+  pre {
+    background: var(--cream); border-left: 3px solid var(--brass);
+    padding: 20px 24px; margin: 24px 0; overflow-x: auto;
+  }
+  pre code { background: none; border: none; padding: 0; color: var(--ink); font-size: 12px; line-height: 1.6; white-space: pre; }
+
+  /* Terminal-styled output blocks */
+  .term {
+    background: #1a0f0a;
+    color: #e8d4a8;
+    border-left: 3px solid var(--brass);
+    padding: 18px 22px; margin: 22px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.65;
+    overflow-x: auto;
+    border-radius: 2px;
+  }
+  .term .prompt { color: var(--brass-light); }
+  .term .ok { color: #9ec79e; }
+  .term .err { color: #d99c8a; }
+  .term .dim { color: #8a847a; }
+
+  .callout { background: var(--cream); border-left: 3px solid var(--brass); padding: 24px 28px; margin: 28px 0; }
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.24em; color: var(--maroon);
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .callout-body { font-family: 'Crimson Pro', serif; font-size: 16px; font-style: italic; color: var(--ink); line-height: 1.55; }
+  .callout-body code { font-style: normal; }
+
+  .table-wrap { margin: 24px 0; overflow-x: auto; border: 1px solid var(--rule); background: var(--paper); }
+  table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; font-size: 13px; }
+  th {
+    background: var(--cream); padding: 12px 16px;
+    text-align: left; font-weight: 700;
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--maroon);
+    border-bottom: 1px solid var(--rule);
+  }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--rule); color: var(--ink); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; color: var(--maroon); }
+  td code { font-size: 12px; }
+
+  .change-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin: 24px 0; }
+  .change-card { background: var(--paper); border: 1px solid var(--rule); border-top: 3px solid var(--brass); padding: 16px 18px; }
+  .change-card .name { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--maroon); margin-bottom: 6px; }
+  .change-card .desc { font-family: 'Crimson Pro', serif; font-size: 14px; color: var(--ink); line-height: 1.45; }
+
+  .page-footer {
+    padding: 36px 64px; background: var(--cream); border-top: 1px solid var(--rule);
+    text-align: center; font-family: 'Inter', sans-serif;
+    font-size: 11px; color: var(--stone); letter-spacing: 0.04em;
+  }
+  .page-footer p { margin: 4px 0; }
+  .page-footer .tagline { font-family: 'Crimson Pro', serif; font-style: italic; font-size: 13px; color: var(--brass); margin-top: 14px; }
+
+  .toc-part {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.28em; color: var(--maroon);
+    text-transform: uppercase;
+    margin-top: 32px; margin-bottom: 14px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  .toc-part:first-child { margin-top: 0; }
+  .toc-item { display: flex; align-items: baseline; gap: 12px; padding: 10px 0; color: var(--ink); text-decoration: none; font-size: 17px; }
+  .toc-item:hover { color: var(--maroon); }
+  .toc-item .num { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700; color: var(--brass); min-width: 22px; }
+  .toc-item .dots { flex: 1; border-bottom: 1px dotted var(--stone-light); margin-bottom: 4px; }
+  .toc-item .page { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--stone); font-style: italic; }
+
+  .drawer {
+    position: fixed; top: 0; right: 0;
+    width: 320px; max-width: 86vw; height: 100vh;
+    background: var(--paper);
+    box-shadow: -8px 0 30px var(--shadow-strong);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100; overflow-y: auto; padding: 24px;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-overlay { position: fixed; inset: 0; background: rgba(42,26,20,0.4); opacity: 0; pointer-events: none; transition: opacity 0.3s; z-index: 99; }
+  .drawer-overlay.show { opacity: 1; pointer-events: auto; }
+  .drawer h3 { font-family: 'Crimson Pro', serif; font-size: 22px; color: var(--maroon); margin-bottom: 4px; }
+  .drawer .drawer-sub { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 0.2em; color: var(--brass); text-transform: uppercase; margin-bottom: 24px; }
+  .drawer a { display: block; padding: 10px 0; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule); font-size: 15px; }
+  .drawer a:hover { color: var(--maroon); }
+  .drawer a .num { color: var(--brass); font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 700; margin-right: 10px; }
+  .drawer-close { position: absolute; top: 18px; right: 18px; background: none; border: 1px solid var(--rule); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; color: var(--ink); font-size: 18px; line-height: 1; }
+  .drawer-close:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  @media (max-width: 720px) {
+    .cover { padding: 60px 28px 70px; }
+    .cover h2.title { font-size: 56px; }
+    .cover-attr { margin-top: 100px; }
+    .section { padding: 56px 28px 40px; }
+    .section h2 { font-size: 30px; }
+    .part-divider { padding: 60px 28px; }
+    .part-divider h2 { font-size: 38px; }
+    .topbar { padding: 12px 18px; }
+    .topbar .brand { font-size: 14px; }
+    .page-footer { padding: 28px; }
+    .term { font-size: 10px; padding: 14px 18px; }
+    pre code { font-size: 11px; }
+  }
+  @media print {
+    .topbar, .drawer, .drawer-overlay { display: none; }
+    .shell { box-shadow: none; max-width: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo"><svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg></div>
+  <div class="brand">Trilogy Design Intelligence<span class="sub">PMM Tools · User Guide</span></div>
+  <button class="menu-btn" onclick="toggleDrawer()">Contents</button>
+</header>
+
+<div class="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="drawer">
+  <button class="drawer-close" onclick="toggleDrawer()">×</button>
+  <h3>Contents</h3>
+  <div class="drawer-sub">PMM Relay v0.1.1</div>
+  <a href="#sec-1" onclick="toggleDrawer()"><span class="num">1</span>What PMM Relay Does</a>
+  <a href="#sec-2" onclick="toggleDrawer()"><span class="num">2</span>Installation</a>
+  <a href="#sec-3" onclick="toggleDrawer()"><span class="num">3</span>Your First Sync</a>
+  <a href="#sec-4" onclick="toggleDrawer()"><span class="num">4</span>Anatomy of a Sync Cycle</a>
+  <a href="#sec-5" onclick="toggleDrawer()"><span class="num">5</span>Configuration</a>
+  <a href="#sec-6" onclick="toggleDrawer()"><span class="num">6</span>CLI Commands</a>
+  <a href="#sec-7" onclick="toggleDrawer()"><span class="num">7</span>CSV Export Mode</a>
+  <a href="#sec-8" onclick="toggleDrawer()"><span class="num">8</span>API Mode (Future)</a>
+  <a href="#sec-9" onclick="toggleDrawer()"><span class="num">9</span>Diff Engine Behavior</a>
+  <a href="#sec-10" onclick="toggleDrawer()"><span class="num">10</span>State Store</a>
+  <a href="#sec-11" onclick="toggleDrawer()"><span class="num">11</span>CSV Output Format</a>
+  <a href="#sec-12" onclick="toggleDrawer()"><span class="num">12</span>Configuration File Reference</a>
+  <a href="#sec-13" onclick="toggleDrawer()"><span class="num">13</span>Production Deployment</a>
+  <a href="#sec-14" onclick="toggleDrawer()"><span class="num">14</span>Monitoring &amp; Logs</a>
+  <a href="#sec-15" onclick="toggleDrawer()"><span class="num">15</span>Troubleshooting</a>
+  <a href="#sec-16" onclick="toggleDrawer()"><span class="num">16</span>System &amp; File Locations</a>
+  <a href="#sec-17" onclick="toggleDrawer()"><span class="num">17</span>Credits</a>
+</aside>
+
+<main class="shell">
+
+<section class="cover">
+  <div class="cover-header">
+    <div class="logo"><svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg></div>
+    <h1 class="brand">Trilogy Design Intelligence<span class="sub">PMM Tools</span></h1>
+  </div>
+  <div class="cover-eyebrow">User Guide</div>
+  <h2 class="title">PMM<br/>Relay</h2>
+  <p class="subtitle">Automated Drive → Buildertrend Sync</p>
+  <div class="cover-rule"></div>
+  <p class="meta">Version <strong>0.1.1</strong> · Schema v1.0 aligned</p>
+  <p class="cover-attr">Created by Trilogy Partners using Trilogy Build Intelligence.<br/>Boots on the Ground, Eyes on the Sky.</p>
+</section>
+
+<section class="section">
+  <h2><span class="num">·</span>Contents</h2>
+  <div class="toc-part">Part One — Quick Start</div>
+  <a class="toc-item" href="#sec-1"><span class="num">1</span>What PMM Relay Does<span class="dots"></span><span class="page">p. 4</span></a>
+  <a class="toc-item" href="#sec-2"><span class="num">2</span>Installation<span class="dots"></span><span class="page">p. 5</span></a>
+  <a class="toc-item" href="#sec-3"><span class="num">3</span>Your First Sync<span class="dots"></span><span class="page">p. 7</span></a>
+  <a class="toc-item" href="#sec-4"><span class="num">4</span>Anatomy of a Sync Cycle<span class="dots"></span><span class="page">p. 9</span></a>
+  <div class="toc-part">Part Two — Core Workflows</div>
+  <a class="toc-item" href="#sec-5"><span class="num">5</span>Configuration<span class="dots"></span><span class="page">p. 12</span></a>
+  <a class="toc-item" href="#sec-6"><span class="num">6</span>CLI Commands<span class="dots"></span><span class="page">p. 14</span></a>
+  <a class="toc-item" href="#sec-7"><span class="num">7</span>CSV Export Mode<span class="dots"></span><span class="page">p. 16</span></a>
+  <a class="toc-item" href="#sec-8"><span class="num">8</span>API Mode (Future)<span class="dots"></span><span class="page">p. 18</span></a>
+  <div class="toc-part">Part Three — Reference</div>
+  <a class="toc-item" href="#sec-9"><span class="num">9</span>Diff Engine Behavior<span class="dots"></span><span class="page">p. 20</span></a>
+  <a class="toc-item" href="#sec-10"><span class="num">10</span>State Store<span class="dots"></span><span class="page">p. 22</span></a>
+  <a class="toc-item" href="#sec-11"><span class="num">11</span>CSV Output Format<span class="dots"></span><span class="page">p. 23</span></a>
+  <a class="toc-item" href="#sec-12"><span class="num">12</span>Configuration File Reference<span class="dots"></span><span class="page">p. 24</span></a>
+  <div class="toc-part">Part Four — Practical Notes</div>
+  <a class="toc-item" href="#sec-13"><span class="num">13</span>Production Deployment<span class="dots"></span><span class="page">p. 26</span></a>
+  <a class="toc-item" href="#sec-14"><span class="num">14</span>Monitoring &amp; Logs<span class="dots"></span><span class="page">p. 28</span></a>
+  <a class="toc-item" href="#sec-15"><span class="num">15</span>Troubleshooting<span class="dots"></span><span class="page">p. 29</span></a>
+  <a class="toc-item" href="#sec-16"><span class="num">16</span>System Requirements &amp; File Locations<span class="dots"></span><span class="page">p. 32</span></a>
+  <a class="toc-item" href="#sec-17"><span class="num">17</span>Credits<span class="dots"></span><span class="page">p. 33</span></a>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part One</p>
+  <h2>Quick Start</h2>
+  <p class="description">Get installed, configure your first project, run a sync, and understand what just happened.</p>
+</section>
+
+<section class="section" id="sec-1">
+  <h2><span class="num">1.</span>What PMM Relay Does</h2>
+  <p class="lede">PMM Relay is a background service that automates the Google Sheet → Buildertrend half of the PMM Tools pipeline. It polls each project's Google Sheet on a schedule (default 5 minutes), detects changes, and pushes them to Buildertrend.</p>
+  <p>A typical Trilogy project flow:</p>
+  <ol>
+    <li>PMM Connection ingests the architect's Revit IFC and tags SketchUp components.</li>
+    <li>PMM Horizon pushes tagged components to PMM in the Sky (the project Google Sheet).</li>
+    <li>Project Managers edit commercial data (Vendor, Unit Price, Cost Code, Allowance) in the Sheet.</li>
+    <li>PMM Relay (here) notices changes within 5 minutes and pushes them to Buildertrend.</li>
+    <li>PMM Compass and PMM on the Ground display the same Sheet data to admins and subs respectively.</li>
+  </ol>
+  <p>PMM Relay is the only PMM Tools component that writes to Buildertrend automatically. It runs unattended.</p>
+  <div class="callout">
+    <div class="callout-label">Two push modes</div>
+    <div class="callout-body">Until you have BT partner API access, Relay generates CSV files that get manually imported into Buildertrend. Once you have API access, switch to API mode for true real-time sync. The diff engine and configuration are identical between modes — only the destination changes.</div>
+  </div>
+  <h3>Audience</h3>
+  <p>This guide is for the operations/IT person who runs the sync. End users (designers, PMs, subs) never interact with Relay directly — they see its output in Buildertrend.</p>
+</section>
+
+<section class="section" id="sec-2">
+  <h2><span class="num">2.</span>Installation</h2>
+  <p>PMM Relay is a Python 3 command-line tool. It runs on macOS, Linux, and Windows. For production, run on a always-on server (Linux VPS, AWS/GCP small instance, or a Mac Mini).</p>
+  <h3>Prerequisites</h3>
+  <ul>
+    <li>Python 3.10 or newer</li>
+    <li><code>pip</code> (comes with Python)</li>
+    <li>A Google Cloud service account JSON key file (see Deployment Runbook Phase 1)</li>
+    <li>The <code>client_email</code> from that key file shared on every project Sheet (Viewer permission is sufficient)</li>
+  </ul>
+  <h3>Install steps</h3>
+  <p>Extract the package:</p>
+<pre><code>tar -xzf pmm_relay_v0.1.1.tar.gz
+cd pmm_relay</code></pre>
+  <p>Install Python dependencies:</p>
+<pre><code>python3 -m pip install --user google-api-python-client google-auth</code></pre>
+  <p>(Without these, Relay falls back to fixture mode for testing — no real Sheet access.)</p>
+  <p>Set the env var pointing to your service account key:</p>
+<pre><code>export PMM_SERVICE_ACCOUNT_JSON=/path/to/service-account.json</code></pre>
+  <p>For persistent setup, add this line to your <code>~/.bashrc</code> or <code>~/.zshrc</code>.</p>
+  <p>Verify installation:</p>
+<pre><code>python3 -m sync_tool.cli check</code></pre>
+  <p>Expected output:</p>
+<div class="term">┌─────────────────────────────────────────────────────────────┐
+│ <span class="ok">PMM Relay · Drive → Buildertrend sync</span>                       │
+│ Part of PMM Tools · Boots on the Ground, Eyes on the Sky    │
+│ Trilogy Partners · Trilogy Build Intelligence               │
+└─────────────────────────────────────────────────────────────┘
+<span class="ok">BT client: OK</span>      Will write CSVs to ./bt_exports
+Projects: 0 configured
+State dir: ./state</div>
+  <h3>Updating</h3>
+  <p>To install a newer version:</p>
+  <ol>
+    <li>Stop any running Relay instance: <code>pkill -f "sync_tool.cli run"</code></li>
+    <li>Replace the directory: extract the new <code>.tar.gz</code> over the old one (configs and <code>state/</code> are preserved)</li>
+    <li>Run <code>check</code> to confirm health</li>
+    <li>Restart with <code>run</code></li>
+  </ol>
+  <div class="callout">
+    <div class="callout-label">State preservation</div>
+    <div class="callout-body">The <code>state/</code> directory and <code>sync_config.json</code> are preserved across updates. Per-project snapshots (the diff engine's "last seen" memory) are JSON files in <code>state/</code> — keeping them avoids triggering full re-syncs on every update.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-3">
+  <h2><span class="num">3.</span>Your First Sync</h2>
+  <p>The fastest path to seeing PMM Relay work: configure one project, run one cycle, and confirm a CSV gets generated.</p>
+  <h3>What you need</h3>
+  <ul>
+    <li>A Google Sheet with at least one PMM-tagged row (PMM Horizon will have populated this)</li>
+    <li>The Sheet's ID (the long random string in the Sheet's URL)</li>
+    <li>The Sheet shared with your service account email (Viewer access)</li>
+  </ul>
+  <h3>Configure</h3>
+  <p>Copy the example config:</p>
+<pre><code>cp fixtures/sync_config.example.json sync_config.json</code></pre>
+  <p>Edit <code>sync_config.json</code>:</p>
+<pre><code>{
+  "state_dir": "./state",
+  "bt_client": {
+    "kind": "csv",
+    "output_dir": "./bt_exports"
+  },
+  "projects": [
+    {
+      "sheet_id": "1AbCDeFgHIjkLMnoPqRsTuVWxyZ",
+      "project_name": "25 Hickory Lane"
+    }
+  ]
+}</code></pre>
+  <p>Verify config:</p>
+<pre><code>python3 -m sync_tool.cli check</code></pre>
+  <h3>Run one cycle</h3>
+<pre><code>python3 -m sync_tool.cli once</code></pre>
+  <p>Expected output:</p>
+<div class="term">[25 Hickory Lane] diff: <span class="ok">47 created</span> | push: 47 changes
+   → ./bt_exports/25_hickory_lane__20260427_103000.csv</div>
+  <p>The first run creates a baseline — every component in the Sheet is reported as <code>CREATED</code> and written to a CSV. Subsequent runs only report actual changes.</p>
+  <h3>Inspect the output</h3>
+<pre><code>ls -la bt_exports/
+head -5 bt_exports/25_hickory_lane__*.csv</code></pre>
+  <p>You'll see a CSV with columns matching what BT's Estimate Import accepts: <code>Title</code>, <code>Cost Category</code>, <code>Cost Code</code>, <code>Cost Type</code>, <code>Description</code>, <code>Quantity</code>, <code>Unit</code>, <code>Unit Price</code>, <code>Amount</code>, <code>Vendor/Sub</code>, <code>Internal Notes</code>, plus two PMM-internal columns (<code>PMM UUID</code>, <code>Change Kind</code>).</p>
+  <h3>Run again — second cycle</h3>
+<pre><code>python3 -m sync_tool.cli once</code></pre>
+  <p>This time, the output is:</p>
+<div class="term">[25 Hickory Lane] diff: <span class="dim">no changes</span></div>
+  <p>No CSV is generated — Relay correctly detected nothing changed since the previous cycle.</p>
+  <div class="callout">
+    <div class="callout-label">State-based diffing</div>
+    <div class="callout-body">Relay remembers what each Sheet looked like on the last cycle (in <code>state/</code>). The next cycle compares the current Sheet to that snapshot and only acts on actual differences. This is why second runs against unchanged Sheets do nothing.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-4">
+  <h2><span class="num">4.</span>Anatomy of a Sync Cycle</h2>
+  <p>Each polling cycle is a series of well-defined steps per project:</p>
+  <h3>Per-project flow</h3>
+  <p>For each configured project:</p>
+  <ol>
+    <li><strong>Load last snapshot.</strong> Read <code>state/{sheet_id}.json</code> if it exists. This is what we last saw.</li>
+    <li><strong>Fetch current Sheet.</strong> Use Google Sheets API (or fixture in test mode) to read every row in <code>_Index</code> and the data tabs. Apply Schema v1.0 normalization at the read boundary so business logic only sees Title Case keys.</li>
+    <li><strong>Compute the diff.</strong> Compare last snapshot to current state, row-by-row by <code>PMM ID</code>. Emit one of five outcomes per row:
+      <ul>
+        <li><code>CREATED</code> — UUID is new</li>
+        <li><code>UPDATED</code> — fields changed since last snapshot</li>
+        <li><code>DELETED</code> — was active, now <code>status: deleted</code></li>
+        <li><code>UNDELETED</code> — previously deleted, now active</li>
+        <li><code>UNCHANGED</code> — no-op</li>
+      </ul>
+    </li>
+    <li><strong>Filter for BT-relevance.</strong> Not every Sheet change matters to BT. Internal fields like <code>Group</code> are detected as <code>UPDATED</code> but flagged not BT-relevant. Only commercial fields trigger BT pushes.</li>
+    <li><strong>Push BT-relevant changes</strong> via the configured client (CSV or API).</li>
+    <li><strong>Save new snapshot</strong> if push succeeded. Transient failures keep the old snapshot, so the next cycle retries.</li>
+  </ol>
+  <h3>What gets pushed where</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Change type</th><th>What goes to BT</th></tr></thead>
+    <tbody>
+      <tr><td>CREATED</td><td>Full row, marked CREATED</td></tr>
+      <tr><td>UPDATED (BT-relevant fields)</td><td>Full row, marked UPDATED</td></tr>
+      <tr><td>UPDATED (only non-BT fields)</td><td>Nothing — but snapshot still saved</td></tr>
+      <tr><td>DELETED</td><td>Full row, marked DELETED</td></tr>
+      <tr><td>UNDELETED</td><td>Full row, marked CREATED (BT sees a fresh row)</td></tr>
+      <tr><td>UNCHANGED</td><td>Nothing</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Fault tolerance</h3>
+  <ul>
+    <li><strong>Network blip mid-cycle.</strong> Relay logs the error, leaves the snapshot unchanged, retries on the next cycle.</li>
+    <li><strong>Sheet not shared with service account.</strong> Relay logs "Sheet unreachable," skips that project, continues with others.</li>
+    <li><strong>Crash mid-push.</strong> No snapshot save until push succeeds, so the next start re-tries the same diff.</li>
+    <li><strong>Corrupt state file.</strong> Treated as a fresh start (everything re-pushed once). Annoying but not wrong.</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-label">Last-write-wins</div>
+    <div class="callout-body">If the same Sheet is edited rapidly, Relay sees a single snapshot per cycle — intermediate states between cycles are not preserved. For BT, the most recent state at poll time is what gets sent.</div>
+  </div>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Two</p>
+  <h2>Core Workflows</h2>
+  <p class="description">Configuration, the four CLI commands, and the two BT push modes.</p>
+</section>
+
+<section class="section" id="sec-5">
+  <h2><span class="num">5.</span>Configuration</h2>
+  <p>PMM Relay's behavior is fully driven by <code>sync_config.json</code> and a few environment variables.</p>
+  <h3>Config file location</h3>
+  <p>Default: <code>./sync_config.json</code> in the directory you run Relay from.</p>
+  <p>Override: <code>--config /path/to/config.json</code> on any CLI command, or env var <code>PMM_SYNC_CONFIG=/path/to/config.json</code>.</p>
+  <h3>Config schema</h3>
+<pre><code>{
+  "state_dir": "./state",
+  "bt_client": {
+    "kind": "csv",
+    "output_dir": "./bt_exports"
+  },
+  "projects": [
+    {
+      "sheet_id": "1AbCDeFgHIjkLMnoPqRsTuVWxyZ",
+      "project_name": "25 Hickory Lane",
+      "bt_job_id": ""
+    },
+    {
+      "sheet_id": "1XyzABCdef987654321",
+      "project_name": "42 Oak Creek"
+    }
+  ]
+}</code></pre>
+  <h3>Field reference</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Field</th><th>Required</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>state_dir</code></td><td>yes</td><td>Where per-project state JSON files live</td></tr>
+      <tr><td><code>bt_client.kind</code></td><td>yes</td><td><code>csv</code> or <code>api</code></td></tr>
+      <tr><td><code>bt_client.output_dir</code></td><td>csv mode</td><td>Where to write generated CSV files</td></tr>
+      <tr><td><code>bt_client.client_id</code></td><td>api mode</td><td>BT partner API client ID</td></tr>
+      <tr><td><code>bt_client.client_secret</code></td><td>api mode</td><td>BT partner API client secret</td></tr>
+      <tr><td><code>bt_client.api_base</code></td><td>optional</td><td>BT API base URL (default <code>https://api.buildertrend.com</code>)</td></tr>
+      <tr><td><code>projects[]</code></td><td>yes</td><td>List of projects to sync</td></tr>
+      <tr><td><code>projects[].sheet_id</code></td><td>yes</td><td>Google Sheet ID</td></tr>
+      <tr><td><code>projects[].project_name</code></td><td>recommended</td><td>Used in log lines and CSV file names</td></tr>
+      <tr><td><code>projects[].bt_job_id</code></td><td>api mode</td><td>BT's internal Job ID for this project</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Environment variables</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Variable</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>PMM_SERVICE_ACCOUNT_JSON</code></td><td>Path to Google Cloud service account JSON key</td></tr>
+      <tr><td><code>PMM_SYNC_CONFIG</code></td><td>Override default config path</td></tr>
+      <tr><td><code>BT_CLIENT_ID</code></td><td>Override <code>bt_client.client_id</code> (api mode)</td></tr>
+      <tr><td><code>BT_CLIENT_SECRET</code></td><td>Override <code>bt_client.client_secret</code> (api mode)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <div class="callout-label">Credential hygiene</div>
+    <div class="callout-body">Store sensitive values (service account JSON path, BT client secret) in env vars or your host's secrets manager — never commit them to git. The example config file contains no secrets.</div>
+  </div>
+  <h3>Adding a project</h3>
+  <p>To add a new project to an already-running Relay:</p>
+  <ol>
+    <li>Stop Relay: <code>pkill -f "sync_tool.cli run"</code></li>
+    <li>Edit <code>sync_config.json</code>, append to the <code>projects</code> array</li>
+    <li>Confirm: <code>python3 -m sync_tool.cli check</code></li>
+    <li>Restart: <code>nohup python3 -m sync_tool.cli run &gt; pmm_relay.log 2&gt;&amp;1 &amp;</code></li>
+  </ol>
+  <p>The new project starts at the next cycle. First cycle will see every row as <code>CREATED</code>, generating one large CSV. Subsequent cycles only emit real diffs.</p>
+</section>
+
+<section class="section" id="sec-6">
+  <h2><span class="num">6.</span>CLI Commands</h2>
+  <p>PMM Relay has four commands. Run any of them from the directory containing <code>sync_config.json</code> (or pass <code>--config</code>).</p>
+  <h3><code>check</code></h3>
+<pre><code>python3 -m sync_tool.cli check</code></pre>
+  <p>Verifies configuration without doing any sync work. Reports BT client connection health (filesystem write test for CSV mode; auth ping for API mode), number of configured projects, and state directory location.</p>
+  <p>Use this after installing, after editing config, or before running <code>run</code> to deploy a configuration change.</p>
+  <h3><code>projects</code></h3>
+<pre><code>python3 -m sync_tool.cli projects</code></pre>
+  <p>Lists configured projects with their Sheet IDs.</p>
+  <h3><code>once</code></h3>
+<pre><code>python3 -m sync_tool.cli once</code></pre>
+  <p>Runs exactly one polling cycle across all projects, then exits. Use this for testing, for cron-driven deployments (each cron tick runs one cycle), or for one-off "I just edited a Sheet, push it now" workflows.</p>
+  <h3><code>run</code></h3>
+<pre><code>python3 -m sync_tool.cli run
+python3 -m sync_tool.cli run --interval 600   # 10-min cycles
+python3 -m sync_tool.cli run --interval 60    # 1-min cycles</code></pre>
+  <p>Runs cycles continuously, sleeping <code>--interval</code> seconds between them (default 300). Use this for dedicated-server deployments, when cron isn't available, or when you want minimal latency between polls.</p>
+  <p><code>run</code> blocks the terminal. To run in the background:</p>
+<pre><code>nohup python3 -m sync_tool.cli run &gt; pmm_relay.log 2&gt;&amp;1 &amp;</code></pre>
+  <p>To stop:</p>
+<pre><code>pkill -f "sync_tool.cli run"</code></pre>
+  <div class="callout">
+    <div class="callout-label">Cron vs run</div>
+    <div class="callout-body">For most deployments, cron + <code>once</code> is simpler and more robust than <code>run</code>. A cron job that fires every 5 minutes naturally restarts on crashes, doesn't accumulate memory leaks, and integrates with normal sysadmin tooling. Use <code>run</code> only when cron isn't available.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-7">
+  <h2><span class="num">7.</span>CSV Export Mode</h2>
+  <p>The default mode. Works today, no BT partner API access required.</p>
+  <h3>How it works</h3>
+  <p>When Relay detects BT-relevant changes:</p>
+  <ol>
+    <li>Generate a CSV file named <code>{project_slug}__{YYYYMMDD_HHMMSS}.csv</code> in <code>bt_client.output_dir</code></li>
+    <li>Columns match BT's Estimate Import wizard exactly</li>
+    <li>UTF-8 with BOM (so Excel and Numbers open it cleanly)</li>
+    <li>The file is your responsibility from there — import it into BT manually</li>
+  </ol>
+  <h3>Importing the CSV into BT</h3>
+  <p>For each generated CSV:</p>
+  <ol>
+    <li>In Buildertrend, navigate to the project</li>
+    <li>Estimate → Import (or wherever your BT instance has CSV import)</li>
+    <li>Upload the CSV</li>
+    <li>BT auto-maps columns (since column names match its expected format)</li>
+    <li>Review and confirm import</li>
+  </ol>
+  <h3>Working with Change Kind</h3>
+  <p>The CSV's <code>Change Kind</code> column tells you what kind of import it is:</p>
+  <ul>
+    <li><code>CREATED</code> — these are new line items; BT's import will add them</li>
+    <li><code>UPDATED</code> — these need to overwrite existing line items; BT may need configuration to do this</li>
+    <li><code>DELETED</code> — these need to be removed from BT; usually requires manual deletion in BT after import</li>
+  </ul>
+  <p>For the cleanest workflow: filter the CSV before importing. Only import <code>CREATED</code> rows on the first import; track <code>UPDATED</code> and <code>DELETED</code> separately and apply them via BT's UI directly.</p>
+  <h3>File naming convention</h3>
+  <p>Files use a timestamp slug so history is preserved:</p>
+<pre><code>25_hickory_lane__20260427_103000.csv      # 2026-04-27 10:30:00 UTC
+25_hickory_lane__20260427_103515.csv      # 5 min 15 sec later</code></pre>
+  <p>Sort alphabetically and you have your sync history.</p>
+  <h3>Cleanup</h3>
+  <p>Old CSV files accumulate. They're not auto-purged. Recommended cleanup:</p>
+<pre><code># Keep last 30 days
+find bt_exports -name "*.csv" -mtime +30 -delete</code></pre>
+  <p>Add this as a weekly cron job.</p>
+</section>
+
+<section class="section" id="sec-8">
+  <h2><span class="num">8.</span>API Mode (Future)</h2>
+  <p>When Trilogy receives Buildertrend partner API access, Relay switches modes via a one-line config change.</p>
+  <h3>Switching to API mode</h3>
+  <p>Edit <code>sync_config.json</code>:</p>
+<pre><code>{
+  "bt_client": {
+    "kind": "api",
+    "client_id": "your_partner_client_id",
+    "client_secret": "your_partner_client_secret"
+  }
+}</code></pre>
+  <p>Add <code>bt_job_id</code> to each project entry (BT's internal Job ID for that project). Restart Relay.</p>
+  <h3>What changes vs CSV mode</h3>
+  <ul>
+    <li>Diff engine: same</li>
+    <li>State store: same</li>
+    <li>Polling cycle: same</li>
+    <li>Output: instead of writing a CSV file, Relay calls BT's API endpoints (<code>POST /lineItems</code>, <code>PUT /lineItems/{id}</code>, <code>DELETE /lineItems/{id}</code>)</li>
+    <li>Manual import step: eliminated</li>
+  </ul>
+  <h3>Implementation status</h3>
+  <p><code>sync_tool/clients/api.py</code> contains a stub with four scaffolded methods:</p>
+  <ul>
+    <li><code>_ensure_token()</code> — OAuth token exchange</li>
+    <li><code>_create_line_item(job_id, row_values)</code> — POST new line items</li>
+    <li><code>_update_line_item(job_id, bt_line_id, row_values)</code> — PUT updates</li>
+    <li><code>_delete_line_item(job_id, bt_line_id)</code> — DELETE removed items</li>
+  </ul>
+  <p>Plus <code>_resolve_bt_line_id(sheet_id, pmm_uuid)</code> for mapping PMM UUIDs to BT's internal line IDs.</p>
+  <p>These need filling in once BT delivers their partner API credentials and documentation. The rest of Relay (cli, poller, differ, state store) requires zero changes when switching modes.</p>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Three</p>
+  <h2>Reference</h2>
+  <p class="description">Diff engine semantics, state, output formats.</p>
+</section>
+
+<section class="section" id="sec-9">
+  <h2><span class="num">9.</span>Diff Engine Behavior</h2>
+  <p>The diff engine is pure: takes two <code>SheetSnapshot</code> objects (last + current), returns a <code>SyncPlan</code>.</p>
+  <h3>Change categories</h3>
+  <div class="change-grid">
+    <div class="change-card"><div class="name">CREATED</div><div class="desc">UUID present in current, absent in last</div></div>
+    <div class="change-card"><div class="name">UPDATED</div><div class="desc">UUID in both, with at least one differing field value</div></div>
+    <div class="change-card"><div class="name">DELETED</div><div class="desc">UUID in last (active), in current (<code>status: deleted</code>)</div></div>
+    <div class="change-card"><div class="name">UNDELETED</div><div class="desc">UUID in last (<code>status: deleted</code>), in current (active)</div></div>
+    <div class="change-card"><div class="name">UNCHANGED</div><div class="desc">UUID in both, all values identical (whitespace-trimmed)</div></div>
+  </div>
+  <h3>Field-level filtering</h3>
+  <p>For UPDATED changes, the diff engine identifies which fields changed. Only changes to BT-relevant fields trigger a BT push:</p>
+  <ul>
+    <li>Title</li>
+    <li>Description</li>
+    <li>Cost Category</li>
+    <li>Cost Code</li>
+    <li>Cost Type</li>
+    <li>Unit</li>
+    <li>Unit Price</li>
+    <li>Amount</li>
+    <li>Allowance</li>
+    <li>Vendor</li>
+    <li>Quantity</li>
+    <li>Notes</li>
+    <li>Scope of Work</li>
+    <li>PO Date</li>
+    <li>PO Notes</li>
+  </ul>
+  <p>A change to <code>Group</code> (an internal grouping label) is detected as UPDATED but doesn't trigger a BT push. The plan still records the change — <code>is_bt_relevant()</code> returns False — and the snapshot still updates so the next cycle doesn't re-detect.</p>
+  <h3>Whitespace handling</h3>
+  <p>Values are stripped of leading/trailing whitespace before comparison. Editing "Cabinet" to " Cabinet " is not an update. This avoids false positives from accidental whitespace introduced by copy-paste.</p>
+  <h3>Soft deletes</h3>
+  <p>Deletes are soft. The Sheet's <code>_Index</code> tab marks rows <code>status: deleted</code> rather than actually removing them. This:</p>
+  <ul>
+    <li>Keeps row numbers stable (so <code>_Index</code> references stay valid)</li>
+    <li>Preserves audit trail</li>
+    <li>Allows "undelete" to restore a row to active</li>
+  </ul>
+  <p>The diff engine handles soft delete and undelete correctly: deleting → <code>DELETED</code>, restoring → <code>UNDELETED</code>.</p>
+</section>
+
+<section class="section" id="sec-10">
+  <h2><span class="num">10.</span>State Store</h2>
+  <p>State lives as one JSON file per project in the <code>state_dir</code> directory.</p>
+  <h3>File structure</h3>
+<pre><code>state/
+├── 1AbCDeFgHIjkLMnoPqRsTuVWxyZ.json
+├── 1XyzABCdef987654321.json
+└── ...</code></pre>
+  <p>Each file is a complete snapshot of what the Sheet looked like on the last successful cycle:</p>
+<pre><code>{
+  "sheet_id": "1AbCDeFgHIjkLMnoPqRsTuVWxyZ",
+  "project_name": "25 Hickory Lane",
+  "taken_at": "2026-04-27T10:30:00",
+  "rows": [
+    {
+      "uuid": "abc-123-uuid",
+      "tab_name": "06 - Carpentry",
+      "row_number": 4,
+      "status": "active",
+      "values": {
+        "PMM ID": "abc-123-uuid",
+        "Component Name": "UpperCabinet_36",
+        "Title": "Upper Cabinet 36\"",
+        "Cost Category": "06 - Carpentry",
+        "Unit Price": "850.00",
+        "Vendor": "Heritage Cabinet Co"
+      }
+    }
+  ]
+}</code></pre>
+  <h3>Why JSON, not a database</h3>
+  <p>Trade-offs for early-stage operations:</p>
+  <ul>
+    <li><strong>Pros:</strong> Easy to inspect (<code>cat state/*.json | jq</code>), easy to back up, easy to manually edit during debugging, no separate DB to deploy</li>
+    <li><strong>Cons:</strong> Doesn't scale past hundreds of projects efficiently</li>
+  </ul>
+  <p>For a few dozen projects (which describes Trilogy's foreseeable scale), JSON is fine. Migration to SQLite is a 50-line change if needed later.</p>
+  <h3>State recovery</h3>
+  <p>If a state file is corrupted (malformed JSON), Relay treats it as a fresh start: every row in the Sheet is reported <code>CREATED</code> on the next cycle. Annoying (one large CSV gets generated unnecessarily) but not wrong — BT just receives the full set of rows again.</p>
+  <p>To force a fresh start manually: <code>rm state/{sheet_id}.json</code>. The next cycle will baseline.</p>
+  <div class="callout">
+    <div class="callout-label">Don't delete state when upgrading</div>
+    <div class="callout-body">When upgrading Relay, preserve the <code>state/</code> directory. Otherwise every project re-baselines on the first cycle, generating one large CSV per project unnecessarily.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-11">
+  <h2><span class="num">11.</span>CSV Output Format</h2>
+  <p>Generated CSVs match BT's Estimate Import expected format exactly, plus two PMM-internal columns at the end.</p>
+  <h3>Columns</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Column</th><th>Source</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Title</td><td>Sheet Title</td><td>BT line item title</td></tr>
+      <tr><td>Cost Category</td><td>Sheet Cost Category</td><td>BT division/CSI</td></tr>
+      <tr><td>Cost Code</td><td>Sheet Cost Code</td><td>BT cost code</td></tr>
+      <tr><td>Cost Type</td><td>Sheet Cost Type</td><td>Material/Labor/Subcontract/etc.</td></tr>
+      <tr><td>Description</td><td>Sheet Description</td><td>Long-form description</td></tr>
+      <tr><td>Quantity</td><td>Sheet Quantity</td><td>Numeric</td></tr>
+      <tr><td>Unit</td><td>Sheet Unit</td><td>EA, LF, SF, etc.</td></tr>
+      <tr><td>Unit Price</td><td>Sheet Unit Price</td><td>Decimal, dollar-formatted (no <code>$</code>)</td></tr>
+      <tr><td>Amount</td><td>Sheet Amount</td><td>Decimal</td></tr>
+      <tr><td>Vendor/Sub</td><td>Sheet Vendor</td><td>Supplier/sub name</td></tr>
+      <tr><td>Internal Notes</td><td>Sheet Notes</td><td>Internal notes</td></tr>
+      <tr><td>PMM UUID</td><td>Sheet PMM ID</td><td>Internal — BT ignores</td></tr>
+      <tr><td>Change Kind</td><td>Diff engine</td><td><code>CREATED</code>, <code>UPDATED</code>, <code>DELETED</code>, etc.</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Encoding</h3>
+  <p>UTF-8 with BOM. Opens correctly in Excel, Numbers, Google Sheets, and BT's import wizard.</p>
+  <h3>Filename pattern</h3>
+<pre><code>{project_slug}__{YYYYMMDD_HHMMSS}.csv</code></pre>
+  <p><code>project_slug</code> is <code>project_name</code> lowercased, with non-alphanumeric chars replaced by underscores, truncated to 60 chars.</p>
+</section>
+
+<section class="section" id="sec-12">
+  <h2><span class="num">12.</span>Configuration File Reference</h2>
+  <h3><code>sync_config.json</code> (full schema)</h3>
+<pre><code>{
+  "state_dir": "./state",
+  "bt_client": {
+    "kind": "csv | api",
+    "output_dir": "./bt_exports",
+    "client_id": "(api mode only)",
+    "client_secret": "(api mode only)",
+    "api_base": "https://api.buildertrend.com"
+  },
+  "projects": [
+    {
+      "sheet_id": "REQUIRED",
+      "project_name": "RECOMMENDED",
+      "bt_job_id": "(api mode only)"
+    }
+  ]
+}</code></pre>
+  <h3>Per-tool environment variables</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Variable</th><th>Default</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>PMM_SERVICE_ACCOUNT_JSON</code></td><td>(none)</td><td>Path to GCP service account JSON. Required for real Sheet access.</td></tr>
+      <tr><td><code>PMM_SYNC_CONFIG</code></td><td><code>./sync_config.json</code></td><td>Override config path</td></tr>
+      <tr><td><code>BT_CLIENT_ID</code></td><td>(none)</td><td>Override <code>bt_client.client_id</code></td></tr>
+      <tr><td><code>BT_CLIENT_SECRET</code></td><td>(none)</td><td>Override <code>bt_client.client_secret</code></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Four</p>
+  <h2>Practical Notes</h2>
+  <p class="description">Production deployment, monitoring, troubleshooting.</p>
+</section>
+
+<section class="section" id="sec-13">
+  <h2><span class="num">13.</span>Production Deployment</h2>
+  <p>For production, run Relay on an always-on server.</p>
+  <h3>Option A: systemd (Linux, recommended)</h3>
+  <p>Create <code>/etc/systemd/system/pmm-relay.service</code>:</p>
+<pre><code>[Unit]
+Description=PMM Relay - Drive to Buildertrend sync
+After=network.target
+
+[Service]
+Type=simple
+User=pmm
+WorkingDirectory=/opt/pmm_relay
+Environment="PMM_SERVICE_ACCOUNT_JSON=/etc/pmm/service-account.json"
+ExecStart=/usr/bin/python3 -m sync_tool.cli run
+Restart=on-failure
+RestartSec=30
+StandardOutput=append:/var/log/pmm_relay.log
+StandardError=append:/var/log/pmm_relay.log
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+  <p>Enable and start:</p>
+<pre><code>sudo systemctl enable pmm-relay
+sudo systemctl start pmm-relay
+sudo systemctl status pmm-relay</code></pre>
+  <h3>Option B: cron with <code>once</code></h3>
+  <p>Edit your crontab (<code>crontab -e</code>):</p>
+<pre><code>*/5 * * * * cd /opt/pmm_relay &amp;&amp; /usr/bin/python3 -m sync_tool.cli once &gt;&gt; /var/log/pmm_relay.log 2&gt;&amp;1</code></pre>
+  <p>This runs once every 5 minutes. Simpler than systemd; auto-restarts naturally on the next cron tick.</p>
+  <h3>Option C: Docker</h3>
+  <p>Build a small Docker image:</p>
+<pre><code>FROM python:3.12-slim
+WORKDIR /app
+COPY . .
+RUN pip install --no-cache-dir google-api-python-client google-auth
+CMD ["python", "-m", "sync_tool.cli", "run"]</code></pre>
+  <p>Run with mounted config and credentials:</p>
+<pre><code>docker run -d \
+  -v $(pwd)/sync_config.json:/app/sync_config.json \
+  -v $(pwd)/state:/app/state \
+  -v $(pwd)/bt_exports:/app/bt_exports \
+  -v $(pwd)/service-account.json:/app/service-account.json \
+  -e PMM_SERVICE_ACCOUNT_JSON=/app/service-account.json \
+  --restart unless-stopped \
+  pmm-relay</code></pre>
+  <h3>Option D: Fly.io / Railway / Render</h3>
+  <p>These serverless-ish hosts work with <code>run</code> mode (continuous process). Configure as a "background worker" or "always-on service" with the same env vars and config file.</p>
+</section>
+
+<section class="section" id="sec-14">
+  <h2><span class="num">14.</span>Monitoring &amp; Logs</h2>
+  <h3>Log format</h3>
+  <p>Each cycle produces one log line per project:</p>
+<div class="term">2026-04-27 10:30:00 INFO  pmm_relay: [25 Hickory Lane] diff: 1 created, 2 updated
+                                          | push: 4 changes → ./bt_exports/25_hickory_lane__...csv
+2026-04-27 10:35:00 INFO  pmm_relay: [25 Hickory Lane] no changes
+2026-04-27 10:40:00 <span class="err">ERROR</span> pmm_relay: [42 Oak Creek] ERROR: Sheet unreachable or not found</div>
+  <h3>Tailing the log</h3>
+<pre><code>tail -f /var/log/pmm_relay.log</code></pre>
+  <h3>What to monitor</h3>
+  <ul>
+    <li><strong>Cycles completing</strong> — at least one log line per <code>interval</code> seconds. If silent for 2× interval, something's wrong.</li>
+    <li><strong>Per-project errors</strong> — <code>ERROR:</code> lines indicate Sheet access issues, almost always a sharing problem.</li>
+    <li><strong>CSV file count</strong> — if you expect activity but no CSVs are being generated, either nothing changed or there's a write permission issue.</li>
+    <li><strong>Disk space</strong> — <code>bt_exports/</code> accumulates files. Set up cleanup (Section 7).</li>
+  </ul>
+  <h3>Alerting</h3>
+  <p>For production-grade ops, pipe logs to a centralized logger (Datadog, Loggly, CloudWatch) and set alerts:</p>
+  <ul>
+    <li>"No log line in 10 minutes" → Relay process died</li>
+    <li>"ERROR more than 5 times in 1 hour" → Sheet access problem with one or more projects</li>
+  </ul>
+</section>
+
+<section class="section" id="sec-15">
+  <h2><span class="num">15.</span>Troubleshooting</h2>
+  <h3>"BT client: FAIL — Cannot write to ./bt_exports"</h3>
+  <p>The <code>output_dir</code> doesn't exist or isn't writable. Create it:</p>
+<pre><code>mkdir -p bt_exports
+chmod 755 bt_exports</code></pre>
+  <h3>"[Project Name] ERROR: Sheet unreachable"</h3>
+  <p>Most common cause: the Sheet isn't shared with your service account.</p>
+  <ol>
+    <li>Open the Sheet in your browser</li>
+    <li>Click Share</li>
+    <li>Add the <code>client_email</code> from your service account JSON</li>
+    <li>Permission: <strong>Viewer</strong></li>
+    <li>Uncheck "Notify people"</li>
+    <li>Click Share</li>
+    <li>Wait 30 seconds, retry: <code>python3 -m sync_tool.cli once</code></li>
+  </ol>
+  <h3>"[Project Name] ERROR: 403 Forbidden"</h3>
+  <p>Could be:</p>
+  <ul>
+    <li>Service account email not granted access (see above)</li>
+    <li>Service account JSON expired or revoked — check Google Cloud Console → IAM → Service Accounts → Keys</li>
+  </ul>
+  <h3>"Why is every cycle reporting CREATED for everything?"</h3>
+  <p>Either:</p>
+  <ol>
+    <li>State directory doesn't exist or isn't writable. Check <code>state/</code> exists and is writable: <code>ls -la state/</code></li>
+    <li>State files are being deleted between runs (e.g. <code>rm -rf state/*</code> in a startup script)</li>
+    <li>You're running with a different <code>state_dir</code> than last time</li>
+  </ol>
+  <p>The state directory is the diff engine's memory. Without it, every cycle is a fresh baseline.</p>
+  <h3>"CSV files have legacy snake_case column names"</h3>
+  <p>Run <strong>Migrate Linked Sheet to Schema v1.0</strong> from PMM Horizon. After migration, future Relay cycles will produce v1.0 Title Case headers.</p>
+  <h3>"Two Relay instances are both running"</h3>
+<pre><code>ps aux | grep sync_tool.cli</code></pre>
+  <p>If you see two <code>run</code> processes, one is stale. Stop both and start fresh:</p>
+<pre><code>pkill -f "sync_tool.cli run"
+nohup python3 -m sync_tool.cli run &gt; pmm_relay.log 2&gt;&amp;1 &amp;</code></pre>
+  <h3>"Quota exceeded" errors</h3>
+  <p>Google Sheets API enforces 300 reads/min per project. If you have many projects on a 5-minute interval, that's fine. If you have 50+ projects on a 1-minute interval, you may hit the quota.</p>
+  <p>Solutions (in order of simplicity):</p>
+  <ol>
+    <li>Increase the polling interval: <code>--interval 600</code></li>
+    <li>Run multiple Relay instances, each handling a subset of projects (separate config files)</li>
+    <li>Request a higher quota from Google Cloud Console</li>
+  </ol>
+  <h3>Diagnostic commands</h3>
+<pre><code># What does the current snapshot look like for a project?
+cat state/{sheet_id}.json | jq '.rows | length'
+
+# What's the most recent CSV?
+ls -lt bt_exports/ | head -5
+
+# What's Relay actually doing?
+tail -f pmm_relay.log
+
+# Is Relay running?
+ps aux | grep sync_tool.cli
+
+# Test config without doing any sync work
+python3 -m sync_tool.cli check
+
+# Run one cycle manually for debugging
+python3 -m sync_tool.cli once</code></pre>
+</section>
+
+<section class="section" id="sec-16">
+  <h2><span class="num">16.</span>System Requirements &amp; File Locations</h2>
+  <h3>Requirements</h3>
+  <ul>
+    <li>Python 3.10 or newer</li>
+    <li>macOS, Linux, or Windows</li>
+    <li>Internet access to <code>https://sheets.googleapis.com</code> and <code>https://oauth2.googleapis.com</code></li>
+    <li>Disk: minimal — state files are small (KB per project), CSVs accumulate (~10 KB per CSV)</li>
+    <li>Memory: minimal — under 100 MB for typical workloads</li>
+  </ul>
+  <h3>File locations</h3>
+  <p>When installed:</p>
+<pre><code>pmm_relay/
+├── sync_tool/
+│   ├── cli.py              ← entry point
+│   ├── clients/
+│   │   ├── base.py         ← BuildertrendClient interface
+│   │   ├── csv_export.py   ← CSV mode
+│   │   └── api.py          ← API mode (stub)
+│   └── core/
+│       ├── fields.py       ← Schema v1.0 fields
+│       ├── models.py       ← SheetSnapshot, RowDiff, SyncPlan
+│       ├── differ.py       ← pure diff function
+│       ├── sheets_reader.py ← Google Sheets + stub readers
+│       ├── state_store.py  ← JSON state files
+│       └── poller.py       ← cycle orchestrator
+├── tests/
+│   └── test_sync_tool.py   ← 22 tests
+├── fixtures/
+│   ├── sync-fixture-v1.json
+│   ├── sync-fixture-v2.json
+│   └── sync_config.example.json
+├── requirements.txt
+└── README.md</code></pre>
+  <p>User-created (in working directory):</p>
+<pre><code>sync_config.json         ← your config
+state/                   ← per-project snapshots
+bt_exports/              ← generated CSVs
+pmm_relay.log            ← log file (if you redirected stdout)</code></pre>
+</section>
+
+<section class="section" id="sec-17">
+  <h2><span class="num">17.</span>Credits</h2>
+  <p>PMM Relay is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p>
+  <ul>
+    <li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li>
+    <li><strong>Implementation</strong> — Claude (Anthropic)</li>
+    <li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li>
+  </ul>
+  <p>This guide and the tool both follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, and PMM Relay.</p>
+  <p>For schema details, see the PMM Attribute Schema v1.0 specification.</p>
+  <p>PMM Relay User Guide — version matched to tool <strong>v0.1.1</strong>.</p>
+</section>
+
+<footer class="page-footer">
+  <p>Trilogy Design Intelligence  ·  PMM Relay User Guide  ·  v0.1.1</p>
+  <p class="tagline">Trilogy Partners. Boots on the Ground, Eyes on the Sky.</p>
+</footer>
+
+</main>
+
+<script>
+  function toggleDrawer() {
+    document.querySelector('.drawer').classList.toggle('open');
+    document.querySelector('.drawer-overlay').classList.toggle('show');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelector('.drawer').classList.remove('open');
+      document.querySelector('.drawer-overlay').classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>

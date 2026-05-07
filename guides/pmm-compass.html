@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMM Compass — User Guide · PMM Tools</title>
+<link rel="stylesheet" href="../assets/css/guide.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="guide-topbar">
+  <a href="../index.html" class="guide-back">← Back to PMM Tools</a>
+  <a href="../index.html" class="guide-tools-link">PMM <em>Tools</em></a>
+</header>
+
+<div class="guide-layout">
+
+  <aside class="guide-toc">
+    <div class="toc-eyebrow">Tool · 04</div>
+    <h2 class="toc-title">PMM <em>Compass</em></h2>
+    <div class="toc-rule"></div>
+    <ul class="toc-list">
+      <li><span class="toc-part">Part I · Foundations</span></li>
+      <li><a href="#what-it-is">1. What PMM Compass Is</a></li>
+      <li><a href="#access">2. Access</a></li>
+      <li><a href="#layout">3. Dashboard Layout</a></li>
+      <li><span class="toc-part">Part II · Daily Use</span></li>
+      <li><a href="#portfolio">4. The Portfolio Strip</a></li>
+      <li><a href="#drilldown">5. Drill-Down View</a></li>
+      <li><a href="#vendor">6. Cross-Project Vendor Analysis</a></li>
+      <li><span class="toc-part">Part III · Reference</span></li>
+      <li><a href="#metrics">7. Metric Definitions</a></li>
+      <li><a href="#refresh">8. Refresh Cadence</a></li>
+      <li><span class="toc-part">Part IV · Care &amp; Repair</span></li>
+      <li><a href="#troubleshooting">9. Troubleshooting</a></li>
+      <li><a href="#credits">10. Credits</a></li>
+    </ul>
+  </aside>
+
+  <article class="guide-article">
+
+    <header class="guide-masthead">
+      <div class="guide-eyebrow">
+        <span class="dot"></span>
+        TRILOGY DESIGN INTELLIGENCE
+        <span class="dot"></span>
+        USER GUIDE 04
+      </div>
+      <h1 class="guide-title">PMM <em>Compass</em></h1>
+      <p class="guide-subtitle">The internal admin rollup — every project, one dashboard.</p>
+      <div class="guide-meta">
+        <span>Web · FastAPI</span>
+        <span>Internal</span>
+        <span>Read-Only</span>
+        <span>Audience · Admins &amp; PMs</span>
+      </div>
+    </header>
+
+    <p class="lede">PMM Compass is the internal admin dashboard. It rolls up data from every active project Sheet into a single view — totals per Cost Category, vendor concentration, missing-field audit, and project completeness. Where principals see the whole portfolio at once.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · I</span>
+  <span class="part-title">Foundations</span>
+</div>
+<h2 id="what-it-is">1. What PMM Compass Is</h2>
+<p>Compass is a read-only web dashboard served alongside PMM on the Ground (they share the same FastAPI service). It does not change anything — it observes. Three jobs:</p><ol><li><strong>Aggregate</strong> across projects — total estimate value, totals per Cost Category</li><li><strong>Audit</strong> for completeness — components missing prices, missing vendors, stale pushes</li><li><strong>Surface</strong> exceptions — overdue selections, vendor concentration, sync conflicts</li></ol>
+<h2 id="access">2. Access</h2>
+<p>Compass is internal-only. Access via Google Workspace SSO; access is limited to staff in the <code>trilogy-internal</code> group. There is no public sign-up.</p><p>Open it at <code>https://pmm.trilogypartners.com/admin</code>. The same service hosts both <code>/admin</code> (Compass) and <code>/p/{sheet_id}</code> (on the Ground), so if either is reachable, the other is too.</p>
+<h2 id="layout">3. Dashboard Layout</h2>
+<p>Three main areas:</p><ul><li><strong>Portfolio</strong> — top-strip cards, one per active project, with key health metrics</li><li><strong>Drill-Down</strong> — pick a project to see its detailed breakdown</li><li><strong>Cross-Project</strong> — vendor analysis and Cost Category aggregation across all jobs</li></ul>
+
+<div class="part-header">
+  <span class="part-number">PART · II</span>
+  <span class="part-title">Daily Use</span>
+</div>
+<h2 id="portfolio">4. The Portfolio Strip</h2>
+<p>The top of the dashboard shows one card per project. Each card answers four questions at a glance:</p><ul><li>What is the total committed budget?</li><li>How many components are missing a price or vendor?</li><li>How many selections are overdue?</li><li>When was the last Horizon push?</li></ul><p>Cards are color-coded by health — green (current), amber (stale), red (action required).</p>
+<h2 id="drilldown">5. Drill-Down View</h2>
+<p>Click a project card and you see the full breakdown:</p><ul><li>Components grouped by Cost Category, with subtotals</li><li>Vendor breakdown for the project</li><li>Recent edits feed (from <code>Last Modified</code> timestamps)</li><li>Completeness exceptions: missing prices, missing vendors, conflict statuses</li><li>Internal Notes (visible here, hidden in on the Ground)</li></ul>
+<h2 id="vendor">6. Cross-Project Vendor Analysis</h2>
+<p>The Vendors tab aggregates spend across every active job. Useful for negotiation, capacity planning, and spotting concentration risk.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · III</span>
+  <span class="part-title">Reference</span>
+</div>
+<h2 id="metrics">7. Metric Definitions</h2>
+<table><thead><tr><th>Metric</th><th>Definition</th></tr></thead><tbody><tr><td>Committed Budget</td><td>Sum of (Unit Price × Quantity) for components with both fields set</td></tr><tr><td>Missing Price</td><td>Components where <code>Unit Price</code> is empty</td></tr><tr><td>Missing Vendor</td><td>Components where <code>Vendor</code> is empty and Cost Type is not Labor</td></tr><tr><td>Stale Push</td><td>Last Horizon push more than 7 days ago</td></tr><tr><td>Overdue Selection</td><td>Selection whose <code>Deadline</code> is in the past and Status ≠ Confirmed</td></tr><tr><td>Sync Conflict</td><td>Components with <code>Sync Status = Conflict</code></td></tr></tbody></table>
+<h2 id="refresh">8. Refresh Cadence</h2>
+<p>Compass pulls Sheet data every 5 minutes for active projects, every hour for archived. The "as of" timestamp at the top tells you the freshness. Hard-refresh with the ⟳ button if needed.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · IV</span>
+  <span class="part-title">Care &amp; Repair</span>
+</div>
+<h2 id="troubleshooting">9. Troubleshooting</h2>
+<h3>A project is not showing up</h3><p>The project Sheet must be in the <code>active-projects</code> Drive folder with the standard naming convention, and shared with the Relay service account. Move/share it and it will appear on the next refresh.</p><h3>Numbers look wrong</h3><p>Compass is only as accurate as the Sheet. If a project shows zero committed budget, the Sheet is probably missing prices. Drill into the project to confirm.</p><h3>"Vendor not found in BT"</h3><p>This banner appears when Compass detects a Sheet vendor name that does not match any vendor in Buildertrend. Either fix the Sheet spelling, or add the vendor in BT before the next Relay sync.</p>
+<h2 id="credits">10. Credits</h2>
+<p>PMM is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p><ul><li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li><li><strong>Implementation</strong> — Claude (Anthropic)</li><li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li></ul><p>This guide and the tool follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, PMM Relay, and PMM Converter.</p><p><em>Trilogy Partners. Boots on the Ground, Eyes on the Sky.</em></p>
+
+    <footer class="guide-footer">
+      <span class="credit">PMM Compass User Guide · v1.0</span>
+      <div class="tag"><em>Trilogy Partners. Boots on the Ground, Eyes on the Sky.</em></div>
+    </footer>
+
+  </article>
+</div>
+
+<script>
+(function () {
+  const links = document.querySelectorAll('.toc-list a');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+})();
+</script>
+
+</body>
+</html>

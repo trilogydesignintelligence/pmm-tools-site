@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMM Converter — User Guide · PMM Tools</title>
+<link rel="stylesheet" href="../assets/css/guide.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="guide-topbar">
+  <a href="../index.html" class="guide-back">← Back to PMM Tools</a>
+  <a href="../index.html" class="guide-tools-link">PMM <em>Tools</em></a>
+</header>
+
+<div class="guide-layout">
+
+  <aside class="guide-toc">
+    <div class="toc-eyebrow">Tool · 08</div>
+    <h2 class="toc-title">PMM <em>Converter</em></h2>
+    <div class="toc-rule"></div>
+    <ul class="toc-list">
+      <li><span class="toc-part">Part I · Foundations</span></li>
+      <li><a href="#what-it-is">1. What This Tool Is</a></li>
+      <li><a href="#open-it">2. Opening the Tool</a></li>
+      <li><a href="#limits">3. What It Handles</a></li>
+      <li><span class="toc-part">Part II · Daily Use</span></li>
+      <li><a href="#export-revit">4. Step 1 — Export from Revit</a></li>
+      <li><a href="#convert">5. Step 2 — Convert</a></li>
+      <li><a href="#import-sketchup">6. Step 3 — Import into SketchUp</a></li>
+      <li><span class="toc-part">Part III · Reference</span></li>
+      <li><a href="#stats">7. Reading the Stats Panel</a></li>
+      <li><a href="#privacy">8. Privacy &amp; Files</a></li>
+      <li><span class="toc-part">Part IV · Care &amp; Repair</span></li>
+      <li><a href="#troubleshooting">9. Troubleshooting</a></li>
+      <li><a href="#credits">10. Credits</a></li>
+    </ul>
+  </aside>
+
+  <article class="guide-article">
+
+    <header class="guide-masthead">
+      <div class="guide-eyebrow">
+        <span class="dot"></span>
+        TRILOGY DESIGN INTELLIGENCE
+        <span class="dot"></span>
+        USER GUIDE 08
+      </div>
+      <h1 class="guide-title">PMM <em>Converter</em></h1>
+      <p class="guide-subtitle">Browser-only IFC → OBJ converter for Revit-to-SketchUp workflows.</p>
+      <div class="guide-meta">
+        <span>React · Browser</span>
+        <span>.ifc → .obj</span>
+        <span>No-Upload</span>
+        <span>Audience · Designers</span>
+      </div>
+    </header>
+
+    <p class="lede">PMM Converter is a single-page React app that turns Revit-exported IFC files into SketchUp-importable OBJ. The whole conversion happens in the browser — files never leave your computer. The missing link for studios working between Revit and SketchUp without a Revit license.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · I</span>
+  <span class="part-title">Foundations</span>
+</div>
+<h2 id="what-it-is">1. What This Tool Is</h2>
+<p>Direct .rvt → .skp conversion is not possible without a Revit license. Both formats are proprietary; the .rvt format has no public reader, and .skp writing requires Trimble SDKs.</p><p>The standard workaround is a two-hop:</p><pre data-lang="text"><code>Revit (.rvt) → export → IFC (.ifc) → THIS TOOL → OBJ (.obj) → import → SketchUp (.skp)</code></pre><p>PMM Converter handles the middle step in the browser, so you do not need a server, an account, or to upload anything.</p>
+<h2 id="open-it">2. Opening the Tool</h2>
+<p>Open the hosted version at the published URL, or open the local HTML file. No installation, no sign-in. Once loaded, it works offline.</p>
+<h2 id="limits">3. What It Handles</h2>
+<p>The parser supports IFC files using <code>IFCPOLYLOOP</code> / <code>IFCCARTESIANPOINT</code> geometry — the most common representation. Some IFC files use <code>IFCFACETEDBREP</code> or <code>IFCSWEPTSOLIDSHAPE</code>; if your file shows zero faces detected, that is why. Open an issue and we will extend the parser.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · II</span>
+  <span class="part-title">Daily Use</span>
+</div>
+<h2 id="export-revit">4. Step 1 — Export from Revit</h2>
+<p>In Revit:</p><ol><li><strong>File → Export → IFC</strong></li><li>Choose IFC2x3 or IFC4 (either works)</li><li>Enable <em>Export solids</em> if your import has missing geometry later</li><li>Save the file</li></ol>
+<h2 id="convert">5. Step 2 — Convert</h2>
+<ol><li>Drag the .ifc onto the upload area, or click to browse</li><li>Click <strong>Convert to OBJ</strong></li><li>Watch the stats fill in: face count, point count, entity count, detected types</li><li>Click <strong>↓ Download .OBJ</strong></li></ol>
+<h2 id="import-sketchup">6. Step 3 — Import into SketchUp</h2>
+<ol><li>In SketchUp: <strong>File → Import</strong></li><li>Choose the OBJ file</li><li>Adjust units in the import dialog if needed (default is meters)</li><li>Click Import</li></ol><p>Your geometry now lives in SketchUp. From here you can run PMM Connection to layer in PMM metadata.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · III</span>
+  <span class="part-title">Reference</span>
+</div>
+<h2 id="stats">7. Reading the Stats Panel</h2>
+<p>After conversion, the tool displays:</p><ul><li><strong>Face count</strong> — total triangles in the OBJ output</li><li><strong>Point count</strong> — unique vertices</li><li><strong>Entity count</strong> — IFC entities parsed</li><li><strong>Detected types</strong> — IFC entity types found (IfcWall, IfcWindow, IfcDoor, etc.)</li></ul><p>If face count is 0 but entity count is high, the geometry representation is unsupported (see Section 3).</p>
+<h2 id="privacy">8. Privacy &amp; Files</h2>
+<p>The conversion runs entirely in your browser using a JavaScript IFC parser. No files are uploaded to any server. Refresh the page and the file is gone from memory.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · IV</span>
+  <span class="part-title">Care &amp; Repair</span>
+</div>
+<h2 id="troubleshooting">9. Troubleshooting</h2>
+<h3>"0 faces detected"</h3><p>The IFC uses geometry representations the parser does not handle yet. Try re-exporting from Revit with a different IFC version (IFC4 instead of IFC2x3, or vice versa). If still nothing, the source file uses <code>IFCFACETEDBREP</code> or <code>IFCSWEPTSOLIDSHAPE</code> — file an issue and we will extend the parser.</p><h3>OBJ imports into SketchUp upside-down</h3><p>Coordinate-system mismatch between Revit and SketchUp. After import, select all and <em>Edit → Flip → Red Axis</em> (or whichever axis fixes it). Once you know which one for your workflow it is consistent.</p><h3>SketchUp says "no geometry"</h3><p>The OBJ is valid but contains only points or lines — no faces. The source IFC did not export with solid geometry. Re-export from Revit with <em>Export solids</em> enabled.</p><h3>Wrong scale</h3><p>Default OBJ units are meters; SketchUp may import as inches. In the Import dialog, set units to Meters and the scale will be correct.</p>
+<h2 id="credits">10. Credits</h2>
+<p>PMM is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p><ul><li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li><li><strong>Implementation</strong> — Claude (Anthropic)</li><li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li></ul><p>This guide and the tool follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, PMM Relay, and PMM Converter.</p><p><em>Trilogy Partners. Boots on the Ground, Eyes on the Sky.</em></p>
+
+    <footer class="guide-footer">
+      <span class="credit">PMM Converter User Guide · v1.0</span>
+      <div class="tag"><em>Trilogy Partners. Boots on the Ground, Eyes on the Sky.</em></div>
+    </footer>
+
+  </article>
+</div>
+
+<script>
+(function () {
+  const links = document.querySelectorAll('.toc-list a');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+})();
+</script>
+
+</body>
+</html>

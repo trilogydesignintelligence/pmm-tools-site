@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+<title>PMM Connection — User Guide · Trilogy Design Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Eagle Light';
+  src: url('../assets/fonts/eagle-light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+/* ── Eagle Light retrofit — for cover & display headings ── */
+.cover h2.title,
+.cover h1.title,
+.section > h2,
+.section h2,
+.part-divider h2,
+.pillar-title,
+.flow-step .step-name,
+.guides-table .tool-name {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase;
+}
+.cover-eyebrow,
+.part-divider .label,
+.toc-part,
+.callout-label,
+.cover-header h1.brand .sub,
+.topbar .brand .sub,
+.drawer .drawer-sub,
+.section h2 .num,
+th {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase;
+}
+.section h2 .num {
+  letter-spacing: 0.04em !important;
+  font-style: normal;
+}
+
+  :root {
+    --ink: #2a1a14; --maroon: #6b1f24; --maroon-light: #8a3338;
+    --brass: #b08544; --brass-light: #c9a86a;
+    --cream: #f5efe5; --cream-light: #faf6ec; --paper: #fbf7ed;
+    --stone: #8a847a; --stone-light: #c5beb1;
+    --rule: #d9d1c0;
+    --shadow: rgba(42,26,20,0.08); --shadow-strong: rgba(42,26,20,0.16);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--cream); color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px; line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--brass-light); color: var(--ink); }
+
+  .shell {
+    max-width: 880px; margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 60px var(--shadow); min-height: 100vh;
+  }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 24px;
+    display: flex; align-items: center; gap: 14px;
+    backdrop-filter: blur(8px);
+    background: rgba(245,239,229,0.94);
+  }
+  .topbar .logo {
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--maroon); border-radius: 50%;
+    display: grid; place-items: center; background: var(--paper);
+  }
+  .topbar .logo svg { width: 18px; height: 18px; fill: var(--maroon); }
+  .topbar .brand { font-family: 'Crimson Pro', serif; font-size: 17px; line-height: 1; }
+  .topbar .brand .sub {
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 9px; font-weight: 600;
+    color: var(--brass); letter-spacing: 0.22em;
+    margin-top: 4px; text-transform: uppercase;
+  }
+  .topbar .menu-btn {
+    margin-left: auto; background: none;
+    border: 1px solid var(--rule); color: var(--ink);
+    padding: 8px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; border-radius: 2px;
+  }
+  .topbar .menu-btn:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  .cover {
+    padding: 80px 64px 100px; border-bottom: 1px solid var(--rule);
+    background: radial-gradient(ellipse at top right, rgba(176,133,68,0.08), transparent 60%), var(--paper);
+  }
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.32em; color: var(--maroon);
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .cover-header { display: flex; align-items: center; gap: 16px; margin-bottom: 80px; }
+  .cover-header .logo {
+    width: 56px; height: 56px;
+    border: 2px solid var(--maroon); border-radius: 50%;
+    display: grid; place-items: center;
+  }
+  .cover-header .logo svg { width: 30px; height: 30px; fill: var(--maroon); }
+  .cover-header h1.brand { font-family: 'Crimson Pro', serif; font-size: 32px; line-height: 1.05; }
+  .cover-header h1.brand .sub {
+    display: block; font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    color: var(--brass); letter-spacing: 0.28em;
+    margin-top: 6px; text-transform: uppercase;
+  }
+  .cover h2.title {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(56px, 9vw, 96px); font-weight: 400;
+    color: var(--maroon); letter-spacing: -0.02em; line-height: 1;
+    margin-bottom: 20px;
+  }
+  .cover .subtitle {
+    font-family: 'Crimson Pro', serif; font-style: italic;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--brass); margin-bottom: 32px;
+  }
+  .cover-rule { width: 60px; height: 2px; background: var(--brass); margin-bottom: 80px; }
+  .cover .meta { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--stone); }
+  .cover .meta strong { color: var(--ink); font-weight: 600; }
+  .cover-attr {
+    font-family: 'Crimson Pro', serif; font-style: italic;
+    font-size: 14px; color: var(--stone);
+    margin-top: 200px; line-height: 1.6;
+  }
+
+  .section { padding: 72px 64px 56px; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+
+  .part-divider {
+    padding: 80px 64px;
+    background: var(--cream);
+    border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  }
+  .part-divider .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.3em; color: var(--brass);
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .part-divider h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 56px; font-weight: 400;
+    color: var(--maroon); letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .part-divider .description {
+    font-family: 'Crimson Pro', serif; font-style: italic;
+    font-size: 18px; color: var(--stone); max-width: 540px;
+  }
+
+  .section h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 40px; font-weight: 400;
+    color: var(--maroon); margin-bottom: 28px;
+    letter-spacing: -0.01em; line-height: 1.15;
+  }
+  .section h2 .num { color: var(--brass); font-style: italic; font-weight: 300; margin-right: 14px; }
+  .section h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 22px; font-weight: 500; font-style: italic;
+    color: var(--brass); margin: 36px 0 14px;
+  }
+  .section p { margin-bottom: 16px; color: var(--ink); }
+  .section p.lede { font-size: 19px; line-height: 1.55; margin-bottom: 24px; }
+  .section ol, .section ul { margin: 12px 0 18px 0; padding-left: 26px; }
+  .section li { margin-bottom: 10px; }
+  .section ol li::marker {
+    font-family: 'Inter', sans-serif; font-weight: 600;
+    color: var(--maroon); font-size: 14px;
+  }
+
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; background: var(--cream);
+    padding: 2px 7px; border-radius: 3px;
+    color: var(--maroon); border: 1px solid var(--rule);
+  }
+
+  pre {
+    background: var(--cream);
+    border-left: 3px solid var(--brass);
+    padding: 20px 24px; margin: 24px 0;
+    overflow-x: auto;
+  }
+  pre code {
+    background: none; border: none; padding: 0;
+    color: var(--ink); font-size: 13px; line-height: 1.6;
+    white-space: pre;
+  }
+
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--brass);
+    padding: 24px 28px; margin: 28px 0;
+  }
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.24em; color: var(--maroon);
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .callout-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px; font-style: italic;
+    color: var(--ink); line-height: 1.55;
+  }
+  .callout-body code { font-style: normal; }
+
+  .table-wrap {
+    margin: 24px 0; overflow-x: auto;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; font-size: 13px; }
+  th {
+    background: var(--cream); padding: 12px 16px;
+    text-align: left; font-weight: 700;
+    font-size: 10px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--maroon);
+    border-bottom: 1px solid var(--rule);
+  }
+  td { padding: 13px 16px; border-bottom: 1px solid var(--rule); color: var(--ink); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td:first-child { font-weight: 600; color: var(--maroon); }
+  td code { font-size: 12px; }
+
+  .layer-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px; margin: 24px 0;
+  }
+  .layer-card {
+    background: var(--paper);
+    border: 1px solid var(--rule); border-top: 3px solid var(--brass);
+    padding: 16px 18px;
+  }
+  .layer-card .name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--maroon); margin-bottom: 6px;
+  }
+  .layer-card .desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px; color: var(--ink); line-height: 1.45;
+  }
+
+  .pipeline {
+    background: var(--cream-light);
+    border: 1px solid var(--rule);
+    padding: 28px 32px; margin: 28px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; line-height: 1.7;
+    color: var(--ink); white-space: pre;
+    overflow-x: auto;
+  }
+
+  .page-footer {
+    padding: 36px 64px;
+    background: var(--cream); border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px; color: var(--stone); letter-spacing: 0.04em;
+  }
+  .page-footer p { margin: 4px 0; }
+  .page-footer .tagline {
+    font-family: 'Crimson Pro', serif; font-style: italic;
+    font-size: 13px; color: var(--brass); margin-top: 14px;
+  }
+
+  .toc-part {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.28em; color: var(--maroon);
+    text-transform: uppercase;
+    margin-top: 32px; margin-bottom: 14px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--rule);
+  }
+  .toc-part:first-child { margin-top: 0; }
+  .toc-item {
+    display: flex; align-items: baseline; gap: 12px;
+    padding: 10px 0; color: var(--ink);
+    text-decoration: none; font-size: 17px;
+  }
+  .toc-item:hover { color: var(--maroon); }
+  .toc-item .num {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 700;
+    color: var(--brass); min-width: 22px;
+  }
+  .toc-item .dots { flex: 1; border-bottom: 1px dotted var(--stone-light); margin-bottom: 4px; }
+  .toc-item .page { font-family: 'Inter', sans-serif; font-size: 12px; color: var(--stone); font-style: italic; }
+
+  .drawer {
+    position: fixed; top: 0; right: 0;
+    width: 320px; max-width: 86vw; height: 100vh;
+    background: var(--paper);
+    box-shadow: -8px 0 30px var(--shadow-strong);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100; overflow-y: auto; padding: 24px;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-overlay {
+    position: fixed; inset: 0;
+    background: rgba(42,26,20,0.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s; z-index: 99;
+  }
+  .drawer-overlay.show { opacity: 1; pointer-events: auto; }
+  .drawer h3 { font-family: 'Crimson Pro', serif; font-size: 22px; color: var(--maroon); margin-bottom: 4px; }
+  .drawer .drawer-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--brass); text-transform: uppercase; margin-bottom: 24px;
+  }
+  .drawer a {
+    display: block; padding: 10px 0;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+  }
+  .drawer a:hover { color: var(--maroon); }
+  .drawer a .num {
+    color: var(--brass); font-family: 'Inter', sans-serif;
+    font-size: 11px; font-weight: 700; margin-right: 10px;
+  }
+  .drawer-close {
+    position: absolute; top: 18px; right: 18px;
+    background: none; border: 1px solid var(--rule);
+    width: 32px; height: 32px; border-radius: 50%;
+    cursor: pointer; color: var(--ink); font-size: 18px; line-height: 1;
+  }
+  .drawer-close:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  @media (max-width: 720px) {
+    .cover { padding: 60px 28px 70px; }
+    .cover h2.title { font-size: 56px; }
+    .cover-attr { margin-top: 100px; }
+    .section { padding: 56px 28px 40px; }
+    .section h2 { font-size: 30px; }
+    .part-divider { padding: 60px 28px; }
+    .part-divider h2 { font-size: 38px; }
+    .topbar { padding: 12px 18px; }
+    .topbar .brand { font-size: 14px; }
+    .page-footer { padding: 28px; }
+    .pipeline { font-size: 9px; padding: 18px 22px; }
+  }
+  @media print {
+    .topbar, .drawer, .drawer-overlay { display: none; }
+    .shell { box-shadow: none; max-width: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo"><svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg></div>
+  <div class="brand">Trilogy Design Intelligence<span class="sub">PMM Tools · User Guide</span></div>
+  <button class="menu-btn" onclick="toggleDrawer()">Contents</button>
+</header>
+
+<div class="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="drawer">
+  <button class="drawer-close" onclick="toggleDrawer()">×</button>
+  <h3>Contents</h3>
+  <div class="drawer-sub">PMM Connection v0.17.1</div>
+  <a href="#sec-1" onclick="toggleDrawer()"><span class="num">1</span>What PMM Connection Does</a>
+  <a href="#sec-2" onclick="toggleDrawer()"><span class="num">2</span>Installation</a>
+  <a href="#sec-3" onclick="toggleDrawer()"><span class="num">3</span>Your First Sync</a>
+  <a href="#sec-4" onclick="toggleDrawer()"><span class="num">4</span>Anatomy of a Tagged Element</a>
+  <a href="#sec-5" onclick="toggleDrawer()"><span class="num">5</span>The PMM Picture</a>
+  <a href="#sec-6" onclick="toggleDrawer()"><span class="num">6</span>Sync IFC Metadata into SKP</a>
+  <a href="#sec-7" onclick="toggleDrawer()"><span class="num">7</span>Tag Design Elements</a>
+  <a href="#sec-8" onclick="toggleDrawer()"><span class="num">8</span>The PMM Inspector</a>
+  <a href="#sec-9" onclick="toggleDrawer()"><span class="num">9</span>The Tag Scheme</a>
+  <a href="#sec-10" onclick="toggleDrawer()"><span class="num">10</span>Export Report</a>
+  <a href="#sec-11" onclick="toggleDrawer()"><span class="num">11</span>Menu Reference</a>
+  <a href="#sec-12" onclick="toggleDrawer()"><span class="num">12</span>PMM Schema v1.0</a>
+  <a href="#sec-13" onclick="toggleDrawer()"><span class="num">13</span>Auto-Suggest Patterns</a>
+  <a href="#sec-14" onclick="toggleDrawer()"><span class="num">14</span>Configuration Files</a>
+  <a href="#sec-15" onclick="toggleDrawer()"><span class="num">15</span>Troubleshooting</a>
+  <a href="#sec-16" onclick="toggleDrawer()"><span class="num">16</span>System &amp; File Locations</a>
+  <a href="#sec-17" onclick="toggleDrawer()"><span class="num">17</span>Credits</a>
+</aside>
+
+<main class="shell">
+
+<section class="cover">
+  <div class="cover-header">
+    <div class="logo"><svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg></div>
+    <h1 class="brand">Trilogy Design Intelligence<span class="sub">PMM Tools</span></h1>
+  </div>
+  <div class="cover-eyebrow">User Guide</div>
+  <h2 class="title">PMM<br/>Connection</h2>
+  <p class="subtitle">Bridging Revit, SketchUp, and Buildertrend</p>
+  <div class="cover-rule"></div>
+  <p class="meta">Version <strong>0.17.1</strong> · Schema v1.0 aligned</p>
+  <p class="cover-attr">Created by Trilogy Partners using Trilogy Build Intelligence.<br/>Boots on the Ground, Eyes on the Sky.</p>
+</section>
+
+<section class="section">
+  <h2><span class="num">·</span>Contents</h2>
+  <div class="toc-part">Part One — Quick Start</div>
+  <a class="toc-item" href="#sec-1"><span class="num">1</span>What PMM Connection Does<span class="dots"></span><span class="page">p. 4</span></a>
+  <a class="toc-item" href="#sec-2"><span class="num">2</span>Installation<span class="dots"></span><span class="page">p. 5</span></a>
+  <a class="toc-item" href="#sec-3"><span class="num">3</span>Your First Sync<span class="dots"></span><span class="page">p. 6</span></a>
+  <a class="toc-item" href="#sec-4"><span class="num">4</span>Anatomy of a Tagged Element<span class="dots"></span><span class="page">p. 9</span></a>
+  <div class="toc-part">Part Two — Core Workflows</div>
+  <a class="toc-item" href="#sec-5"><span class="num">5</span>The PMM Picture<span class="dots"></span><span class="page">p. 12</span></a>
+  <a class="toc-item" href="#sec-6"><span class="num">6</span>Sync IFC Metadata into SKP<span class="dots"></span><span class="page">p. 14</span></a>
+  <a class="toc-item" href="#sec-7"><span class="num">7</span>Tag Design Elements<span class="dots"></span><span class="page">p. 17</span></a>
+  <a class="toc-item" href="#sec-8"><span class="num">8</span>The PMM Inspector<span class="dots"></span><span class="page">p. 20</span></a>
+  <a class="toc-item" href="#sec-9"><span class="num">9</span>The Tag Scheme<span class="dots"></span><span class="page">p. 22</span></a>
+  <a class="toc-item" href="#sec-10"><span class="num">10</span>Export Report<span class="dots"></span><span class="page">p. 25</span></a>
+  <div class="toc-part">Part Three — Reference</div>
+  <a class="toc-item" href="#sec-11"><span class="num">11</span>Menu Reference<span class="dots"></span><span class="page">p. 28</span></a>
+  <a class="toc-item" href="#sec-12"><span class="num">12</span>PMM Schema v1.0<span class="dots"></span><span class="page">p. 29</span></a>
+  <a class="toc-item" href="#sec-13"><span class="num">13</span>Auto-Suggest Patterns<span class="dots"></span><span class="page">p. 33</span></a>
+  <a class="toc-item" href="#sec-14"><span class="num">14</span>Configuration Files<span class="dots"></span><span class="page">p. 34</span></a>
+  <div class="toc-part">Part Four — Practical Notes</div>
+  <a class="toc-item" href="#sec-15"><span class="num">15</span>Troubleshooting<span class="dots"></span><span class="page">p. 36</span></a>
+  <a class="toc-item" href="#sec-16"><span class="num">16</span>System Requirements &amp; File Locations<span class="dots"></span><span class="page">p. 38</span></a>
+  <a class="toc-item" href="#sec-17"><span class="num">17</span>Credits<span class="dots"></span><span class="page">p. 39</span></a>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part One</p>
+  <h2>Quick Start</h2>
+  <p class="description">Get installed, run your first sync, and understand what a PMM-tagged element actually looks like.</p>
+</section>
+
+<section class="section" id="sec-1">
+  <h2><span class="num">1.</span>What PMM Connection Does</h2>
+  <p class="lede">PMM Connection is a SketchUp extension that bridges three places construction information lives: a Revit BIM model, a SketchUp design model, and Buildertrend's commercial systems.</p>
+  <p>A typical project flow at Trilogy:</p>
+  <ol>
+    <li>The architect delivers a Revit-exported SketchUp file (good geometry) and a matching IFC sidecar (rich metadata).</li>
+    <li>PMM Connection matches each SketchUp element to its IFC twin and writes structured PMM data onto the component.</li>
+    <li>Designers add and tag everything the architect didn't include — furniture, fixtures, decor, finishes — directly in SketchUp.</li>
+    <li>PMM Horizon (a separate tool) pushes the model to a Google Sheet linked to Buildertrend.</li>
+    <li>Buildertrend gets clean cost categories, vendors, and selections from the model itself.</li>
+  </ol>
+  <p>PMM Connection's job is everything in steps 1–3. It never talks to Buildertrend directly.</p>
+  <div class="callout">
+    <div class="callout-label">Audience</div>
+    <div class="callout-body">This guide is for both Trilogy team designers and external collaborators (architects, builders, BIM coordinators). Internal-only details are flagged when they appear.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-2">
+  <h2><span class="num">2.</span>Installation</h2>
+  <p>You need SketchUp 2021 or newer. The plugin works on macOS and Windows.</p>
+  <h3>Install steps</h3>
+  <ol>
+    <li>Extensions → <strong>Extension Manager</strong></li>
+    <li>Click <strong>Install Extension…</strong> at the bottom-left</li>
+    <li>Choose <code>pmm_connection.rbz</code></li>
+    <li>SketchUp will warn that the extension is not signed by Trimble — click <strong>Yes</strong> to proceed</li>
+    <li>Restart SketchUp</li>
+  </ol>
+  <p>After restart, look for <strong>Extensions → PMM Connection</strong> in the menu bar. On older SketchUp versions this appears as <strong>Plugins → PMM Connection</strong>.</p>
+  <h3>Updating</h3>
+  <p>To install a newer version:</p>
+  <ol>
+    <li>Extension Manager → find the existing PMM Connection entry</li>
+    <li>Click <strong>Uninstall</strong></li>
+    <li>Restart SketchUp</li>
+    <li>Install the new <code>.rbz</code> (steps 1–5 above)</li>
+  </ol>
+  <div class="callout">
+    <div class="callout-label">Tagged data is preserved</div>
+    <div class="callout-body">Tagged data on existing models survives plugin updates. Configuration files (schema, types, tag scheme) are also preserved across updates.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-3">
+  <h2><span class="num">3.</span>Your First Sync</h2>
+  <p>The fastest path to seeing PMM Connection work: open a Revit-exported SketchUp file with its matching IFC, run the Sync, and watch.</p>
+  <h3>What you need</h3>
+  <ul>
+    <li>An <code>.skp</code> file exported from Revit (architect's deliverable)</li>
+    <li>The matching <code>.ifc</code> file (same project, same export)</li>
+  </ul>
+  <p>These two files together are the input. The plugin matches SketchUp groups/components to their IFC counterparts and writes metadata onto the SKP.</p>
+  <h3>Run the sync</h3>
+  <ol>
+    <li>Open the <code>.skp</code> file in SketchUp</li>
+    <li>Extensions → PMM Connection → <strong>Sync IFC Metadata into SKP…</strong> (recommended)</li>
+    <li>Pick the <code>.ifc</code> file when prompted</li>
+    <li>A progress dialog appears showing parse progress</li>
+    <li>When matching finishes, a Review dialog appears showing every SketchUp element with its proposed IFC match</li>
+    <li>Auto-matched rows (100% confidence — same GlobalId) are pre-checked</li>
+    <li>Review any uncertain matches near the top of the list</li>
+    <li>Click <strong>Apply Selected Matches</strong> at the bottom</li>
+    <li>A Tag Preview dialog appears showing every tag about to be created (<code>Wall_1</code>, <code>Door_2</code>, etc.) grouped by Division folder. Rename or skip any individual tag, then <strong>Apply Tags</strong></li>
+  </ol>
+  <h3>What just happened</h3>
+  <p>For each matched element, the plugin wrote about 15 attributes to a single dictionary called <code>PMM</code>:</p>
+  <ul>
+    <li>Identity fields (<code>PMM ID</code>, <code>GlobalId</code>, <code>Name</code>, <code>Storey</code>)</li>
+    <li>Component metadata (<code>Component Type</code>, <code>IFC Class</code>, <code>Component Name</code>, <code>Length</code>, <code>Width</code>, <code>Height</code>)</li>
+    <li>Workflow state (<code>Status</code>, <code>Project Phase</code>, <code>Sync Status</code>, <code>Schema Version</code>)</li>
+    <li>Type-specific fields (Wall Assembly, Fire Rating, etc. for walls; Door Material, Handing for doors)</li>
+    <li>Property sets from IFC (<code>Pset:Pset_WallCommon::IsExternal</code>, etc.)</li>
+  </ul>
+  <p>You can see all of this on any selected element via Window → Entity Info (collapsed) or the PMM Inspector (richer view).</p>
+</section>
+
+<section class="section" id="sec-4">
+  <h2><span class="num">4.</span>Anatomy of a Tagged Element</h2>
+  <p>Open the <strong>PMM Inspector</strong> (Extensions → PMM Connection → PMM Inspector) and click any group or component in your model. The Inspector shows what's stored on that element, organized into sections that match the PMM Schema v1.0 layers:</p>
+  <h3>Identity (always shown)</h3>
+  <p><code>Component Type</code>, <code>IFC Class</code>, <code>PMM ID</code>, <code>GlobalId</code>, <code>Storey</code>, <code>Schema Version</code>. Most are auto-managed.</p>
+  <h3>Type-specific fields</h3>
+  <p>Vary by what kind of element this is. For a Wall: Wall Assembly, Fire Rating, Insulation Type, R-Value, etc. For a Door: Door Material, Handing, Hardware Group, Lockset Spec, etc. These are editable.</p>
+  <h3>IFC Property Sets</h3>
+  <p>Read-only mirror of the original IFC Pset data, collapsed by default. Useful for verifying source-of-truth values (like <code>Pset_WallCommon::FireRating</code>).</p>
+  <h3>Commercial</h3>
+  <p>The bottom section, populated by PMM Horizon when the component is pushed to the linked Google Sheet. Shows commercial state: Title, Vendor, Unit Price, Amount, Allowance, Cost Category — all read-only inside Connection.</p>
+  <p>If a component has never been pushed to Horizon, the Commercial section shows "No data from Horizon yet."</p>
+  <p>Edits to type-specific fields and workflow state (Status, Project Phase, Review Notes, Quantity, Location) save automatically as you type. The check mark next to each field confirms the save.</p>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Two</p>
+  <h2>Core Workflows</h2>
+  <p class="description">The five operations that make up day-to-day PMM Connection use — synced metadata, tagging design elements, and inspection.</p>
+</section>
+
+<section class="section" id="sec-5">
+  <h2><span class="num">5.</span>The PMM Picture</h2>
+  <p>Before walking through the operations one by one, here's the mental model:</p>
+<pre class="pipeline">Architect's Revit model
+        │
+        ├── exports SKP ──┐
+        │                 │
+        └── exports IFC ──┤
+                          │
+        ┌─────────────────┴─────────────────┐
+        │     PMM CONNECTION (here)         │
+        │                                   │
+        │   1. Sync IFC into SKP            │
+        │   2. Tag Design Elements          │
+        │   3. Inspector edits              │
+        │                                   │
+        └─────────────────┬─────────────────┘
+                          │
+                          ▼
+              PMM Horizon (separate tool)
+                          │
+                          ▼
+              Google Sheet (PMM in the Sky)
+                          │
+                          ▼
+                    Buildertrend</pre>
+  <p>Connection is the leftmost stage — getting the model populated with structured data. Horizon takes that data to the Sheet. Other tools handle the Sheet ↔ Buildertrend round-trip.</p>
+  <p>The currency that flows through all stages is the <strong>PMM ID</strong> — a UUID stamped onto each component the first time it's tagged. That ID survives every export, push, pull, and round-trip. It's how every system knows that "this Sheet row belongs to this SketchUp component belongs to this Buildertrend line item."</p>
+  <h3>The three tagging operations</h3>
+  <p>There are three different ways elements get PMM data, depending on where they came from:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Where it came from</th><th>How to tag it</th></tr></thead>
+    <tbody>
+      <tr><td>Architect's IFC</td><td>Sync IFC Metadata into SKP</td></tr>
+      <tr><td>Designer-placed in SketchUp</td><td>Tag Design Elements</td></tr>
+      <tr><td>Already tagged in an old import</td><td>Migrate Legacy IFC Tags</td></tr>
+    </tbody>
+  </table></div>
+  <p>In a typical luxury residential project all three apply — architects deliver mixed construction + design content, designers add staging and decor on top, and you may inherit older models. The next sections walk through each.</p>
+</section>
+
+<section class="section" id="sec-6">
+  <h2><span class="num">6.</span>Sync IFC Metadata into SKP</h2>
+  <p>The primary workflow. Run this whenever you receive a fresh Revit deliverable.</p>
+  <h3>When to use</h3>
+  <ul>
+    <li>You just received an updated SKP + IFC pair from the architect</li>
+    <li>You re-imported the model and want to refresh PMM data</li>
+    <li>You added new Revit-sourced elements via a delta import</li>
+  </ul>
+  <h3>How matching works</h3>
+  <p>The matcher uses three tiers of confidence:</p>
+  <ol>
+    <li><strong>GlobalId match (100%)</strong> — Revit's exported SketchUp file names instances using IFC GlobalIds (often suffixed with <code>#1</code>, <code>#2</code> for repeated instances). When the SKP element name and the IFC GlobalId match, the link is certain.</li>
+    <li><strong>Revit Element ID (100%)</strong> — some exports include bracketed IDs like <code>[485302]</code> in the instance name. Same confidence as GlobalId.</li>
+    <li><strong>Fuzzy fallback</strong> — for the remaining elements, score by name similarity and bounding-box position. A confidence number is shown so you can review.</li>
+  </ol>
+  <p>In practice, on a typical Revit deliverable, 90–98% of elements match at 100% via tier 1. The remaining few you eyeball.</p>
+  <h3>Step by step</h3>
+  <ol>
+    <li><strong>Pick the IFC file.</strong> A standard file picker opens. Navigate to the IFC sidecar.</li>
+    <li><strong>Watch parsing.</strong> A progress bar appears. On a 50 MB IFC (~3,000 products) this takes 30–60 seconds. The dialog stays responsive — no beach balls.</li>
+    <li><strong>Review matches.</strong> The dialog has two sections. The left shows IFC products with their type, GlobalId, and storey. The right shows your SKP elements with their proposed match. Confidence percentages and tier indicator are visible per row. Use the search box to filter, the type filter to narrow by IFCWALL/IFCDOOR/etc.</li>
+  </ol>
+  <p>Three actions per row:</p>
+  <ul>
+    <li><strong>Accept</strong> (default for 100% matches) — write the IFC's metadata to the SKP element</li>
+    <li><strong>Skip</strong> — leave this SKP element untouched</li>
+    <li><strong>Pick a different IFC</strong> — manually choose from a dropdown</li>
+  </ul>
+  <ol start="4">
+    <li><strong>Apply Selected Matches.</strong> This writes PMM attributes for each accepted match. Non-tag work happens here in one undo step.</li>
+    <li><strong>Tag Preview.</strong> A second dialog appears showing every tag about to be created. Each row has a folder pill (Shell, Structure, Openings, …) — the Division this Tag will live under, the Tag name as resolved from your Tag Scheme (<code>Wall_1</code>, <code>Door_R</code>, …), an element count for that tag, an editable text input — rename the tag if you want, and a checkbox — uncheck to skip creating this tag (the elements still got PMM data, they just won't be assigned to a SketchUp Tag).</li>
+  </ol>
+  <p>Click <strong>Apply Tags</strong> when satisfied. This creates folders + tags + assignments in a second undo step.</p>
+  <div class="callout">
+    <div class="callout-label">Two undo steps, not one</div>
+    <div class="callout-body">Pressing Cmd-Z (or Ctrl-Z) once will undo only the tag creation; pressing it again undoes the metadata write. We split into two steps because you can cancel between them — if you cancel the Tag Preview, your PMM data is still saved.</div>
+  </div>
+  <h3>Replace-existing tags</h3>
+  <p>Before the apply runs, you may be asked whether to replace existing SketchUp Tag assignments. Three options exist for this preference (Edit Tag Scheme): always replace, never replace, ask each time. Default is "ask."</p>
+  <h3>Storey is not always present</h3>
+  <p>If an element has no <code>IFC/Storey</code> attribute, the Tag falls back to just the type (e.g. <code>Wall</code> instead of <code>Wall_1</code>). This matches your "leave it blank, I'll fill in manually" preference.</p>
+</section>
+
+<section class="section" id="sec-7">
+  <h2><span class="num">7.</span>Tag Design Elements</h2>
+  <p>The complement to Sync. After the IFC sync handles construction elements, this handles everything else: furniture, fixtures, lighting, decor — anything the architect placed but didn't include in their IFC export.</p>
+  <h3>When to use</h3>
+  <ul>
+    <li>After Sync, to tag the leftover untagged elements</li>
+    <li>On a SKP where there's no IFC at all (interior designer working from existing models)</li>
+    <li>When you've added new components to the model and want them PMM-tagged</li>
+  </ul>
+  <h3>The dialog</h3>
+  <p>Top toolbar:</p>
+  <ul>
+    <li><strong>By Definition / By Instance</strong> segmented toggle. Definition mode collapses repeated components (48 recessed lights → 1 row). Instance mode shows every placed element separately.</li>
+    <li><strong>Include already-tagged</strong> — off by default. Turn on to also see PMM-tagged elements (for re-tagging or fixing).</li>
+    <li><strong>Filter</strong> — searches across element name, material, parent group path, and current Tag.</li>
+  </ul>
+  <p>Each row shows:</p>
+  <ul>
+    <li><strong>Checkbox</strong> — included in Apply</li>
+    <li><strong>Zoom button (🔍)</strong> — zooms SketchUp's camera to that element so you can visually identify it before assigning a type</li>
+    <li><strong>Thumbnail</strong> — auto-rendered from the SketchUp ComponentDefinition (plain Groups show a placeholder)</li>
+    <li><strong>Element info</strong> — definition name, material with paint icon, parent group breadcrumb path, instance count</li>
+    <li><strong>Current Tag</strong> — what Tag (if any) the element is currently on</li>
+    <li><strong>PMM Type</strong> — dropdown to assign a friendly type. Auto-suggestions appear with a gold "(auto-suggest)" hint based on name patterns</li>
+  </ul>
+  <h3>Auto-suggest</h3>
+  <p>The plugin matches element names against 60+ patterns:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Name contains</th><th>Suggested type</th></tr></thead>
+    <tbody>
+      <tr><td><code>pendant</code>, <code>chandelier</code>, <code>sconce</code>, <code>recessed</code></td><td>Light Fixture</td></tr>
+      <tr><td><code>range</code>, <code>oven</code>, <code>dishwasher</code>, <code>refrigerator</code></td><td>Built-in Appliance</td></tr>
+      <tr><td><code>cabinet</code>, <code>vanity</code>, <code>cabinetry</code>, <code>millwork</code></td><td>Cabinet</td></tr>
+      <tr><td><code>toilet</code>, <code>sink</code>, <code>tub</code>, <code>shower</code>, <code>faucet</code></td><td>Plumbing Fixture</td></tr>
+      <tr><td><code>sofa</code>, <code>chair</code>, <code>table</code>, <code>bed</code></td><td>Furniture</td></tr>
+      <tr><td><code>rug</code>, <code>art</code>, <code>vase</code>, <code>decor</code></td><td>Decor</td></tr>
+      <tr><td><code>mirror</code>, <code>fireplace</code>, <code>countertop</code></td><td>(specific selection types)</td></tr>
+      <tr><td><code>wall</code>, <code>floor</code>, <code>roof</code>, <code>ceiling</code></td><td>(Shell types)</td></tr>
+    </tbody>
+  </table></div>
+  <p>The full pattern list is in section 13. Auto-suggest fills the dropdown with the suggested type and pre-checks the row. You can override any suggestion via the dropdown, or skip the row entirely by unchecking it.</p>
+  <h3>Bulk operations</h3>
+  <ul>
+    <li><strong>Set all visible rows to:</strong> dropdown + Apply to visible — assign one type to every row currently passing the filter</li>
+    <li><strong>Check all visible / Uncheck all visible</strong> — bulk toggle inclusion</li>
+  </ul>
+  <p>A common pattern: filter for "light," bulk-assign to Light Fixture, click Apply to visible. Then filter for "rug," bulk-assign to Rug. Then click <strong>Apply to Checked</strong> at the bottom.</p>
+  <h3>Apply</h3>
+  <p>Apply to Checked writes PMM attributes, applies schema defaults (so a newly-tagged Wall gets default Fire Rating: None, etc.), and assigns SketchUp Tags via your current Tag Scheme. One undo step.</p>
+</section>
+
+<section class="section" id="sec-8">
+  <h2><span class="num">8.</span>The PMM Inspector</h2>
+  <p>The Inspector is a live, selection-driven attribute editor. It updates as you click around in SketchUp.</p>
+  <h3>Opening</h3>
+  <p>Extensions → PMM Connection → <strong>PMM Inspector</strong>. The dialog stays open until you close it. You can keep it docked while working in SketchUp.</p>
+  <h3>Single selection</h3>
+  <p>Click any group or component. The Inspector shows that element's PMM data organized into sections (see section 4 — Anatomy of a Tagged Element).</p>
+  <h3>Multi-selection</h3>
+  <p>Select multiple elements. The Inspector shows fields shared across all of them. Where values agree, the value appears. Where values differ, you'll see "— multiple values —" and the field is in a special state.</p>
+  <p>Editing a field on a multi-selection writes the new value to all selected elements. The first edit in a multi-selection prompts you to confirm "Apply to all 12 selected elements?" Once confirmed for that selection, subsequent edits don't ask again until the selection changes.</p>
+  <h3>Editing</h3>
+  <p>Most fields are direct text inputs or dropdowns. Edits commit when you tab/click away from the field. A green check mark briefly appears to confirm the save.</p>
+  <p>Read-only fields (PMM ID, GlobalId, Schema Version, Length, Width, Height, Component Name, Instance GUID, all of Commercial) display as plain text without an input. These are auto-managed.</p>
+  <h3>Layer 2 model fields auto-refresh</h3>
+  <p>Every time you open the Inspector or run any PMM operation, these derived fields are refreshed from the live model:</p>
+  <ul>
+    <li><strong>Component Name</strong> — mirrors the SketchUp ComponentDefinition name</li>
+    <li><strong>Instance GUID</strong> — SketchUp's per-entity GUID</li>
+    <li><strong>Length, Width, Height</strong> — bounding box dimensions in inches (displayed in feet-inches: <code>8'-0"</code>)</li>
+  </ul>
+  <p>So if you scale or rename a component, the next time you click on it the Inspector updates without needing to retag.</p>
+  <h3>Location autocomplete</h3>
+  <p>The Location field (room/space tag — "Master Bath", "Kitchen") is a free-text input with an autocomplete datalist. Suggestions come from existing Location values used elsewhere in the same model. Helps designers reuse names without retyping or needing a fixed taxonomy.</p>
+  <h3>Commercial section</h3>
+  <p>Read-only display of Layer 3 commercial fields populated by PMM Horizon. Connection never writes these. The header subtitle shows when the component was last pushed to the Sheet (gold text), or "No data from Horizon yet" (muted) if not yet pushed.</p>
+</section>
+
+<section class="section" id="sec-9">
+  <h2><span class="num">9.</span>The Tag Scheme</h2>
+  <p>The Tag Scheme controls how SketchUp Tag names are constructed when PMM Connection creates them.</p>
+  <h3>Edit Tag Scheme dialog</h3>
+  <p>Extensions → PMM Connection → <strong>Edit Tag Scheme…</strong></p>
+  <h3>Template</h3>
+  <p>A string with placeholders. Default is <code>{type}_{storey}</code> which produces <code>Wall_1</code>, <code>Door_2</code>, etc. Examples:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Template</th><th>Produces</th></tr></thead>
+    <tbody>
+      <tr><td><code>{type}_{storey}</code></td><td><code>Wall_1</code>, <code>Door_2</code></td></tr>
+      <tr><td><code>{storey}-{type}</code></td><td><code>1-Wall</code>, <code>2-Door</code></td></tr>
+      <tr><td><code>{type}</code></td><td><code>Wall</code>, <code>Door</code> (storey ignored)</td></tr>
+      <tr><td><code>Storey {storey} - {type}</code></td><td><code>Storey 1 - Wall</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>A live preview at the bottom of the Template card shows a few sample tags using your current model's data.</p>
+  <h3>Storey labels</h3>
+  <p>Auto-extracted labels per storey, with optional user override. The plugin extracts numbers and letter codes from Revit storey names:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Revit storey name</th><th>Auto-label</th></tr></thead>
+    <tbody>
+      <tr><td>Level 1, 01 - Entry, Floor 1</td><td>1</td></tr>
+      <tr><td>Level 2, Floor 2</td><td>2</td></tr>
+      <tr><td>Basement</td><td>B</td></tr>
+      <tr><td>Sub-Basement</td><td>SB</td></tr>
+      <tr><td>Ground Floor, Main Level, Entry Level</td><td>G</td></tr>
+      <tr><td>Mezzanine</td><td>M</td></tr>
+      <tr><td>Roof</td><td>R</td></tr>
+      <tr><td>Attic, Loft</td><td>A</td></tr>
+      <tr><td>Penthouse</td><td>PH</td></tr>
+      <tr><td>Crawl Space</td><td>CS</td></tr>
+    </tbody>
+  </table></div>
+  <p>If you want an override (e.g. Ground Floor → 1 instead of G), enter your preferred label in the Override column. The override applies to all elements on that storey for all future tagging.</p>
+  <h3>When tagging runs</h3>
+  <ul>
+    <li><strong>Ask me each time</strong> (default) — every tagging operation asks whether to replace existing tags</li>
+    <li><strong>Always replace existing tags</strong> — no prompt; new tags overwrite old assignments</li>
+    <li><strong>Never replace existing tags</strong> — only assign tags to elements currently on the default (Untagged) layer; respects user organization</li>
+  </ul>
+  <h3>Division folders</h3>
+  <p>Tag names live inside Tag Folders. The folder is named after the element's Division (Shell, Structure, etc.) — derived from the Types registry. The plugin creates folders on demand and adds new tags to them.</p>
+  <p>If you've manually moved a tag into a custom folder, the plugin won't move it back. Customization is preserved.</p>
+  <p>If your SketchUp version doesn't support Tag Folders (pre-2021), tags are created flat. The plugin auto-detects this and falls back gracefully.</p>
+  <h3>Clean Up PMM Tags</h3>
+  <p>This menu item exists for fixing legacy data. It walks every PMM-tagged element and re-applies the current Tag Scheme — useful when:</p>
+  <ul>
+    <li>You changed your Tag Scheme template after tagging</li>
+    <li>An old import created ugly GUID-named tags</li>
+    <li>You want to re-organize tags into Division folders after upgrading</li>
+  </ul>
+  <p>Clean Up doesn't touch PMM attribute data; it only renames/reassigns SketchUp Tags. After running, open the Tags panel → right-click → Purge Unused to remove the now-empty old tags.</p>
+</section>
+
+<section class="section" id="sec-10">
+  <h2><span class="num">10.</span>Export Report</h2>
+  <p>PDF schedule of PMM data, useful for client meetings, subcontractor handoff, and design reviews.</p>
+  <h3>Two scopes</h3>
+  <ul>
+    <li><strong>From Selection</strong> — generate a report for whatever you've selected in the model</li>
+    <li><strong>Full Model</strong> — every PMM-tagged element</li>
+  </ul>
+  <p>Both go through the same dialog flow.</p>
+  <h3>Column picker</h3>
+  <p>After picking the scope, a column picker appears. The plugin lists every available PMM attribute, grouped by category (Identity, Schema, Type-specific by IFC class, Psets). Check the columns you want in the report. The picker remembers your last selection.</p>
+  <p>You can also enter a Project Name at the top of the picker — appears as the report title.</p>
+  <h3>Preview</h3>
+  <p>The preview opens as a styled PDF preview inside SketchUp. The Trilogy header, project name, and full schedule render in a portrait or landscape layout.</p>
+  <p>Footer buttons:</p>
+  <ul>
+    <li><strong>‹ Back to Columns</strong> — returns to the picker with your previous column selection still checked</li>
+    <li><strong>Cancel</strong> — close without exporting</li>
+    <li><strong>Print / Save as PDF</strong> — opens your OS print dialog. Pick "Save as PDF" as the printer to save a file</li>
+  </ul>
+  <p>The Project Name and your column selection are saved to disk, so the next time you open Export Report it pre-fills with your last setup.</p>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Three</p>
+  <h2>Reference</h2>
+  <p class="description">Menus, the PMM Schema v1.0 layers, auto-suggest patterns, and where the plugin keeps its configuration.</p>
+</section>
+
+<section class="section" id="sec-11">
+  <h2><span class="num">11.</span>Menu Reference</h2>
+  <p>All items live under <strong>Extensions → PMM Connection</strong> (or Plugins on older SketchUp).</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Menu item</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Sync IFC Metadata into SKP…</td><td>Primary: match SKP elements to IFC, write PMM data, create tags</td></tr>
+      <tr><td>Import IFC Model (geometry-only)…</td><td>Standalone IFC importer (use only if no matching SKP exists)</td></tr>
+      <tr><td>PMM Inspector</td><td>Open the live attribute editor</td></tr>
+      <tr><td>Edit PMM Schema…</td><td>Customize what attribute fields appear per type</td></tr>
+      <tr><td>Edit Tag Scheme…</td><td>Customize tag naming + storey labels + replace preference</td></tr>
+      <tr><td>Migrate Legacy IFC Tags…</td><td>Upgrade old IFC-imported elements to PMM v1.0 format</td></tr>
+      <tr><td>Clean Up PMM Tags…</td><td>Re-apply current Tag Scheme to all PMM-tagged elements</td></tr>
+      <tr><td>Tag Design Elements…</td><td>Bulk-tag designer-placed content (furniture, fixtures, etc.)</td></tr>
+      <tr><td>Export Report → From Selection</td><td>PDF schedule of selected elements</td></tr>
+      <tr><td>Export Report → Full Model</td><td>PDF schedule of all PMM-tagged elements</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Right-click context menu</h3>
+  <p>Right-click any group/component in SketchUp:</p>
+  <pre><code>PMM → Assign Type → [Division] → [Type]</code></pre>
+  <p>Quick-tag a single element or a multi-selection without going through Tag Design Elements. Always overwrites — assumes you explicitly want this tag. Storey-aware when the element has a Storey attribute.</p>
+</section>
+
+<section class="section" id="sec-12">
+  <h2><span class="num">12.</span>PMM Schema v1.0</h2>
+  <p>PMM Connection conforms to the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract that all PMM Tools share.</p>
+  <p>All PMM attributes live in a single SketchUp dictionary called <code>PMM</code>. The model itself has a separate <code>PMM Model</code> dictionary for whole-file metadata.</p>
+  <div class="layer-grid">
+    <div class="layer-card"><div class="name">Layer 1</div><div class="desc">Identity &amp; Sync — universal, auto-managed</div></div>
+    <div class="layer-card"><div class="name">Layer 2</div><div class="desc">Model — universal, mixed auto/user</div></div>
+    <div class="layer-card"><div class="name">Layer 3</div><div class="desc">Commercial — Sheet-owned, display only</div></div>
+    <div class="layer-card"><div class="name">Layer 4</div><div class="desc">Type-specific — conditional</div></div>
+  </div>
+  <h3>Layer 1 — Identity &amp; Sync</h3>
+  <p>Universal. Auto-managed.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Field</th><th>Owner</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>PMM ID</td><td>Plugin (set once)</td><td>UUID v4. Stable forever.</td></tr>
+      <tr><td>Buildertrend ID</td><td>Relay</td><td>Set by sync tools after first BT push</td></tr>
+      <tr><td>Sync Status</td><td>Relay</td><td>Not Synced / Pushed / Pulled / Modified / Conflict</td></tr>
+      <tr><td>Last Modified</td><td>Plugin</td><td>ISO timestamp, last edit</td></tr>
+      <tr><td>Last Synced</td><td>Relay</td><td>ISO timestamp, last BT round-trip</td></tr>
+      <tr><td>Last Pushed to Sheet</td><td>Horizon</td><td>ISO timestamp, last Sheet push</td></tr>
+      <tr><td>Schema Version</td><td>Plugin</td><td>1.0</td></tr>
+    </tbody>
+  </table></div>
+  <p>Connection writes <code>PMM ID</code>, <code>Last Modified</code>, <code>Schema Version</code>, <code>Sync Status</code> (initialized to <code>Not Synced</code>). Other Layer 1 fields are read-only.</p>
+  <h3>Layer 2 — Model</h3>
+  <p>Universal. Some auto-derived, some user-editable.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Field</th><th>Owner</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Component Name</td><td>Plugin (auto)</td><td>SketchUp component definition name</td></tr>
+      <tr><td>Component Type</td><td>Plugin (user)</td><td>Friendly PMM type ("Wall", "Door")</td></tr>
+      <tr><td>IFC Class</td><td>Plugin (auto)</td><td>IFC class mapping (IFCWALL)</td></tr>
+      <tr><td>Instance GUID</td><td>Plugin (auto)</td><td>SketchUp's internal entity GUID</td></tr>
+      <tr><td>Length</td><td>Plugin (auto)</td><td>Bounding box, decimal inches</td></tr>
+      <tr><td>Width</td><td>Plugin (auto)</td><td>Bounding box, decimal inches</td></tr>
+      <tr><td>Height</td><td>Plugin (auto)</td><td>Bounding box, decimal inches</td></tr>
+      <tr><td>Quantity</td><td>Plugin (user)</td><td>How many this instance represents (default 1)</td></tr>
+      <tr><td>Location</td><td>Plugin (user)</td><td>Room/space tag with autocomplete</td></tr>
+      <tr><td>Storey</td><td>Plugin (user)</td><td>"1", "2", "B", "R", "Crawl", etc.</td></tr>
+      <tr><td>Status</td><td>Plugin (user)</td><td>Concept / Pending Review / Approved / Revised / Construction / Installed / As-Built</td></tr>
+      <tr><td>Project Phase</td><td>Plugin (user)</td><td>Schematic Design / Design Development / CDs / Bidding / Construction Administration</td></tr>
+      <tr><td>Review Notes</td><td>Plugin (user)</td><td>Free-form designer notes</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout">
+    <div class="callout-label">Auto-refresh on every operation</div>
+    <div class="callout-body"><code>Component Name</code>, <code>Instance GUID</code>, and bounding-box dimensions auto-refresh on every Inspector open and PMM operation, so they stay in sync with the live model.</div>
+  </div>
+  <h3>Layer 3 — Commercial</h3>
+  <p>Universal. Sheet-owned, Connection displays only.</p>
+  <p>20 fields populated by PMM Horizon when a component is pushed to the linked Google Sheet. Includes Title, Description, Cost Category, Cost Code, Cost Type, Selection Category, Unit, Unit Price, Amount, Allowance, Vendor, Deadline, Instructions, Selections Notes, Scope of Work, PO Date, PO Notes, Group, Image URL, Notes.</p>
+  <p>These appear in the Inspector's Commercial section (read-only). They never get edited or written by Connection.</p>
+  <h3>Layer 4 — Type-specific</h3>
+  <p>Conditional. Only present for specific component types.</p>
+  <p>For walls: Wall Assembly, Interior Finish, Exterior Finish, Fire Rating, STC Rating, Insulation Type, R-Value.</p>
+  <p>For doors: Door Size, Door Material, Frame Material, Handing, Fire Rated, Finish, Hardware Group, Lockset Spec.</p>
+  <p>For windows, floors, roofs, cabinets/fixtures/appliances — see the schema editor or the spec document for full lists.</p>
+  <h3>Naming convention</h3>
+  <p>All keys are Title Case With Spaces. <code>Fire Rating</code>, not <code>fire_rating</code>. The exception: legacy compatibility mirrors (<code>Type</code>, <code>IFCClass</code>) are kept alongside the canonical names so older tooling continues to work.</p>
+  <h3>Validation</h3>
+  <pre><code>inst = Sketchup.active_model.selection.first
+puts inst.attribute_dictionary('PMM').to_a.sort.map {
+  |k, v| "  #{k}: #{v}"
+}</code></pre>
+  <p>Run this in the Ruby Console (Window → Ruby Console) to see every PMM attribute on a selected element.</p>
+  <h3>Visual schema editor</h3>
+  <p>The <strong>Edit PMM Schema…</strong> menu item opens a visual editor for <code>pmm_schema.json</code>. You can add fields, change defaults, modify enum options, mark fields readonly, and reset to defaults. Changes save immediately to the JSON.</p>
+  <p>Universal fields apply to every PMM-tagged element; per-type fields only apply when an element is tagged with that type.</p>
+</section>
+
+<section class="section" id="sec-13">
+  <h2><span class="num">13.</span>Auto-Suggest Patterns</h2>
+  <p>The Tag Design Elements dialog uses these regex patterns (case-insensitive) to suggest a PMM type from element/component names. Patterns are evaluated top to bottom; the first match wins.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Type</th><th>Pattern</th></tr></thead>
+    <tbody>
+      <tr><td>Plumbing Fixture</td><td><code>toilet | lavatory | sink | bidet | urinal</code><br/><code>bath(tub)? | shower | tub</code><br/><code>faucet | tap | shower-head</code></td></tr>
+      <tr><td>Light Fixture</td><td><code>pendant | chandelier | sconce | recessed light</code><br/><code>ceiling light | wall light | track light</code><br/><code>lamp | lantern | lighting | luminaire | fixture</code></td></tr>
+      <tr><td>Built-in Appliance</td><td><code>range | cooktop | wall oven | microwave | vent hood</code><br/><code>dishwasher | refrigerator | fridge | freezer</code><br/><code>wine cooler | washer | dryer | laundry</code></td></tr>
+      <tr><td>Cabinet</td><td><code>cabinet | vanity | cabinetry | millwork | built-in</code></td></tr>
+      <tr><td>Countertop</td><td><code>counter(top)? | island</code></td></tr>
+      <tr><td>Mirror</td><td><code>mirror | vanity-mirror</code></td></tr>
+      <tr><td>Hardware</td><td><code>hardware | knob | pull | hinge</code></td></tr>
+      <tr><td>Fireplace</td><td><code>fireplace | firebox | mantel</code></td></tr>
+      <tr><td>Garage Door</td><td><code>garage.*door | overhead.*door</code></td></tr>
+      <tr><td>Door</td><td><code>door | doorway | entry | entrance</code></td></tr>
+      <tr><td>Skylight</td><td><code>skylight | rooflight</code></td></tr>
+      <tr><td>Window</td><td><code>window | casement | awning | picture-window</code></td></tr>
+      <tr><td>Column</td><td><code>column | post | pillar</code></td></tr>
+      <tr><td>Beam</td><td><code>beam | girder | lintel</code></td></tr>
+      <tr><td>Joist</td><td><code>joist | rafter</code></td></tr>
+      <tr><td>Header</td><td><code>header</code></td></tr>
+      <tr><td>Stair</td><td><code>stair | staircase | step</code></td></tr>
+      <tr><td>Railing</td><td><code>railing | guardrail | balustrade | handrail</code></td></tr>
+      <tr><td>Ramp</td><td><code>ramp</code></td></tr>
+      <tr><td>Wall</td><td><code>wall</code></td></tr>
+      <tr><td>Floor</td><td><code>floor | slab | subfloor</code></td></tr>
+      <tr><td>Ceiling</td><td><code>ceiling</code></td></tr>
+      <tr><td>Roof</td><td><code>roof | roofing</code></td></tr>
+      <tr><td>Foundation</td><td><code>foundation | footing</code></td></tr>
+      <tr><td>Trim</td><td><code>trim | baseboard | crown | casing | molding</code></td></tr>
+      <tr><td>Paneling</td><td><code>paneling | wainscot | shiplap</code></td></tr>
+      <tr><td>Retaining Wall</td><td><code>retaining-wall</code></td></tr>
+      <tr><td>Deck</td><td><code>deck | patio-deck</code></td></tr>
+      <tr><td>Pool</td><td><code>pool | spa</code></td></tr>
+      <tr><td>Landscape</td><td><code>landscape | plant | tree | shrub</code></td></tr>
+      <tr><td>Hardscape</td><td><code>hardscape | paver | walkway | patio</code></td></tr>
+      <tr><td>HVAC Equipment</td><td><code>hvac | ac-unit | furnace | boiler | air-handler</code></td></tr>
+      <tr><td>Ductwork</td><td><code>duct | ductwork</code></td></tr>
+      <tr><td>Piping</td><td><code>pipe | piping | plumbing-pipe</code></td></tr>
+      <tr><td>Electrical Panel</td><td><code>electrical-panel | breaker-panel | sub-panel</code></td></tr>
+      <tr><td>Rug</td><td><code>rug | carpet</code></td></tr>
+      <tr><td>Decor</td><td><code>art | painting | sculpture | vase | accessor(y|ies) | decor</code></td></tr>
+      <tr><td>Furniture</td><td><code>sofa | couch | loveseat | sectional | settee | ottoman | bench</code><br/><code>chair | armchair | stool | seat</code><br/><code>table | desk | nightstand | console | credenza | dresser</code><br/><code>bed | headboard | bedframe | mattress</code><br/><code>bookshelf | bookcase | shelf | shelving | storage</code></td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section class="section" id="sec-14">
+  <h2><span class="num">14.</span>Configuration Files</h2>
+  <p>The plugin stores settings in three JSON files alongside the Ruby code, in the SketchUp plugins directory:</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>File</th><th>What's in it</th><th>Edit how</th></tr></thead>
+    <tbody>
+      <tr><td><code>pmm_schema.json</code></td><td>Per-type field definitions</td><td>Edit PMM Schema… dialog or hand-edit JSON</td></tr>
+      <tr><td><code>pmm_types.json</code></td><td>Friendly type → IFC class registry</td><td>Hand-edit JSON</td></tr>
+      <tr><td><code>pmm_tag_scheme.json</code></td><td>Template + storey overrides + replace preference</td><td>Edit Tag Scheme… dialog</td></tr>
+    </tbody>
+  </table></div>
+  <p>These files are good candidates for sharing across a team:</p>
+  <ul>
+    <li>Copy them between machines to sync conventions</li>
+    <li>Check them into version control for project-specific customizations</li>
+    <li>The same Connection installation reads them from the same path on every restart</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-label">Schema migration</div>
+    <div class="callout-body">When Connection v0.17 loads an older <code>pmm_schema.json</code>, it automatically appends any missing v1.0 universal fields without disturbing your customizations. Existing per-type fields are preserved verbatim.</div>
+  </div>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Four</p>
+  <h2>Practical Notes</h2>
+  <p class="description">Troubleshooting, file locations, and credits.</p>
+</section>
+
+<section class="section" id="sec-15">
+  <h2><span class="num">15.</span>Troubleshooting</h2>
+  <h3>"I don't see the PMM Connection menu after installing"</h3>
+  <ul>
+    <li>Verify SketchUp restarted after the install</li>
+    <li>Extensions → Extension Manager → confirm "PMM Connection" appears as enabled</li>
+    <li>On older SketchUp, the menu lives under Plugins instead of Extensions</li>
+  </ul>
+  <h3>"macOS shows a beach ball during parsing"</h3>
+  <p>This was a real bug in v0.12.6 and earlier. Versions 0.12.7+ explicitly defer parse work after the progress dialog renders, plus pump events between progress updates. If you still see a beach ball:</p>
+  <ul>
+    <li>Update to v0.17.x (latest)</li>
+    <li>Confirm SketchUp 2021 or newer</li>
+    <li>For very large IFC files (&gt;100 MB), expect 1–3 minutes total — no beach ball, but a real wait</li>
+  </ul>
+  <h3>"My tags have GUID names like <code>0$CAhJ5vD9Qv7FNXqwsefA</code>"</h3>
+  <p>Old imports (pre v0.13) created tags from raw element names, which were Revit GlobalIds. Run <strong>Clean Up PMM Tags…</strong> to re-apply your current Tag Scheme to all PMM-tagged elements. Then Tags panel → right-click → Purge Unused to remove the empty old tags.</p>
+  <h3>"Sync IFC says 'No matches' or matches nothing"</h3>
+  <ul>
+    <li>Confirm the IFC file is the actual sidecar of the SKP (same Revit project, exported in the same session)</li>
+    <li>Open the IFC in a viewer to verify it has products</li>
+    <li>The matcher needs at least one of: GlobalId in element name, Revit Element ID in brackets, or close name+position. Highly customized SKPs may need manual review</li>
+  </ul>
+  <h3>"Tag Design Elements shows GUID-named elements"</h3>
+  <p>Architects sometimes deliver SKPs where instance names are GlobalIds even though the underlying ComponentDefinition has a real name. The dialog now prefers definition name over instance name when picking a primary display, and falls back to material + parent path. If a row still shows <code>(unnamed)</code>, use the zoom button to identify the element visually.</p>
+  <h3>"I changed my Tag Scheme but old tags still have the old names"</h3>
+  <p>Tag Scheme changes don't retroactively rename existing tags. Run <strong>Clean Up PMM Tags…</strong> after changing the scheme to apply the new template to everything that's already tagged.</p>
+  <h3>"The Inspector shows '— multiple values —' for a field"</h3>
+  <p>You have a multi-selection where elements disagree on that field's value. Editing the field will write the same new value to all selected elements (it confirms first on the first edit per selection).</p>
+  <h3>"PDF report is blank or missing data"</h3>
+  <ul>
+    <li>Confirm at least one column is selected in the Column picker</li>
+    <li>Ensure your scope (Selection or Full Model) actually contains PMM-tagged elements</li>
+    <li>Check that the Inspector shows data on a sample element first; if Inspector is empty, the report will be too</li>
+  </ul>
+  <h3>Ruby Console for diagnostics</h3>
+  <p>Window → Ruby Console</p>
+  <p>Useful one-liners:</p>
+  <pre><code># What's on the selected element?
+sel = Sketchup.active_model.selection.first
+puts sel.attribute_dictionary('PMM').to_a.sort.map {
+  |k, v| "#{k}: #{v}"
+}
+
+# How many PMM-tagged elements are in the model?
+n = 0
+Sketchup.active_model.entities.each do |ent|
+  next unless ent.is_a?(Sketchup::Group) ||
+              ent.is_a?(Sketchup::ComponentInstance)
+  n += 1 if ent.get_attribute('PMM', 'Component Type', nil)
+end
+puts "PMM-tagged at root: #{n}"
+
+# Schema version
+puts Sketchup.active_model.get_attribute(
+  'PMM Model', 'Schema Version', '(none)')</code></pre>
+</section>
+
+<section class="section" id="sec-16">
+  <h2><span class="num">16.</span>System Requirements &amp; File Locations</h2>
+  <h3>Requirements</h3>
+  <ul>
+    <li>SketchUp 2021 or newer (Pro or Studio; Free/web not supported)</li>
+    <li>macOS or Windows</li>
+    <li>Ruby 2.5+ (built into SketchUp 2021+)</li>
+  </ul>
+  <h3>File locations</h3>
+  <p>The plugin installs to SketchUp's per-user plugins directory.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>OS</th><th>Path</th></tr></thead>
+    <tbody>
+      <tr><td>macOS</td><td><code>~/Library/Application Support/SketchUp 20XX/SketchUp/Plugins/ifc_importer/</code></td></tr>
+      <tr><td>Windows</td><td><code>%APPDATA%\SketchUp\SketchUp 20XX\SketchUp\Plugins\ifc_importer\</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>(Replace 20XX with your SketchUp year version.)</p>
+  <p>Inside that folder:</p>
+  <ul>
+    <li>Ruby modules (<code>*.rb</code>)</li>
+    <li>Configuration JSON files (<code>pmm_schema.json</code>, <code>pmm_types.json</code>, <code>pmm_tag_scheme.json</code>)</li>
+    <li>Brand assets (<code>assets/trilogy_logo.jpg</code>)</li>
+  </ul>
+  <div class="callout">
+    <div class="callout-label">Why the folder is named <code>ifc_importer</code></div>
+    <div class="callout-body">The plugin itself is registered as "PMM Connection" in Extension Manager. The internal folder name <code>ifc_importer</code> is preserved for backwards compatibility — renaming it would orphan saved preferences and break existing installations.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-17">
+  <h2><span class="num">17.</span>Credits</h2>
+  <p>PMM Connection is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p>
+  <ul>
+    <li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li>
+    <li><strong>Implementation</strong> — Claude (Anthropic)</li>
+    <li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li>
+  </ul>
+  <p>This guide and the plugin both follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, and PMM Relay.</p>
+  <p>For schema details, see the PMM Attribute Schema v1.0 specification.</p>
+  <p>PMM Connection User Guide — version matched to plugin <strong>v0.17.1</strong>.</p>
+</section>
+
+<footer class="page-footer">
+  <p>Trilogy Design Intelligence  ·  PMM Connection User Guide  ·  v0.17.1</p>
+  <p class="tagline">Trilogy Partners. Boots on the Ground, Eyes on the Sky.</p>
+</footer>
+
+</main>
+
+<script>
+  function toggleDrawer() {
+    document.querySelector('.drawer').classList.toggle('open');
+    document.querySelector('.drawer-overlay').classList.toggle('show');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelector('.drawer').classList.remove('open');
+      document.querySelector('.drawer-overlay').classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>

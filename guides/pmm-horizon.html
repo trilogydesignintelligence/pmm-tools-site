@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+<title>PMM Horizon — User Guide · Trilogy Design Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Eagle Light';
+  src: url('../assets/fonts/eagle-light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+/* ── Eagle Light retrofit — for cover & display headings ── */
+.cover h2.title,
+.cover h1.title,
+.section > h2,
+.section h2,
+.part-divider h2,
+.pillar-title,
+.flow-step .step-name,
+.guides-table .tool-name {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase;
+}
+.cover-eyebrow,
+.part-divider .label,
+.toc-part,
+.callout-label,
+.cover-header h1.brand .sub,
+.topbar .brand .sub,
+.drawer .drawer-sub,
+.section h2 .num,
+th {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase;
+}
+.section h2 .num {
+  letter-spacing: 0.04em !important;
+  font-style: normal;
+}
+
+  :root {
+    --ink: #2a1a14;
+    --maroon: #6b1f24;
+    --maroon-light: #8a3338;
+    --brass: #b08544;
+    --brass-light: #c9a86a;
+    --cream: #f5efe5;
+    --cream-light: #faf6ec;
+    --paper: #fbf7ed;
+    --stone: #8a847a;
+    --stone-light: #c5beb1;
+    --rule: #d9d1c0;
+    --shadow: rgba(42, 26, 20, 0.08);
+    --shadow-strong: rgba(42, 26, 20, 0.16);
+    --code-bg: #2a1a14;
+    --code-fg: #f5efe5;
+    --code-comment: #9a8b78;
+    --code-keyword: #c9a86a;
+    --code-string: #d4b88a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection { background: var(--brass-light); color: var(--ink); }
+
+  .shell {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 60px var(--shadow);
+    min-height: 100vh;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(245, 239, 229, 0.94);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .topbar .logo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--maroon);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+  }
+  .topbar .logo svg { width: 18px; height: 18px; fill: var(--maroon); }
+  .topbar .brand {
+    font-family: 'Crimson Pro', serif;
+    font-size: 17px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .topbar .brand .sub {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--brass);
+    letter-spacing: 0.22em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .topbar .menu-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 8px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .topbar .menu-btn:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  /* Cover */
+  .cover {
+    padding: 80px 64px 100px;
+    border-bottom: 1px solid var(--rule);
+    background:
+      radial-gradient(ellipse at top right, rgba(176, 133, 68, 0.08), transparent 60%),
+      var(--paper);
+  }
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    color: var(--maroon);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+  .cover-header .logo {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--maroon);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .cover-header .logo svg { width: 30px; height: 30px; fill: var(--maroon); }
+  .cover-header h1.brand {
+    font-family: 'Crimson Pro', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .cover-header h1.brand .sub {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--brass);
+    letter-spacing: 0.28em;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .cover h2.title {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(56px, 9vw, 96px);
+    font-weight: 400;
+    color: var(--maroon);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .cover .subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--brass);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+  .cover-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--brass);
+    margin-bottom: 80px;
+  }
+  .cover .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--stone);
+  }
+  .cover .meta strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .cover-attr {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--stone);
+    margin-top: 200px;
+    line-height: 1.6;
+  }
+
+  /* Sections */
+  .section {
+    padding: 72px 64px 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .part-divider {
+    padding: 80px 64px;
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .part-divider .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--brass);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .part-divider h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 56px;
+    font-weight: 400;
+    color: var(--maroon);
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .part-divider .description {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--stone);
+    max-width: 480px;
+  }
+
+  .section h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: var(--maroon);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .section h2 .num {
+    color: var(--brass);
+    font-style: italic;
+    font-weight: 300;
+    margin-right: 14px;
+  }
+  .section h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--brass);
+    margin: 36px 0 14px;
+  }
+  .section h4 {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin: 28px 0 10px;
+  }
+  .section p {
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .section p.lede {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .section ol, .section ul {
+    margin: 12px 0 18px 0;
+    padding-left: 26px;
+  }
+  .section li { margin-bottom: 10px; }
+  .section ol li::marker {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--maroon);
+    font-size: 14px;
+  }
+
+  /* Inline code */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    background: var(--cream);
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: var(--maroon);
+    border: 1px solid var(--rule);
+    font-weight: 500;
+  }
+
+  /* Code block */
+  pre {
+    background: var(--code-bg);
+    color: var(--code-fg);
+    padding: 18px 22px;
+    margin: 22px 0;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.65;
+    border-left: 3px solid var(--brass);
+  }
+  pre code {
+    background: none;
+    border: none;
+    color: inherit;
+    padding: 0;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  pre .c { color: var(--code-comment); font-style: italic; }
+  pre .k { color: var(--code-keyword); }
+  pre .s { color: var(--code-string); }
+
+  /* Callout */
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--brass);
+    padding: 24px 28px;
+    margin: 28px 0;
+  }
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--maroon);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .callout-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* Tables */
+  .table-wrap {
+    margin: 24px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+  th {
+    background: var(--cream);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child {
+    font-weight: 600;
+    color: var(--maroon);
+  }
+  td code { font-size: 12px; }
+
+  /* Page footer */
+  .page-footer {
+    padding: 36px 64px;
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--stone);
+    letter-spacing: 0.04em;
+  }
+  .page-footer p { margin: 4px 0; }
+  .page-footer .tagline {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--brass);
+    margin-top: 14px;
+  }
+
+  /* TOC */
+  .toc-list { list-style: none; padding: 0; margin: 24px 0; }
+  .toc-part {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    color: var(--maroon);
+    text-transform: uppercase;
+    margin-top: 32px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .toc-part:first-child { margin-top: 0; }
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 17px;
+  }
+  .toc-item:hover { color: var(--maroon); }
+  .toc-item .num {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brass);
+    min-width: 22px;
+  }
+  .toc-item .dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--stone-light);
+    margin-bottom: 4px;
+  }
+  .toc-item .page {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--stone);
+    font-style: italic;
+  }
+
+  /* Drawer */
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    max-width: 86vw;
+    height: 100vh;
+    background: var(--paper);
+    box-shadow: -8px 0 30px var(--shadow-strong);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 24px;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 26, 20, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+  .drawer-overlay.show { opacity: 1; pointer-events: auto; }
+  .drawer h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 22px;
+    color: var(--maroon);
+    margin-bottom: 4px;
+  }
+  .drawer .drawer-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--brass);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .drawer a {
+    display: block;
+    padding: 10px 0;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+  }
+  .drawer a:hover { color: var(--maroon); }
+  .drawer a .num {
+    color: var(--brass);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  .drawer-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: 1px solid var(--rule);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+  }
+  .drawer-close:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  @media (max-width: 720px) {
+    .cover { padding: 60px 28px 70px; }
+    .cover-attr { margin-top: 100px; }
+    .section { padding: 56px 28px 40px; }
+    .section h2 { font-size: 30px; }
+    .part-divider { padding: 60px 28px; }
+    .part-divider h2 { font-size: 38px; }
+    .topbar { padding: 12px 18px; }
+    .topbar .brand { font-size: 14px; }
+    .page-footer { padding: 28px; }
+  }
+
+  @media print {
+    .topbar, .drawer, .drawer-overlay { display: none; }
+    .shell { box-shadow: none; max-width: none; }
+    .section, .part-divider, .cover { page-break-after: always; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">
+    <svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg>
+  </div>
+  <div class="brand">
+    Trilogy Design Intelligence
+    <span class="sub">PMM Tools · User Guide</span>
+  </div>
+  <button class="menu-btn" onclick="toggleDrawer()">Contents</button>
+</header>
+
+<div class="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="drawer">
+  <button class="drawer-close" onclick="toggleDrawer()">×</button>
+  <h3>Contents</h3>
+  <div class="drawer-sub">PMM Horizon</div>
+  <a href="#sec-1" onclick="toggleDrawer()"><span class="num">1</span>What PMM Horizon Does</a>
+  <a href="#sec-2" onclick="toggleDrawer()"><span class="num">2</span>Installation</a>
+  <a href="#sec-3" onclick="toggleDrawer()"><span class="num">3</span>Your First Push</a>
+  <a href="#sec-4" onclick="toggleDrawer()"><span class="num">4</span>Anatomy of a Push</a>
+  <a href="#sec-5" onclick="toggleDrawer()"><span class="num">5</span>The Push Workflow</a>
+  <a href="#sec-6" onclick="toggleDrawer()"><span class="num">6</span>Auto-Push</a>
+  <a href="#sec-7" onclick="toggleDrawer()"><span class="num">7</span>Pull from Sheet</a>
+  <a href="#sec-8" onclick="toggleDrawer()"><span class="num">8</span>Component Info Panel</a>
+  <a href="#sec-9" onclick="toggleDrawer()"><span class="num">9</span>Schema v1.0 Migration</a>
+  <a href="#sec-10" onclick="toggleDrawer()"><span class="num">10</span>Menu Reference</a>
+  <a href="#sec-11" onclick="toggleDrawer()"><span class="num">11</span>Field Schema (v1.0)</a>
+  <a href="#sec-12" onclick="toggleDrawer()"><span class="num">12</span>Sheet Structure</a>
+  <a href="#sec-13" onclick="toggleDrawer()"><span class="num">13</span>Configuration &amp; OAuth</a>
+  <a href="#sec-14" onclick="toggleDrawer()"><span class="num">14</span>Troubleshooting</a>
+  <a href="#sec-15" onclick="toggleDrawer()"><span class="num">15</span>System Requirements</a>
+  <a href="#sec-16" onclick="toggleDrawer()"><span class="num">16</span>Credits</a>
+</aside>
+
+<main class="shell">
+
+<section class="cover">
+  <div class="cover-header">
+    <div class="logo">
+      <svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg>
+    </div>
+    <h1 class="brand">
+      Trilogy Design Intelligence
+      <span class="sub">PMM Tools</span>
+    </h1>
+  </div>
+  <div class="cover-eyebrow">User Guide</div>
+  <h2 class="title">PMM Horizon</h2>
+  <p class="subtitle">Pushing SketchUp to PMM in the Sky.</p>
+  <div class="cover-rule"></div>
+  <p class="meta">Version <strong>0.4.0</strong>  ·  Schema v1.0 aligned</p>
+  <p class="cover-attr">
+    Created by Trilogy Partners using Trilogy Build Intelligence.<br/>
+    Boots on the Ground, Eyes on the Sky.
+  </p>
+</section>
+
+<section class="section">
+  <h2><span class="num">·</span>Contents</h2>
+  <div class="toc-part">Part One — Quick Start</div>
+  <a class="toc-item" href="#sec-1"><span class="num">1</span>What PMM Horizon Does<span class="dots"></span><span class="page">p. 4</span></a>
+  <a class="toc-item" href="#sec-2"><span class="num">2</span>Installation<span class="dots"></span><span class="page">p. 5</span></a>
+  <a class="toc-item" href="#sec-3"><span class="num">3</span>Your First Push<span class="dots"></span><span class="page">p. 6</span></a>
+  <a class="toc-item" href="#sec-4"><span class="num">4</span>Anatomy of a Push<span class="dots"></span><span class="page">p. 9</span></a>
+
+  <div class="toc-part">Part Two — Core Workflows</div>
+  <a class="toc-item" href="#sec-5"><span class="num">5</span>The Push Workflow<span class="dots"></span><span class="page">p. 12</span></a>
+  <a class="toc-item" href="#sec-6"><span class="num">6</span>Auto-Push<span class="dots"></span><span class="page">p. 14</span></a>
+  <a class="toc-item" href="#sec-7"><span class="num">7</span>Pull from Sheet<span class="dots"></span><span class="page">p. 17</span></a>
+  <a class="toc-item" href="#sec-8"><span class="num">8</span>The Component Info Panel<span class="dots"></span><span class="page">p. 19</span></a>
+  <a class="toc-item" href="#sec-9"><span class="num">9</span>Schema v1.0 Migration<span class="dots"></span><span class="page">p. 21</span></a>
+
+  <div class="toc-part">Part Three — Reference</div>
+  <a class="toc-item" href="#sec-10"><span class="num">10</span>Menu Reference<span class="dots"></span><span class="page">p. 25</span></a>
+  <a class="toc-item" href="#sec-11"><span class="num">11</span>Field Schema (v1.0)<span class="dots"></span><span class="page">p. 26</span></a>
+  <a class="toc-item" href="#sec-12"><span class="num">12</span>Sheet Structure<span class="dots"></span><span class="page">p. 30</span></a>
+  <a class="toc-item" href="#sec-13"><span class="num">13</span>Configuration &amp; OAuth<span class="dots"></span><span class="page">p. 32</span></a>
+
+  <div class="toc-part">Part Four — Practical Notes</div>
+  <a class="toc-item" href="#sec-14"><span class="num">14</span>Troubleshooting<span class="dots"></span><span class="page">p. 34</span></a>
+  <a class="toc-item" href="#sec-15"><span class="num">15</span>System Requirements &amp; File Locations<span class="dots"></span><span class="page">p. 37</span></a>
+  <a class="toc-item" href="#sec-16"><span class="num">16</span>Credits<span class="dots"></span><span class="page">p. 38</span></a>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part One</p>
+  <h2>Quick Start</h2>
+  <p class="description">Get installed, link your first project, and push your first components to a Google Sheet.</p>
+</section>
+
+<section class="section" id="sec-1">
+  <h2><span class="num">1.</span>What PMM Horizon Does</h2>
+  <p class="lede">PMM Horizon is a SketchUp extension that connects your model to PMM in the Sky — the project's Google Sheet that serves as canonical truth for every commercial decision (vendors, prices, cost codes, specs).</p>
+
+  <h3>A typical Trilogy project flow</h3>
+  <ol>
+    <li><strong>PMM Connection</strong> ingests the architect's Revit IFC, writes structured PMM data onto SketchUp components.</li>
+    <li>Designers refine the model, tagging additional design elements (furniture, fixtures, decor) via Connection.</li>
+    <li><strong>PMM Horizon</strong> (here) pushes those tagged components to a Google Sheet — one row per component, one tab per Cost Category.</li>
+    <li>Your team edits commercial data (Unit Price, Vendor, Cost Code, Allowance, Deadlines) directly in the Sheet.</li>
+    <li><strong>PMM on the Ground</strong> lets subs view the project on their phones. <strong>PMM Compass</strong> gives admins a rollup dashboard. <strong>PMM Relay</strong> pushes the data to Buildertrend automatically.</li>
+  </ol>
+  <p>PMM Horizon's job is the bridge between SketchUp and the Sheet. It never talks to Buildertrend directly.</p>
+
+  <div class="callout">
+    <div class="callout-label">The Editing Rule</div>
+    <div class="callout-body">Commercial fields (Unit Price, Vendor, Cost Code, Description, etc.) are edited only in the Sheet. Model-owned fields (PMM ID, dimensions, Component Type, Location) are edited only in SketchUp. PMM Horizon enforces this — it pushes model data to the Sheet, and pulls Sheet data into SketchUp for read-only display only.</div>
+  </div>
+
+  <h3>Audience</h3>
+  <p>This guide is for Trilogy designers and external collaborators who push models to project Google Sheets.</p>
+</section>
+
+<section class="section" id="sec-2">
+  <h2><span class="num">2.</span>Installation</h2>
+  <p>You need SketchUp 2021 or newer. The plugin works on macOS and Windows.</p>
+
+  <h3>Install steps</h3>
+  <ol>
+    <li><strong>Extensions → Extension Manager</strong></li>
+    <li>Click <strong>Install Extension…</strong> at the bottom-left</li>
+    <li>Choose <code>pmm_horizon_v0.4.0.rbz</code></li>
+    <li>SketchUp will warn that the extension is not signed by Trimble — click <strong>Yes</strong> to proceed</li>
+    <li>Restart SketchUp</li>
+  </ol>
+  <p>After restart, look for <strong>Extensions → PMM Horizon</strong> in the menu bar. On older SketchUp versions this appears as <strong>Plugins → PMM Horizon</strong>. A PMM Horizon toolbar also appears with quick-access Push, Pull, and Info buttons.</p>
+
+  <h3>Updating</h3>
+  <p>To install a newer version:</p>
+  <ol>
+    <li><strong>Extension Manager</strong> → find the existing PMM Horizon entry</li>
+    <li>Click <strong>Uninstall</strong></li>
+    <li>Restart SketchUp</li>
+    <li>Install the new <code>.rbz</code> (steps 1–5 above)</li>
+  </ol>
+
+  <div class="callout">
+    <div class="callout-label">Tagged data and links are preserved</div>
+    <div class="callout-body">Component PMM attributes survive plugin updates. Project-to-Sheet links (stored on the model itself) are preserved. OAuth tokens (stored in <code>~/.pmm_bridge/</code>) are preserved.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-3">
+  <h2><span class="num">3.</span>Your First Push</h2>
+  <p>The fastest path to seeing PMM Horizon work: link your model to a Google Sheet, push a tagged component, watch the Sheet update.</p>
+
+  <h3>What you need</h3>
+  <ul>
+    <li>A SketchUp model with at least one PMM-tagged component (use PMM Connection or tag manually)</li>
+    <li>A Google account with permission to create or access a Google Sheet</li>
+    <li>The Sheet ID for the project's Google Sheet (or you can create one through the plugin)</li>
+  </ul>
+
+  <h3>Link the model to a Sheet</h3>
+  <ol>
+    <li><strong>Extensions → PMM Horizon → Link to Existing Sheet…</strong> (or <strong>Create New Sheet…</strong> if you don't have one yet)</li>
+    <li>A browser opens for Google OAuth. Sign in with your Trilogy Google account.</li>
+    <li>Approve the requested permissions (Google Sheets and Google Drive access)</li>
+    <li>Back in SketchUp, paste the Sheet ID when prompted</li>
+    <li>The plugin reports success: <em>"Model linked to Sheet 25 Hickory Lane"</em></li>
+  </ol>
+
+  <h3>Run your first push</h3>
+  <ol>
+    <li>Select any PMM-tagged component in your model</li>
+    <li><strong>Extensions → PMM Horizon → Push Selection to Google Sheet</strong></li>
+    <li>The status bar shows <em>PMM Horizon: pushing 1 row(s)…</em></li>
+    <li>Open the Sheet in your browser</li>
+  </ol>
+
+  <p>You should see:</p>
+  <ul>
+    <li>An <code>_Index</code> tab with a row referencing your component's <code>PMM ID</code></li>
+    <li>A <code>_Meta</code> tab with project metadata</li>
+    <li>A category tab named after the component's Cost Category (e.g. <code>06 - Carpentry</code>) with the component's row</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">PMM Horizon writes, it doesn't merge</div>
+    <div class="callout-body">Horizon's push is a structural sync: it adds new components, updates Layer 1 (Identity &amp; Sync) and Layer 2 (Model) fields on existing rows, and preserves Layer 3 (Commercial) fields entirely. Your team's edits to Vendor, Unit Price, etc. are never overwritten by a push.</div>
+  </div>
+
+  <h3>Push the full model</h3>
+  <p>When ready: <strong>Extensions → PMM Horizon → Push to Google Sheet (Full Model)</strong>.</p>
+  <p>This iterates every PMM-tagged component (recursively, into nested groups and components) and writes them to the Sheet. On a 200-component luxury home model, expect 5–15 seconds. Larger models scale linearly.</p>
+</section>
+
+<section class="section" id="sec-4">
+  <h2><span class="num">4.</span>Anatomy of a Push</h2>
+  <p>When PMM Horizon pushes a component, three things happen on the SketchUp side and three things happen on the Sheet side.</p>
+
+  <h3>SketchUp side</h3>
+  <p>For each component being pushed:</p>
+  <ol>
+    <li><strong>Identity stamping.</strong> If the component has no <code>PMM ID</code>, one is generated (RFC 4122 v4 UUID, lowercase, hyphenated). This is one-time and permanent — the ID never changes.</li>
+    <li><strong>Auto-derived field refresh.</strong> <code>Component Name</code>, <code>Length</code>, <code>Width</code>, <code>Height</code>, <code>Instance GUID</code>, and <code>Last Pushed to Sheet</code> are recomputed from the live model.</li>
+    <li><strong>Lazy migration.</strong> If the component still has legacy v0.3.x attributes in the <code>pmm_bridge</code> dictionary, they're auto-copied to the new <code>PMM</code> dictionary using v1.0 Title Case keys. The old data is preserved through v0.5.0 in case rollback is needed.</li>
+  </ol>
+
+  <h3>Sheet side</h3>
+  <ol>
+    <li><strong><code>_Index</code> lookup.</strong> The plugin checks <code>_Index</code> for an existing row matching this <code>PMM ID</code>. If found, it goes to that row in the indicated tab. If not found, a new row is appended to the appropriate Cost Category tab.</li>
+    <li><strong>Selective field write.</strong> Only Layer 1 (Identity &amp; Sync) and Layer 2 (Model) columns are written. Layer 3 (Commercial) columns are left untouched — your team's commercial edits are preserved.</li>
+    <li><strong><code>_Index</code> update.</strong> A new row in <code>_Index</code> is created (or updated) so future pushes find this component fast.</li>
+  </ol>
+
+  <h3>What about deletes?</h3>
+  <p>If you delete a component in SketchUp and run <strong>Push to Google Sheet (Full Model)</strong>, the plugin notices the missing <code>PMM ID</code> and soft-deletes the row by marking <code>status: deleted</code> in <code>_Index</code>. The row's data stays intact — useful for audit trails and easy undo. A future push that finds the component again restores <code>status: active</code>.</p>
+
+  <div class="callout">
+    <div class="callout-label">Two pushes, two undo steps</div>
+    <div class="callout-body">SketchUp-side changes (UUID stamps, attribute migrations) and Sheet-side changes (API writes) are not tied together by SketchUp's undo. If something goes wrong mid-push, the SketchUp-side state can be rolled back via Undo; the Sheet has to be fixed via the Sheet itself or a re-push.</div>
+  </div>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Two</p>
+  <h2>Core Workflows</h2>
+  <p class="description">The five operations that make up day-to-day PMM Horizon use.</p>
+</section>
+
+<section class="section" id="sec-5">
+  <h2><span class="num">5.</span>The Push Workflow</h2>
+  <p>The primary action. Run this whenever you've made model changes you want reflected in the Sheet.</p>
+
+  <h3>When to use</h3>
+  <ul>
+    <li>After tagging new components via PMM Connection</li>
+    <li>After a design revision that changed dimensions or locations</li>
+    <li>Before a client meeting or project review where the Sheet will be referenced</li>
+    <li>Any time you want the Sheet up to date</li>
+  </ul>
+
+  <h3>The two scopes</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Action</th><th>What it pushes</th></tr></thead>
+      <tbody>
+        <tr><td>Push to Google Sheet (Full Model)</td><td>Every PMM-tagged component, recursively</td></tr>
+        <tr><td>Push Selection to Google Sheet</td><td>Only currently-selected components</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Selection mode is faster — use it when you've changed only one or two things and don't want to wait for a full-model push.</p>
+
+  <h3>What gets written</h3>
+  <p>For each component, the push writes these columns to the Sheet:</p>
+  <p><strong>Layer 1 — Identity &amp; Sync.</strong> <code>PMM ID</code>, <code>Last Modified</code>, <code>Last Pushed to Sheet</code>. Other Layer 1 fields (<code>Buildertrend ID</code>, <code>Sync Status</code>, <code>Last Synced</code>) are left for PMM Relay to manage.</p>
+  <p><strong>Layer 2 — Model.</strong> <code>Component Name</code>, <code>Component Type</code>, <code>IFC Class</code>, <code>Instance GUID</code>, <code>Length</code>, <code>Width</code>, <code>Height</code>, <code>Quantity</code>, <code>Location</code>, <code>Storey</code>, <code>Status</code>, <code>Project Phase</code>, <code>Review Notes</code>.</p>
+  <p>It does <em>not</em> write any Layer 3 (Commercial) columns. Those are Sheet-owned.</p>
+
+  <h3>Conflict prevention</h3>
+  <p>What if two designers push the same model at nearly the same time? Each push is a series of Sheet API calls — Google enforces last-write-wins per cell. In practice:</p>
+  <ul>
+    <li>If both designers pushed identical model data, the result is the same regardless of order</li>
+    <li>If they pushed different model data, the second push wins</li>
+    <li>This rarely causes real problems because Layer 2 fields don't usually change rapidly</li>
+  </ul>
+  <p>For coordinated team workflows, use <strong>Auto-Push</strong> (next section) — debouncing reduces concurrent-push collision substantially.</p>
+</section>
+
+<section class="section" id="sec-6">
+  <h2><span class="num">6.</span>Auto-Push</h2>
+  <p>Auto-Push watches your model for changes and pushes them automatically with a 5-second debounce. Set it on at the start of a working session, forget about it, and the Sheet stays continuously up to date.</p>
+
+  <h3>Toggle</h3>
+  <p><strong>Extensions → PMM Horizon → Toggle Auto-Push</strong></p>
+  <p>The menu item shows the current state: ☑ when on, ☐ when off. Toolbar button reflects the same.</p>
+
+  <h3>How it works</h3>
+  <p>When Auto-Push is ON:</p>
+  <ol>
+    <li>PMM Horizon installs a model observer that listens for component changes</li>
+    <li>When a tagged component changes (attribute edit, scale, move, etc.), the change goes into a debounce queue</li>
+    <li>5 seconds after the last change, the queue flushes — all queued changes are pushed in one Sheet API batch</li>
+    <li>The status bar shows <em>PMM Horizon: synced 4 row(s)</em> after each flush</li>
+    <li>Mid-flush failures (network hiccup) silently re-queue — nothing is lost</li>
+  </ol>
+
+  <h3>When to turn it off</h3>
+  <ul>
+    <li>During heavy refactoring where you'll redo many things</li>
+    <li>When your network is unreliable</li>
+    <li>When you want pushes to happen only at known checkpoints</li>
+  </ul>
+
+  <h3>Manual flush</h3>
+  <p><strong>Extensions → PMM Horizon → Flush Auto-Push Queue Now</strong> — forces an immediate push of any pending changes. Useful before disconnecting from the network or closing SketchUp.</p>
+
+  <div class="callout">
+    <div class="callout-label">Auto-Push and version control</div>
+    <div class="callout-body">Auto-Push pushes to the Sheet in real-time. The Sheet itself isn't version-controlled — Google's edit history is the only audit trail. For high-stakes projects where you need explicit checkpoints, turn Auto-Push off and use manual pushes at meaningful milestones.</div>
+  </div>
+
+  <h3>Save-trigger flush</h3>
+  <p>When SketchUp saves the model, a final flush fires automatically. This guarantees that the Sheet reflects everything in the saved <code>.skp</code> — important for handoffs to other team members.</p>
+</section>
+
+<section class="section" id="sec-7">
+  <h2><span class="num">7.</span>Pull from Sheet</h2>
+  <p>The complement to Push. Pull retrieves Sheet data into SketchUp for read-only display.</p>
+
+  <h3>When to use</h3>
+  <ul>
+    <li>Before a project review, to refresh component info with the latest commercial data from the Sheet</li>
+    <li>When a sub asks "what's the price/vendor on this?" and you want to see it in SketchUp</li>
+    <li>After Project Managers have updated allowances or vendors and you want them visible while modeling</li>
+  </ul>
+
+  <h3>Run a pull</h3>
+  <p><strong>Extensions → PMM Horizon → Pull from Sheet</strong></p>
+  <p>The plugin reads the <code>_Index</code> and category tabs of the linked Sheet, and writes Layer 3 (Commercial) values into the <code>PMM</code> dictionary on each component (under the same Title Case keys as in the Sheet).</p>
+  <p>After pulling, the Component Info Panel (Section 8) shows up-to-date commercial data: Unit Price, Vendor, Cost Code, etc.</p>
+
+  <h3>Read-only enforcement</h3>
+  <p>Pull writes to the same <code>PMM</code> dictionary that Connection and Horizon use, but only for Layer 3 fields (<code>Title</code>, <code>Description</code>, <code>Cost Category</code>, <code>Cost Code</code>, <code>Cost Type</code>, <code>Selection Category</code>, <code>Unit</code>, <code>Unit Price</code>, <code>Amount</code>, <code>Allowance</code>, <code>Vendor</code>, <code>Deadline</code>, <code>Instructions</code>, <code>Selections Notes</code>, <code>Scope of Work</code>, <code>PO Date</code>, <code>PO Notes</code>, <code>Group</code>, <code>Image URL</code>, <code>Notes</code>).</p>
+  <p>The plugin's <code>AttrReader</code> module enforces that Layer 3 fields are never written by user actions — only by Pull. So if a designer accidentally types a price into Entity Info, the next Pull will overwrite it with the Sheet's authoritative value. The Sheet always wins for Layer 3.</p>
+
+  <h3>What about stale data?</h3>
+  <p>Pulled values are a snapshot at pull time. If a Project Manager updates the Sheet 5 minutes after your pull, your SketchUp won't know until the next pull. For continuously-fresh data, run pulls before each work session, or set up a scheduled pull (advanced — see Configuration).</p>
+</section>
+
+<section class="section" id="sec-8">
+  <h2><span class="num">8.</span>The Component Info Panel</h2>
+  <p>A live, dockable panel that shows full PMM data for the selected component. Read-only — view only, no editing.</p>
+
+  <h3>Open</h3>
+  <p><strong>Extensions → PMM Horizon → Show Component Info Panel</strong> (or the toolbar Info button)</p>
+  <p>The panel docks beside the model viewport. It updates as you change selection.</p>
+
+  <h3>What it shows</h3>
+  <p>The panel is organized into the four PMM Schema v1.0 layers:</p>
+  <ul>
+    <li><strong>Identity &amp; Sync</strong> (top): <code>PMM ID</code>, <code>Last Modified</code>, <code>Last Pushed to Sheet</code>, <code>Sync Status</code>, <code>Buildertrend ID</code>. Indicates whether this component has reached BT yet.</li>
+    <li><strong>Model:</strong> <code>Component Type</code>, <code>Component Name</code>, dimensions, <code>Location</code>, <code>Storey</code>, <code>Status</code>, <code>Project Phase</code>. The structural facts about this component.</li>
+    <li><strong>Commercial:</strong> <code>Title</code>, <code>Cost Category</code>, <code>Cost Code</code>, <code>Cost Type</code>, <code>Selection Category</code>, <code>Unit</code>, <code>Unit Price</code>, <code>Amount</code>, <code>Allowance</code>, <code>Vendor</code>, <code>Deadline</code>, etc. Pulled from the Sheet.</li>
+    <li><strong>Type-specific</strong> (when present): For walls — <code>Wall Assembly</code>, <code>Fire Rating</code>, <code>R-Value</code>. For doors — <code>Door Material</code>, <code>Handing</code>, <code>Hardware Group</code>. Etc. Set in PMM Connection's Inspector; displayed read-only here.</li>
+  </ul>
+
+  <h3>When the Commercial section is empty</h3>
+  <p>If a component has been pushed to the Sheet but never pulled back, Commercial fields show "Pull from Sheet to populate". After a pull, they fill in.</p>
+  <p>If the component has never been pushed, Commercial fields show "This component has not been pushed yet".</p>
+
+  <h3>Multi-selection</h3>
+  <p>Select more than one component: the panel shows fields all share, with "— mixed values —" where they disagree. Use this to spot inconsistencies (e.g. "two cabinets from the same vendor have different Cost Codes").</p>
+</section>
+
+<section class="section" id="sec-9">
+  <h2><span class="num">9.</span>Schema v1.0 Migration</h2>
+  <p>In v0.4.0, PMM Horizon adopts <strong>PMM Attribute Schema v1.0</strong> — the unified contract shared with PMM Connection, Compass, on the Ground, Bridge, and Relay. Existing models on older schemas can migrate automatically.</p>
+
+  <h3>What changed</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Before (v0.3.x)</th><th>After (v1.0)</th></tr></thead>
+      <tbody>
+        <tr><td>Multiple dictionaries: <code>pmm_bridge</code>, <code>pmm_bridge_sheet</code></td><td>Single dictionary: <code>PMM</code></td></tr>
+        <tr><td>snake_case keys: <code>pmm_uuid</code>, <code>cost_category</code></td><td>Title Case keys: <code>PMM ID</code>, <code>Cost Category</code></td></tr>
+        <tr><td>Sheet column headers in snake_case</td><td>Sheet column headers in Title Case</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Lazy migration (automatic)</h3>
+  <p>When v0.4.0 reads a component that has legacy v0.3.x data:</p>
+  <ol>
+    <li>The data is auto-copied to the new <code>PMM</code> dictionary with v1.0 keys</li>
+    <li>The original <code>pmm_bridge</code> data is preserved in place (not deleted) through v0.5.0</li>
+    <li>The component is now Schema v1.0 conformant</li>
+  </ol>
+  <p>This happens silently the first time the component is touched (selected, pushed, pulled, displayed). No user action needed.</p>
+
+  <h3>Eager migration (manual)</h3>
+  <p>To migrate an entire model at once:</p>
+  <p><strong>Extensions → PMM Horizon → Migrate Model to Schema v1.0</strong></p>
+  <p>A confirmation dialog shows you:</p>
+  <ul>
+    <li>Total components scanned</li>
+    <li>Already on v1.0</li>
+    <li>Need migration</li>
+  </ul>
+  <p>Proceed, and every component is migrated in one undo step. Safe to run multiple times — already-migrated components are skipped.</p>
+
+  <h3>Sheet header migration</h3>
+  <p>Existing project Sheets have snake_case column headers (<code>pmm_uuid</code>, <code>cost_category</code>). To upgrade them to Title Case:</p>
+  <p><strong>Extensions → PMM Horizon → Migrate Linked Sheet to Schema v1.0</strong></p>
+  <p>This rewrites column headers in every category tab. Data rows are not touched. The <code>_Index</code> tab keeps its snake_case headers per the spec (internal plumbing).</p>
+
+  <div class="callout">
+    <div class="callout-label">Migration Timeline</div>
+    <div class="callout-body"><strong>v0.4.x (current)</strong> — both legacy and v1.0 data work side by side. Lazy migration on touch.<br/><strong>v0.5.0 (future)</strong> — legacy data removal. Run eager migration before upgrading to v0.5.0.<br/><strong>v1.0 (future)</strong> — v1.0 schema only.<br/>Always run Migrate Model and Migrate Linked Sheet before upgrading to v0.5.0.</div>
+  </div>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Three</p>
+  <h2>Reference</h2>
+  <p class="description">Menus, the PMM Schema v1.0 layers, and configuration locations.</p>
+</section>
+
+<section class="section" id="sec-10">
+  <h2><span class="num">10.</span>Menu Reference</h2>
+  <p>All items live under <strong>Extensions → PMM Horizon</strong> (or <strong>Plugins</strong> on older SketchUp).</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Menu Item</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td>Push to Google Sheet (Full Model)</td><td>Push every PMM-tagged component to the linked Sheet</td></tr>
+        <tr><td>Push Selection to Google Sheet</td><td>Push only the current selection</td></tr>
+        <tr><td>Pull from Sheet</td><td>Refresh Layer 3 (Commercial) fields from Sheet to model</td></tr>
+        <tr><td>Toggle Auto-Push</td><td>Enable/disable automatic push on model change (5s debounce)</td></tr>
+        <tr><td>Flush Auto-Push Queue Now</td><td>Force immediate push of pending changes</td></tr>
+        <tr><td>Show Component Info Panel</td><td>Open the live read-only attribute viewer</td></tr>
+        <tr><td>Open Linked Sheet in Browser</td><td>Convenience: opens the Sheet in your browser</td></tr>
+        <tr><td>Link to Existing Sheet…</td><td>Bind this model to an existing Google Sheet by ID</td></tr>
+        <tr><td>Create New Sheet…</td><td>Auto-create a new Sheet, scaffold tabs, link the model</td></tr>
+        <tr><td>Unlink Sheet from This Model</td><td>Remove the link (does not delete the Sheet)</td></tr>
+        <tr><td>Show Link Status</td><td>Display the linked Sheet's name and ID</td></tr>
+        <tr><td>Stamp UUIDs on All Components</td><td>Pre-stamp PMM IDs on every PMM-tagged component without one</td></tr>
+        <tr><td>Audit Missing UUIDs</td><td>Report on tagged components missing a PMM ID</td></tr>
+        <tr><td>Migrate Model to Schema v1.0</td><td>One-time: migrate every component's legacy attrs to v1.0</td></tr>
+        <tr><td>Migrate Linked Sheet to Schema v1.0</td><td>One-time: rewrite Sheet column headers to Title Case</td></tr>
+        <tr><td>Sign Out of Google</td><td>Clear OAuth tokens; next push will require re-auth</td></tr>
+        <tr><td>About PMM Horizon</td><td>Version, attribution, companion-app references</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Toolbar</h3>
+  <p>The PMM Horizon toolbar includes quick-access buttons for Push, Pull, and Show Component Info Panel. Drag the toolbar to dock it where convenient.</p>
+</section>
+
+<section class="section" id="sec-11">
+  <h2><span class="num">11.</span>Field Schema (v1.0)</h2>
+  <p>PMM Horizon conforms to PMM Attribute Schema v1.0. Field details below; see <code>PMM_ATTRIBUTE_SCHEMA_v1.md</code> for the full canonical contract.</p>
+  <p>All PMM attributes live in a single dictionary: <code>PMM</code>.</p>
+
+  <h3>Layer 1 — Identity &amp; Sync</h3>
+  <p>Universal. Auto-managed.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Field</th><th>Owner</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>PMM ID</td><td>Plugin (set once)</td><td>UUID v4. Stable forever.</td></tr>
+        <tr><td>Buildertrend ID</td><td>Relay</td><td>Set after first BT push</td></tr>
+        <tr><td>Sync Status</td><td>Relay</td><td>Not Synced / Pushed / Pulled / Modified / Conflict</td></tr>
+        <tr><td>Last Modified</td><td>Plugin</td><td>ISO timestamp, last edit</td></tr>
+        <tr><td>Last Synced</td><td>Relay</td><td>ISO timestamp, last BT round-trip</td></tr>
+        <tr><td>Last Pushed to Sheet</td><td>Horizon</td><td>ISO timestamp, last Sheet push</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>PMM Horizon writes <code>PMM ID</code>, <code>Last Modified</code>, <code>Last Pushed to Sheet</code>. Other Layer 1 fields are managed by Relay and read-only here.</p>
+
+  <h3>Layer 2 — Model</h3>
+  <p>Universal. Some auto-derived, some user-editable via Connection.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Field</th><th>Owner</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>Component Name</td><td>Plugin (auto)</td><td>SketchUp definition name</td></tr>
+        <tr><td>Component Type</td><td>Plugin (user)</td><td>Friendly type ("Wall", "Door")</td></tr>
+        <tr><td>IFC Class</td><td>Plugin (auto)</td><td>IFC class (<code>IFCWALL</code>)</td></tr>
+        <tr><td>Instance GUID</td><td>Plugin (auto)</td><td>SketchUp internal GUID</td></tr>
+        <tr><td>Length</td><td>Plugin (auto)</td><td>Bounding box, decimal inches</td></tr>
+        <tr><td>Width</td><td>Plugin (auto)</td><td>Bounding box, decimal inches</td></tr>
+        <tr><td>Height</td><td>Plugin (auto)</td><td>Bounding box, decimal inches</td></tr>
+        <tr><td>Quantity</td><td>Plugin (user)</td><td>Default 1</td></tr>
+        <tr><td>Location</td><td>Plugin (user)</td><td>Room/space tag</td></tr>
+        <tr><td>Storey</td><td>Plugin (user)</td><td>"1", "2", "B", "R", etc.</td></tr>
+        <tr><td>Status</td><td>Plugin (user)</td><td>Concept / Approved / Construction / etc.</td></tr>
+        <tr><td>Project Phase</td><td>Plugin (user)</td><td>SD / DD / CDs / etc.</td></tr>
+        <tr><td>Review Notes</td><td>Plugin (user)</td><td>Free-form designer notes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <div class="callout-label">Auto-refresh on every push</div>
+    <div class="callout-body"><code>Component Name</code>, <code>Instance GUID</code>, <code>Length</code>, <code>Width</code>, <code>Height</code> auto-refresh on every push, so they stay in sync with the live model. Don't try to set them manually.</div>
+  </div>
+
+  <h3>Layer 3 — Commercial</h3>
+  <p>Universal. Sheet-owned. PMM Horizon reads only, via Pull.</p>
+  <p>20 fields including <code>Title</code>, <code>Description</code>, <code>Cost Category</code>, <code>Cost Code</code>, <code>Cost Type</code>, <code>Selection Category</code>, <code>Unit</code>, <code>Unit Price</code>, <code>Amount</code>, <code>Allowance</code>, <code>Vendor</code>, <code>Deadline</code>, <code>Instructions</code>, <code>Selections Notes</code>, <code>Scope of Work</code>, <code>PO Date</code>, <code>PO Notes</code>, <code>Group</code>, <code>Image URL</code>, <code>Notes</code>.</p>
+
+  <h3>Layer 4 — Type-specific</h3>
+  <p>Conditional. Set by PMM Connection's Inspector. PMM Horizon pushes them to the Sheet (in their respective columns) but doesn't edit them.</p>
+  <p>For walls: <code>Wall Assembly</code>, <code>Interior Finish</code>, <code>Exterior Finish</code>, <code>Fire Rating</code>, <code>STC Rating</code>, <code>Insulation Type</code>, <code>R-Value</code>. For doors: <code>Door Size</code>, <code>Door Material</code>, <code>Frame Material</code>, <code>Handing</code>, <code>Fire Rated</code>, <code>Finish</code>, <code>Hardware Group</code>, <code>Lockset Spec</code>. See the schema editor in PMM Connection or the spec document for full lists.</p>
+
+  <h3>Naming convention</h3>
+  <p>All keys are Title Case With Spaces. <code>Fire Rating</code>, not <code>fire_rating</code>. The exception: legacy compatibility mirrors are kept alongside canonical names so older tooling continues to work through v0.5.0.</p>
+
+  <h3>Validation</h3>
+<pre><span class="k">inst</span> = Sketchup.active_model.selection.first
+puts inst.attribute_dictionary(<span class="s">'PMM'</span>).to_a.sort.map {
+ |k, v| <span class="s">" #{k}: #{v}"</span>
+}</pre>
+  <p>Run this in the Ruby Console (<strong>Window → Ruby Console</strong>) to see every PMM attribute on a selected component.</p>
+</section>
+
+<section class="section" id="sec-12">
+  <h2><span class="num">12.</span>Sheet Structure</h2>
+  <p>When PMM Horizon creates or links to a project Sheet, the structure is:</p>
+
+  <h3>_Index tab</h3>
+  <p>The lookup table. One row per PMM-tagged component, internal plumbing:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Column</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td>pmm_uuid</td><td>Component's <code>PMM ID</code></td></tr>
+        <tr><td>component_name</td><td>For human readability</td></tr>
+        <tr><td>tab_name</td><td>Which category tab holds the data row</td></tr>
+        <tr><td>row_number</td><td>Row index in that tab</td></tr>
+        <tr><td>cost_category</td><td>Redundant with <code>tab_name</code>, useful for filtering</td></tr>
+        <tr><td>status</td><td><code>active</code> or <code>deleted</code> (soft-delete flag)</td></tr>
+        <tr><td>first_seen_at</td><td>ISO timestamp</td></tr>
+        <tr><td>last_updated_at</td><td>ISO timestamp</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The <code>_Index</code> tab uses snake_case column headers (per spec §8 — internal plumbing).</p>
+
+  <h3>_Meta tab</h3>
+  <p>Two-column key/value pairs:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Key</th><th>Value Example</th></tr></thead>
+      <tbody>
+        <tr><td>project_name</td><td>"25 Hickory Lane"</td></tr>
+        <tr><td>bt_job_id</td><td>(set when Relay first pushes to BT)</td></tr>
+        <tr><td>schema_version</td><td>1.0</td></tr>
+        <tr><td>created_at</td><td>ISO timestamp</td></tr>
+        <tr><td>created_by</td><td>"PMM Horizon"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Category tabs</h3>
+  <p>One per Cost Category in your model. Tab name matches the <code>Cost Category</code> field exactly: <code>06 - Carpentry</code>, <code>26 - Electrical</code>, etc. Each row represents one component. Column headers are Title Case (<code>PMM ID</code>, <code>Component Name</code>, <code>Cost Code</code>, <code>Unit Price</code>, etc.).</p>
+  <p>Components without a Cost Category value go to a special <code>_Uncategorized</code> tab.</p>
+
+  <h3>Moving components between tabs</h3>
+  <p>If you change a component's <code>Cost Category</code> in SketchUp and re-push, the row moves between tabs automatically. The plugin handles delete-from-old-tab + insert-into-new-tab as one atomic operation.</p>
+</section>
+
+<section class="section" id="sec-13">
+  <h2><span class="num">13.</span>Configuration &amp; OAuth</h2>
+
+  <h3>OAuth Client ID</h3>
+  <p>PMM Horizon uses OAuth 2.0 with PKCE (no client secret needed). The Trilogy production Client ID is baked into the plugin code at <code>pmm_bridge_exporter/sheets_sync.rb</code>:</p>
+<pre>436975636819-rd7s1lfjc4rl73i8ted6ojv9n7gmfiik.apps.googleusercontent.com</pre>
+  <p>For testing/dev, override with the env var <code>PMM_DRIVE_CLIENT_ID</code>.</p>
+
+  <h3>Token storage</h3>
+  <p>OAuth refresh tokens are stored at:</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>OS</th><th>Path</th></tr></thead>
+      <tbody>
+        <tr><td>macOS</td><td><code>~/.pmm_bridge/drive_token.json</code></td></tr>
+        <tr><td>Windows</td><td><code>%USERPROFILE%\.pmm_bridge\drive_token.json</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Delete this file to force re-authentication.</p>
+
+  <h3>Project link storage</h3>
+  <p>The link between a SketchUp model and its Google Sheet is stored as a model-level attribute (in the model's <code>pmm_horizon_link</code> dictionary). The link travels with the <code>.skp</code> file — share the file, and the recipient's PMM Horizon can push to the same Sheet (assuming they have OAuth access).</p>
+
+  <h3>Per-team config</h3>
+  <p>For shared workflows, the OAuth Client ID and (rarely) custom scopes can be customized in <code>sheets_sync.rb</code>. This is rare — the defaults work for almost all installations.</p>
+</section>
+
+<section class="part-divider">
+  <p class="label">Part Four</p>
+  <h2>Practical Notes</h2>
+  <p class="description">Troubleshooting, file locations, and credits.</p>
+</section>
+
+<section class="section" id="sec-14">
+  <h2><span class="num">14.</span>Troubleshooting</h2>
+
+  <h3>"I don't see the PMM Horizon menu after installing"</h3>
+  <ul>
+    <li>Verify SketchUp restarted after the install</li>
+    <li><strong>Extensions → Extension Manager</strong> → confirm "PMM Horizon" appears as enabled</li>
+    <li>On older SketchUp versions, the menu lives under <strong>Plugins</strong> instead of <strong>Extensions</strong></li>
+  </ul>
+
+  <h3>"The OAuth browser window doesn't appear when I try to push"</h3>
+  <ul>
+    <li>Verify your browser isn't blocking the redirect to <code>localhost</code></li>
+    <li>Try <strong>Sign Out of Google</strong> then re-attempt — sometimes a stale token gets in the way</li>
+    <li>Check firewall isn't blocking SketchUp's outbound HTTPS</li>
+  </ul>
+
+  <h3>"OAuth completes but the plugin says 'Permission denied'"</h3>
+  <p>This means the OAuth succeeded but the Sheet itself isn't shared with you (or with the OAuth account you used).</p>
+  <ul>
+    <li>Confirm the Sheet's owner has shared it with you (Editor permissions)</li>
+    <li>Re-link the model with the correct Sheet ID</li>
+  </ul>
+
+  <h3>"Push fails with 'Quota exceeded'"</h3>
+  <p>Google enforces 300 reads/min and 60 writes/min per Sheet. On a model with thousands of components, the first push may run up against the write quota.</p>
+  <ul>
+    <li>Wait 60 seconds, run <strong>Flush Auto-Push Queue Now</strong></li>
+    <li>For very large models, push in batches via <strong>Push Selection</strong> instead of full-model</li>
+  </ul>
+
+  <h3>"I see legacy snake_case column headers in my Sheet"</h3>
+  <p>Run <strong>Extensions → PMM Horizon → Migrate Linked Sheet to Schema v1.0</strong>. The data rows are unchanged; only column headers update.</p>
+
+  <h3>"Auto-Push isn't pushing changes"</h3>
+  <ul>
+    <li>Verify Auto-Push is ON: <strong>Extensions → PMM Horizon → Toggle Auto-Push</strong> should show ☑</li>
+    <li>Check the status bar — it logs <em>PMM Horizon: synced N row(s)</em> after each flush</li>
+    <li>The 5-second debounce means changes aren't pushed instantly — wait at least 5 seconds after your last edit</li>
+    <li><strong>Flush Auto-Push Queue Now</strong> forces an immediate push if you don't want to wait</li>
+  </ul>
+
+  <h3>"I tagged a component but it didn't get pushed"</h3>
+  <ul>
+    <li>Verify the component has <code>Component Type</code> set</li>
+    <li>Verify it's a <code>ComponentInstance</code>, not a Group — Groups don't carry component-level PMM attributes</li>
+    <li>Run <strong>Audit Missing UUIDs</strong> to see which tagged components are missing a <code>PMM ID</code></li>
+  </ul>
+
+  <h3>"I deleted a component in SketchUp but its row is still in the Sheet"</h3>
+  <p>That's by design — soft delete. Run <strong>Push to Google Sheet (Full Model)</strong>; the plugin will detect the missing component and mark its <code>_Index</code> row <code>status: deleted</code>. The row data stays for audit; no data loss.</p>
+  <p>To purge soft-deleted rows from the Sheet, do it manually in Google Sheets — the plugin doesn't auto-purge.</p>
+
+  <h3>"Two designers pushed the model at the same time and the Sheet looks weird"</h3>
+  <p>Last write wins per cell. Re-push from one designer's machine to restore consistency.</p>
+
+  <h3>"I want to roll back to the previous Schema before migration"</h3>
+  <p>If you ran <strong>Migrate Model to Schema v1.0</strong> and want to undo:</p>
+  <ul>
+    <li>One immediate Undo (Cmd-Z / Ctrl-Z) reverts the migration</li>
+    <li>After saving and reopening the file, undo no longer works — but legacy <code>pmm_bridge</code> data is still preserved through v0.5.0, so re-running with an older plugin version works</li>
+  </ul>
+
+  <h3>Ruby Console diagnostics</h3>
+  <p><strong>Window → Ruby Console</strong></p>
+  <p>Useful one-liners:</p>
+<pre><span class="c"># What's on the selected component?</span>
+sel = Sketchup.active_model.selection.first
+puts sel.attribute_dictionary(<span class="s">'PMM'</span>).to_a.sort.map {
+ |k, v| <span class="s">"#{k}: #{v}"</span>
+}
+
+<span class="c"># How many PMM-tagged components are in this model?</span>
+n = 0
+Sketchup.active_model.entities.each do |ent|
+ next unless ent.is_a?(Sketchup::ComponentInstance)
+ n += 1 <span class="k">if</span> ent.get_attribute(<span class="s">'PMM'</span>, <span class="s">'Component Type'</span>, nil)
+end
+puts <span class="s">"PMM-tagged at root: #{n}"</span>
+
+<span class="c"># Schema version of this model</span>
+puts Sketchup.active_model.get_attribute(
+ <span class="s">'pmm_horizon_link'</span>, <span class="s">'schema_version'</span>, <span class="s">'(none)'</span>)
+
+<span class="c"># Linked Sheet ID</span>
+puts Sketchup.active_model.get_attribute(
+ <span class="s">'pmm_horizon_link'</span>, <span class="s">'sheet_id'</span>, <span class="s">'(not linked)'</span>)</pre>
+</section>
+
+<section class="section" id="sec-15">
+  <h2><span class="num">15.</span>System Requirements &amp; File Locations</h2>
+
+  <h3>Requirements</h3>
+  <ul>
+    <li>SketchUp 2021 or newer (Pro or Studio; Free/web not supported)</li>
+    <li>macOS or Windows</li>
+    <li>Ruby 2.5+ (built into SketchUp 2021+)</li>
+    <li>Internet connection for Sheet sync</li>
+  </ul>
+
+  <h3>File locations</h3>
+  <p>The plugin installs to SketchUp's per-user plugins directory.</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>OS</th><th>Path</th></tr></thead>
+      <tbody>
+        <tr><td>macOS</td><td><code>~/Library/Application Support/SketchUp 20XX/SketchUp/Plugins/pmm_bridge_exporter/</code></td></tr>
+        <tr><td>Windows</td><td><code>%APPDATA%\SketchUp\SketchUp 20XX\SketchUp\Plugins\pmm_bridge_exporter\</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>(Replace <code>20XX</code> with your SketchUp year version.)</p>
+  <p>OAuth tokens at <code>~/.pmm_bridge/drive_token.json</code> (both OS).</p>
+
+  <div class="callout">
+    <div class="callout-label">Why the folder is named pmm_bridge_exporter</div>
+    <div class="callout-body">The plugin is registered as "PMM Horizon" in Extension Manager. The internal folder name <code>pmm_bridge_exporter</code> is preserved for backwards compatibility — renaming it would orphan saved preferences and break existing installations.</div>
+  </div>
+
+  <h3>Inside that folder</h3>
+  <ul>
+    <li>Ruby modules (<code>*.rb</code>) — the plugin code</li>
+    <li><code>oauth_config.rb</code> — local override for OAuth Client ID (optional)</li>
+    <li><code>assets/</code> — branded UI assets</li>
+  </ul>
+  <p>No data files are stored in the plugin directory. PMM data lives on components in the <code>.skp</code> file. OAuth tokens live in the user home directory.</p>
+</section>
+
+<section class="section" id="sec-16">
+  <h2><span class="num">16.</span>Credits</h2>
+  <p>PMM Horizon is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p>
+  <ul>
+    <li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li>
+    <li><strong>Implementation</strong> — Claude (Anthropic)</li>
+    <li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li>
+  </ul>
+  <p>This guide and the plugin both follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, and PMM Relay.</p>
+  <p>For schema details, see the PMM Attribute Schema v1.0 specification.</p>
+  <p>PMM Horizon User Guide — version matched to plugin <strong>v0.4.0</strong>.</p>
+</section>
+
+<footer class="page-footer">
+  <p>Trilogy Design Intelligence  ·  PMM Horizon User Guide  ·  v0.4.0</p>
+  <p class="tagline">Trilogy Partners. Boots on the Ground, Eyes on the Sky.</p>
+</footer>
+
+</main>
+
+<script>
+  function toggleDrawer() {
+    document.querySelector('.drawer').classList.toggle('open');
+    document.querySelector('.drawer-overlay').classList.toggle('show');
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelector('.drawer').classList.remove('open');
+      document.querySelector('.drawer-overlay').classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>

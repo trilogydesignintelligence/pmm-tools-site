@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+<title>PMM on the Ground — User Guide · Trilogy Design Intelligence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Eagle Light';
+  src: url('../assets/fonts/eagle-light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+/* ── Eagle Light retrofit — for cover & display headings ── */
+.cover h2.title,
+.cover h1.title,
+.section > h2,
+.section h2,
+.part-divider h2,
+.pillar-title,
+.flow-step .step-name,
+.guides-table .tool-name {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.03em !important;
+  text-transform: uppercase;
+}
+.cover-eyebrow,
+.part-divider .label,
+.toc-part,
+.callout-label,
+.cover-header h1.brand .sub,
+.topbar .brand .sub,
+.drawer .drawer-sub,
+.section h2 .num,
+th {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Arial Narrow', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.22em !important;
+  text-transform: uppercase;
+}
+.section h2 .num {
+  letter-spacing: 0.04em !important;
+  font-style: normal;
+}
+
+  :root {
+    --ink: #2a1a14;
+    --maroon: #6b1f24;
+    --maroon-light: #8a3338;
+    --brass: #b08544;
+    --brass-light: #c9a86a;
+    --cream: #f5efe5;
+    --cream-light: #faf6ec;
+    --paper: #fbf7ed;
+    --stone: #8a847a;
+    --stone-light: #c5beb1;
+    --rule: #d9d1c0;
+    --shadow: rgba(42, 26, 20, 0.08);
+    --shadow-strong: rgba(42, 26, 20, 0.16);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Crimson Pro', Georgia, 'Times New Roman', serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection { background: var(--brass-light); color: var(--ink); }
+
+  /* ── Layout shell ────────────────────────────────────────────── */
+  .shell {
+    max-width: 880px;
+    margin: 0 auto;
+    background: var(--paper);
+    box-shadow: 0 0 60px var(--shadow);
+    min-height: 100vh;
+  }
+
+  /* ── Header band ─────────────────────────────────────────────── */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--cream);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: rgba(245, 239, 229, 0.94);
+  }
+  .topbar .logo {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border: 1.5px solid var(--maroon);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--paper);
+  }
+  .topbar .logo svg {
+    width: 18px;
+    height: 18px;
+    fill: var(--maroon);
+  }
+  .topbar .brand {
+    font-family: 'Crimson Pro', serif;
+    font-size: 17px;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .topbar .brand .sub {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--brass);
+    letter-spacing: 0.22em;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+  .topbar .menu-btn {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--rule);
+    color: var(--ink);
+    padding: 8px 14px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .topbar .menu-btn:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  /* ── Cover page ──────────────────────────────────────────────── */
+  .cover {
+    padding: 80px 64px 100px;
+    border-bottom: 1px solid var(--rule);
+    background:
+      radial-gradient(ellipse at top right, rgba(176, 133, 68, 0.08), transparent 60%),
+      var(--paper);
+  }
+  .cover-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    color: var(--maroon);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .cover-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 80px;
+  }
+  .cover-header .logo {
+    width: 56px;
+    height: 56px;
+    border: 2px solid var(--maroon);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .cover-header .logo svg {
+    width: 30px;
+    height: 30px;
+    fill: var(--maroon);
+  }
+  .cover-header h1.brand {
+    font-family: 'Crimson Pro', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.05;
+  }
+  .cover-header h1.brand .sub {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--brass);
+    letter-spacing: 0.28em;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+  .cover h2.title {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(56px, 9vw, 96px);
+    font-weight: 400;
+    color: var(--maroon);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .cover h1 {
+    font-family: 'Crimson Pro', serif;
+    font-size: clamp(56px, 9vw, 96px);
+    font-weight: 400;
+    color: var(--maroon);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .cover .subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: clamp(20px, 3vw, 26px);
+    color: var(--brass);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+  .cover-rule {
+    width: 60px;
+    height: 2px;
+    background: var(--brass);
+    margin-bottom: 80px;
+  }
+  .cover .meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--stone);
+    letter-spacing: 0.02em;
+  }
+  .cover .meta strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .cover-attr {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--stone);
+    margin-top: 200px;
+    line-height: 1.6;
+  }
+
+  /* ── Section pages ───────────────────────────────────────────── */
+  .section {
+    padding: 72px 64px 56px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+  }
+  .section:last-child { border-bottom: none; }
+
+  .part-divider {
+    padding: 80px 64px;
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+  }
+  .part-divider .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    color: var(--brass);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .part-divider h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 56px;
+    font-weight: 400;
+    color: var(--maroon);
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .part-divider .description {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--stone);
+    max-width: 480px;
+  }
+
+  .section h2 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 40px;
+    font-weight: 400;
+    color: var(--maroon);
+    margin-bottom: 28px;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .section h2 .num {
+    color: var(--brass);
+    font-style: italic;
+    font-weight: 300;
+    margin-right: 14px;
+  }
+  .section h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 22px;
+    font-weight: 500;
+    font-style: italic;
+    color: var(--brass);
+    margin: 36px 0 14px;
+  }
+  .section p {
+    margin-bottom: 16px;
+    color: var(--ink);
+  }
+  .section p.lede {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .section ol, .section ul {
+    margin: 12px 0 18px 0;
+    padding-left: 26px;
+  }
+  .section li {
+    margin-bottom: 10px;
+  }
+  .section ol li::marker {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: var(--maroon);
+    font-size: 14px;
+  }
+
+  /* ── Code & inline elements ──────────────────────────────────── */
+  code {
+    font-family: 'Inter', monospace;
+    font-size: 13px;
+    background: var(--cream);
+    padding: 2px 7px;
+    border-radius: 3px;
+    color: var(--maroon);
+    border: 1px solid var(--rule);
+    font-weight: 500;
+  }
+
+  /* ── Pull-quote callouts ─────────────────────────────────────── */
+  .callout {
+    background: var(--cream);
+    border-left: 3px solid var(--brass);
+    padding: 24px 28px;
+    margin: 28px 0;
+    position: relative;
+  }
+  .callout-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+    color: var(--maroon);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .callout-body {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+
+  /* ── Tables ──────────────────────────────────────────────────── */
+  .table-wrap {
+    margin: 24px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+  }
+  th {
+    background: var(--cream);
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    border-bottom: 1px solid var(--rule);
+    white-space: nowrap;
+  }
+  td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  td:first-child {
+    font-weight: 600;
+    color: var(--maroon);
+    white-space: nowrap;
+  }
+  td code {
+    font-size: 12px;
+  }
+
+  /* ── Status badges ──────────────────────────────────────────── */
+  .status-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+    margin: 24px 0;
+  }
+  .status-card {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--brass);
+    padding: 16px 18px;
+  }
+  .status-card .name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--maroon);
+    margin-bottom: 6px;
+  }
+  .status-card .desc {
+    font-family: 'Crimson Pro', serif;
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.45;
+  }
+
+  /* ── Mock phone illustration ─────────────────────────────────── */
+  .phone-mock {
+    margin: 36px auto;
+    max-width: 280px;
+    background: linear-gradient(180deg, #1a0f0a 0%, #2a1a14 100%);
+    border-radius: 28px;
+    padding: 8px;
+    box-shadow: 0 18px 40px var(--shadow-strong);
+  }
+  .phone-screen {
+    background: var(--paper);
+    border-radius: 22px;
+    overflow: hidden;
+    aspect-ratio: 9 / 16;
+  }
+  .phone-header {
+    background: var(--cream);
+    padding: 14px 14px 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .phone-header .row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .phone-header .logo-tiny {
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--maroon);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .phone-header .title-tiny {
+    font-family: 'Crimson Pro', serif;
+    font-size: 11px;
+    color: var(--ink);
+  }
+  .phone-search {
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    color: var(--stone);
+  }
+  .phone-chips {
+    display: flex;
+    gap: 4px;
+    padding: 8px 10px;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    overflow-x: auto;
+  }
+  .phone-chip {
+    background: var(--cream);
+    color: var(--maroon);
+    border: 1px solid var(--rule);
+    padding: 4px 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    font-weight: 600;
+    border-radius: 12px;
+    white-space: nowrap;
+  }
+  .phone-chip.active {
+    background: var(--maroon);
+    color: var(--paper);
+    border-color: var(--maroon);
+  }
+  .phone-cards {
+    padding: 8px;
+    background: var(--paper);
+  }
+  .phone-card {
+    background: var(--cream-light);
+    border: 1px solid var(--rule);
+    padding: 10px;
+    margin-bottom: 6px;
+    border-radius: 4px;
+  }
+  .phone-card-title {
+    font-family: 'Crimson Pro', serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--maroon);
+    margin-bottom: 3px;
+  }
+  .phone-card-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 9px;
+    color: var(--stone);
+  }
+  .phone-card-cat {
+    display: inline-block;
+    background: var(--brass-light);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 2px;
+    margin-top: 4px;
+    text-transform: uppercase;
+  }
+
+  .caption {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--stone);
+    text-align: center;
+    margin-top: -8px;
+    margin-bottom: 28px;
+  }
+
+  /* ── Page footer ─────────────────────────────────────────────── */
+  .page-footer {
+    padding: 36px 64px;
+    background: var(--cream);
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    color: var(--stone);
+    letter-spacing: 0.04em;
+  }
+  .page-footer p { margin: 4px 0; }
+  .page-footer .tagline {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--brass);
+    margin-top: 14px;
+  }
+
+  /* ── Contents page ───────────────────────────────────────────── */
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+  .toc-part {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    color: var(--maroon);
+    text-transform: uppercase;
+    margin-top: 32px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .toc-part:first-child { margin-top: 0; }
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.15s;
+    font-size: 17px;
+  }
+  .toc-item:hover { color: var(--maroon); }
+  .toc-item .num {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brass);
+    min-width: 22px;
+  }
+  .toc-item .dots {
+    flex: 1;
+    border-bottom: 1px dotted var(--stone-light);
+    margin-bottom: 4px;
+  }
+  .toc-item .page {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    color: var(--stone);
+    font-style: italic;
+  }
+
+  /* ── Side menu drawer ────────────────────────────────────────── */
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    max-width: 86vw;
+    height: 100vh;
+    background: var(--paper);
+    box-shadow: -8px 0 30px var(--shadow-strong);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 100;
+    overflow-y: auto;
+    padding: 24px;
+  }
+  .drawer.open { transform: translateX(0); }
+  .drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 26, 20, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    z-index: 99;
+  }
+  .drawer-overlay.show { opacity: 1; pointer-events: auto; }
+  .drawer h3 {
+    font-family: 'Crimson Pro', serif;
+    font-size: 22px;
+    color: var(--maroon);
+    margin-bottom: 4px;
+  }
+  .drawer .drawer-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--brass);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .drawer a {
+    display: block;
+    padding: 10px 0;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    font-size: 15px;
+    transition: color 0.15s;
+  }
+  .drawer a:hover { color: var(--maroon); }
+  .drawer a .num {
+    color: var(--brass);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  .drawer-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: none;
+    border: 1px solid var(--rule);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1;
+  }
+  .drawer-close:hover { background: var(--maroon); color: var(--paper); border-color: var(--maroon); }
+
+  /* ── Mobile responsive ───────────────────────────────────────── */
+  @media (max-width: 720px) {
+    .cover { padding: 60px 28px 70px; }
+    .cover h1 { font-size: 56px; }
+    .cover-attr { margin-top: 100px; }
+    .section { padding: 56px 28px 40px; }
+    .section h2 { font-size: 30px; }
+    .part-divider { padding: 60px 28px; }
+    .part-divider h2 { font-size: 38px; }
+    .topbar { padding: 12px 18px; }
+    .topbar .brand { font-size: 14px; }
+    .page-footer { padding: 28px; }
+    .status-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Print styles */
+  @media print {
+    .topbar, .drawer, .drawer-overlay { display: none; }
+    .shell { box-shadow: none; max-width: none; }
+    .section, .part-divider, .cover { page-break-after: always; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── Top bar ─── -->
+<header class="topbar">
+  <div class="logo">
+    <svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg>
+  </div>
+  <div class="brand">
+    Trilogy Design Intelligence
+    <span class="sub">PMM Tools · User Guide</span>
+  </div>
+  <button class="menu-btn" onclick="toggleDrawer()">Contents</button>
+</header>
+
+<!-- ─── Side drawer ─── -->
+<div class="drawer-overlay" onclick="toggleDrawer()"></div>
+<aside class="drawer">
+  <button class="drawer-close" onclick="toggleDrawer()">×</button>
+  <h3>Contents</h3>
+  <div class="drawer-sub">PMM on the Ground</div>
+  <a href="#sec-1" onclick="toggleDrawer()"><span class="num">1</span>What This Is</a>
+  <a href="#sec-2" onclick="toggleDrawer()"><span class="num">2</span>Getting Set Up</a>
+  <a href="#sec-3" onclick="toggleDrawer()"><span class="num">3</span>Your First Search</a>
+  <a href="#sec-4" onclick="toggleDrawer()"><span class="num">4</span>What You're Looking At</a>
+  <a href="#sec-5" onclick="toggleDrawer()"><span class="num">5</span>Finding What You Need</a>
+  <a href="#sec-6" onclick="toggleDrawer()"><span class="num">6</span>Filtering by Category</a>
+  <a href="#sec-7" onclick="toggleDrawer()"><span class="num">7</span>Reading a Component Card</a>
+  <a href="#sec-8" onclick="toggleDrawer()"><span class="num">8</span>Working With Photos</a>
+  <a href="#sec-9" onclick="toggleDrawer()"><span class="num">9</span>What Each Field Means</a>
+  <a href="#sec-10" onclick="toggleDrawer()"><span class="num">10</span>Status &amp; Phase</a>
+  <a href="#sec-11" onclick="toggleDrawer()"><span class="num">11</span>Troubleshooting</a>
+  <a href="#sec-12" onclick="toggleDrawer()"><span class="num">12</span>Privacy &amp; Access</a>
+</aside>
+
+<main class="shell">
+
+<!-- ─── COVER ─── -->
+<section class="cover">
+  <div class="cover-header">
+    <div class="logo">
+      <svg viewBox="0 0 100 100"><polygon points="50,15 85,80 15,80" stroke="currentColor" stroke-width="3" fill="none"/><circle cx="50" cy="55" r="8" fill="currentColor"/></svg>
+    </div>
+    <h1 class="brand">
+      Trilogy Design Intelligence
+      <span class="sub">PMM Tools</span>
+    </h1>
+  </div>
+  <div class="cover-eyebrow">User Guide</div>
+  <h2 class="title">PMM on the<br/>Ground</h2>
+  <p class="subtitle">The project, in your pocket.</p>
+  <div class="cover-rule"></div>
+  <p class="meta">Version <strong>0.3.2</strong>  ·  Schema v1.0 aligned</p>
+  <p class="cover-attr">
+    Created by Trilogy Partners using Trilogy Build Intelligence.<br/>
+    Boots on the Ground, Eyes on the Sky.
+  </p>
+</section>
+
+<!-- ─── CONTENTS ─── -->
+<section class="section">
+  <h2><span class="num">·</span>Contents</h2>
+
+  <div class="toc-part">Part One — Quick Start</div>
+  <a class="toc-item" href="#sec-1"><span class="num">1</span>What This Is<span class="dots"></span><span class="page">p. 4</span></a>
+  <a class="toc-item" href="#sec-2"><span class="num">2</span>Getting Set Up<span class="dots"></span><span class="page">p. 5</span></a>
+  <a class="toc-item" href="#sec-3"><span class="num">3</span>Your First Search<span class="dots"></span><span class="page">p. 6</span></a>
+  <a class="toc-item" href="#sec-4"><span class="num">4</span>What You're Looking At<span class="dots"></span><span class="page">p. 7</span></a>
+
+  <div class="toc-part">Part Two — Core Workflows</div>
+  <a class="toc-item" href="#sec-5"><span class="num">5</span>Finding What You Need<span class="dots"></span><span class="page">p. 9</span></a>
+  <a class="toc-item" href="#sec-6"><span class="num">6</span>Filtering by Category<span class="dots"></span><span class="page">p. 11</span></a>
+  <a class="toc-item" href="#sec-7"><span class="num">7</span>Reading a Component Card<span class="dots"></span><span class="page">p. 12</span></a>
+  <a class="toc-item" href="#sec-8"><span class="num">8</span>Working With Photos<span class="dots"></span><span class="page">p. 14</span></a>
+
+  <div class="toc-part">Part Three — Reference</div>
+  <a class="toc-item" href="#sec-9"><span class="num">9</span>What Each Field Means<span class="dots"></span><span class="page">p. 15</span></a>
+  <a class="toc-item" href="#sec-10"><span class="num">10</span>Status &amp; Phase Quick Guide<span class="dots"></span><span class="page">p. 17</span></a>
+
+  <div class="toc-part">Part Four — Practical Notes</div>
+  <a class="toc-item" href="#sec-11"><span class="num">11</span>Troubleshooting<span class="dots"></span><span class="page">p. 18</span></a>
+  <a class="toc-item" href="#sec-12"><span class="num">12</span>Privacy &amp; Access<span class="dots"></span><span class="page">p. 20</span></a>
+  <a class="toc-item" href="#sec-13"><span class="num">13</span>Credits<span class="dots"></span><span class="page">p. 21</span></a>
+</section>
+
+<!-- ─── PART 1 ─── -->
+<section class="part-divider">
+  <p class="label">Part One</p>
+  <h2>Quick Start</h2>
+  <p class="description">Everything you need in the first five minutes.</p>
+</section>
+
+<section class="section" id="sec-1">
+  <h2><span class="num">1.</span>What PMM on the Ground Is</h2>
+  <p class="lede">PMM on the Ground is a website you open on your phone (or computer) to see the project's component list — every cabinet, fixture, door, finish, and material that's part of the build.</p>
+  <p>You can:</p>
+  <ul>
+    <li><strong>Search</strong> — find any component by name, room, vendor, or cost code</li>
+    <li><strong>Browse by category</strong> — see everything under "Plumbing Fixtures" or "Cabinets"</li>
+    <li><strong>Tap any component</strong> to see who's making it, what it costs, when it's due, and notes</li>
+    <li><strong>View photos</strong> — when the designer attached a reference image, it shows up in the card</li>
+  </ul>
+  <p>You don't need a login. You don't need to download anything. The web link your project manager sent you is your access. Bookmark it on your phone home screen and open it whenever you need to check something.</p>
+
+  <div class="callout">
+    <div class="callout-label">What this replaces</div>
+    <div class="callout-body">Before PMM on the Ground, getting an answer about a fixture or cabinet meant calling the GC, waiting for a callback, hoping they had the spec sheet handy. Now: tap, tap, you have the answer. Subs use this in front of homeowners every day.</div>
+  </div>
+
+  <h3>Audience</h3>
+  <p>This guide is for subcontractors, installers, foremen, and anyone working on a Trilogy project who needs to look up component details quickly.</p>
+</section>
+
+<section class="section" id="sec-2">
+  <h2><span class="num">2.</span>Getting Set Up</h2>
+  <p>You don't install anything. PMM on the Ground is a website. To set it up, all you need to do is open the link your PM sent you and save it to your phone home screen.</p>
+
+  <h3>iPhone</h3>
+  <ol>
+    <li>Open the project link in <strong>Safari</strong> (not Chrome — Safari is what works for the home screen save)</li>
+    <li>Tap the <strong>Share</strong> button (square with an arrow pointing up)</li>
+    <li>Scroll and tap <strong>Add to Home Screen</strong></li>
+    <li>Tap <strong>Add</strong> in the top right</li>
+  </ol>
+  <p>Now PMM on the Ground appears as an icon on your home screen, like an app. Tap it any time.</p>
+
+  <h3>Android</h3>
+  <ol>
+    <li>Open the project link in <strong>Chrome</strong></li>
+    <li>Tap the <strong>menu</strong> (three dots, upper right)</li>
+    <li>Tap <strong>Add to Home screen</strong></li>
+    <li>Tap <strong>Add</strong></li>
+  </ol>
+
+  <h3>Computer</h3>
+  <p>Just bookmark the page in your browser. No special steps needed.</p>
+
+  <div class="callout">
+    <div class="callout-label">No password, no login</div>
+    <div class="callout-body">The link itself is your access. Don't share it outside your project team — anyone with the link can see the project's component list.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-3">
+  <h2><span class="num">3.</span>Your First Search</h2>
+  <p>When you first open PMM on the Ground, you see a search bar at the top and a list of components below it.</p>
+
+  <h3>Try this</h3>
+  <ol>
+    <li>Tap the search bar</li>
+    <li>Type a word — try <code>cabinet</code> or <code>sink</code> or a room name like <code>master bath</code></li>
+    <li>Results appear instantly as you type</li>
+  </ol>
+
+  <p>Each result is a component card with the most important info at a glance:</p>
+  <ul>
+    <li><strong>Title</strong> — what the component is</li>
+    <li><strong>Vendor</strong> — who's making or supplying it</li>
+    <li><strong>Cost Category</strong> — what trade or division it falls under</li>
+    <li><strong>Location</strong> — what room it's in</li>
+  </ul>
+  <p>Tap any card to see the full details (Section 7).</p>
+
+  <div class="phone-mock">
+    <div class="phone-screen">
+      <div class="phone-header">
+        <div class="row">
+          <div class="logo-tiny"></div>
+          <div class="title-tiny">25 Hickory Lane</div>
+        </div>
+        <div class="phone-search">🔍 cabinet</div>
+      </div>
+      <div class="phone-chips">
+        <span class="phone-chip active">All</span>
+        <span class="phone-chip">06 - Carpentry</span>
+        <span class="phone-chip">22 - Plumbing</span>
+        <span class="phone-chip">26 - Electrical</span>
+      </div>
+      <div class="phone-cards">
+        <div class="phone-card">
+          <div class="phone-card-title">Master Vanity Cabinet</div>
+          <div class="phone-card-meta">Heritage Cabinet Co · Master Bath</div>
+          <span class="phone-card-cat">06 - Carpentry</span>
+        </div>
+        <div class="phone-card">
+          <div class="phone-card-title">Kitchen Upper Cabinets</div>
+          <div class="phone-card-meta">Heritage Cabinet Co · Kitchen</div>
+          <span class="phone-card-cat">06 - Carpentry</span>
+        </div>
+        <div class="phone-card">
+          <div class="phone-card-title">Powder Room Vanity</div>
+          <div class="phone-card-meta">Reclaimed Wood Co · Powder</div>
+          <span class="phone-card-cat">06 - Carpentry</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="caption">PMM on the Ground · iPhone view · search results filtered to "cabinet"</p>
+
+  <h3>What you can search for</h3>
+  <p>The search box looks across all of these at once:</p>
+  <ul>
+    <li>Component name (<code>Master Vanity</code>, <code>Pendant Light Kitchen</code>)</li>
+    <li>Vendor (<code>Heritage Cabinet Co</code>, <code>Ferguson</code>)</li>
+    <li>Cost code (<code>06.20.10</code>)</li>
+    <li>Cost category (<code>06 - Carpentry</code>)</li>
+    <li>Room/location (<code>Master Bath</code>, <code>Kitchen</code>, <code>Mudroom</code>)</li>
+    <li>Description text</li>
+    <li>Notes</li>
+  </ul>
+  <p>So if you only remember "the dark cabinet in the powder room," typing <code>powder cabinet</code> will find it.</p>
+</section>
+
+<section class="section" id="sec-4">
+  <h2><span class="num">4.</span>What You're Looking At</h2>
+  <p>The PMM on the Ground page has three parts:</p>
+
+  <h3>Top — Search &amp; Filters</h3>
+  <p>The search bar is always at the top. Below it (or behind a filter button on smaller screens) are filter chips:</p>
+  <ul>
+    <li><strong>All Categories</strong> ← default</li>
+    <li><strong>06 - Carpentry</strong></li>
+    <li><strong>22 - Plumbing</strong></li>
+    <li><strong>26 - Electrical</strong></li>
+    <li>...etc.</li>
+  </ul>
+  <p>Tap a chip to see only components in that category.</p>
+
+  <h3>Middle — Component Cards</h3>
+  <p>Every component is a card. Cards show an image (if available), the component title, the vendor, the location (room), and a category badge. Cards are sorted with the most relevant matches first when you've searched.</p>
+
+  <h3>Bottom — Pagination</h3>
+  <p>If the project has hundreds of components, there's a "Load more" button at the bottom to see additional results.</p>
+
+  <div class="callout">
+    <div class="callout-label">The list updates itself</div>
+    <div class="callout-body">When the project manager updates a price, vendor, or note in the project's Google Sheet, PMM on the Ground reflects the change within a minute. You don't need to refresh manually — just close and reopen.</div>
+  </div>
+</section>
+
+<!-- ─── PART 2 ─── -->
+<section class="part-divider">
+  <p class="label">Part Two</p>
+  <h2>Core Workflows</h2>
+  <p class="description">The four things you'll do every day.</p>
+</section>
+
+<section class="section" id="sec-5">
+  <h2><span class="num">5.</span>Finding What You Need</h2>
+  <p>The fastest way to find a specific component depends on what you know.</p>
+
+  <h3>"I know what it's called"</h3>
+  <p>Type the name into search. Examples: <code>Powder Vanity</code> · <code>Master Tub</code> · <code>Kitchen Pendant</code></p>
+  <p>Don't worry about exact wording — the search is forgiving. <code>powder vanity</code> finds the same things as <code>powder room vanity</code>.</p>
+
+  <h3>"I know what room it's in"</h3>
+  <p>Type the room name. Examples: <code>Master Bath</code> · <code>Kitchen</code> · <code>Mudroom</code> · <code>Garage</code></p>
+  <p>You'll see every component in that room.</p>
+
+  <h3>"I know the vendor"</h3>
+  <p>Type the vendor name. Examples: <code>Heritage Cabinet</code> · <code>Ferguson</code> · <code>Restoration Hardware</code></p>
+  <p>You'll see everything that vendor is supplying.</p>
+
+  <h3>"I know the cost code"</h3>
+  <p>If you have BT in front of you with the cost code, just paste it: <code>06.20.10</code>. PMM on the Ground will show that exact line item and any related ones.</p>
+
+  <h3>"I just want to browse"</h3>
+  <p>Don't search. Use the filter chips at the top to narrow by category, then scroll.</p>
+</section>
+
+<section class="section" id="sec-6">
+  <h2><span class="num">6.</span>Filtering by Category</h2>
+  <p>The category chips above the search results let you narrow to just one trade:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Chip</th><th>Shows</th></tr></thead>
+      <tbody>
+        <tr><td>06 - Carpentry</td><td>Cabinets, millwork, trim, shelving</td></tr>
+        <tr><td>08 - Doors &amp; Windows</td><td>Doors, windows, hardware</td></tr>
+        <tr><td>09 - Finishes</td><td>Flooring, paint, tile, wallcovering</td></tr>
+        <tr><td>22 - Plumbing</td><td>Faucets, fixtures, toilets, tubs</td></tr>
+        <tr><td>23 - HVAC</td><td>Equipment, registers, ductwork details</td></tr>
+        <tr><td>26 - Electrical</td><td>Switches, outlets, panels</td></tr>
+        <tr><td>27 - Lighting</td><td>Fixtures, lamps, sconces, recessed</td></tr>
+        <tr><td>(etc.)</td><td>(all other categories used in the project)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Tap a chip to filter. Tap <strong>All Categories</strong> (or the same chip again) to clear.</p>
+  <p>You can combine filtering with searching — pick <strong>"22 - Plumbing"</strong> then type <code>master</code> to see only plumbing fixtures in master rooms.</p>
+</section>
+
+<section class="section" id="sec-7">
+  <h2><span class="num">7.</span>Reading a Component Card</h2>
+  <p>Tap any component card and you see the full details. Here's what each section tells you:</p>
+
+  <h3>Title &amp; Image</h3>
+  <p>The big title at top. If a designer attached a reference photo to this component, you see it here. Tap the photo to enlarge.</p>
+
+  <h3>Specs</h3>
+  <p>Quick facts about the component:</p>
+  <ul>
+    <li><strong>Vendor</strong> — who's making/supplying it</li>
+    <li><strong>Cost Category</strong> — trade or division</li>
+    <li><strong>Cost Code</strong> — BT cost code (if assigned)</li>
+    <li><strong>Unit</strong> — <code>EA</code>, <code>LF</code>, <code>SF</code>, etc.</li>
+    <li><strong>Quantity</strong> — how many</li>
+    <li><strong>Unit Price</strong> — price per unit</li>
+    <li><strong>Amount</strong> — total (Quantity × Unit Price, usually)</li>
+    <li><strong>Allowance</strong> — client-facing dollar allowance</li>
+  </ul>
+
+  <h3>Description</h3>
+  <p>Long-form description of what the component is. This is where designers explain "natural oak finish, satin sheen, no stain" or "honed Carrara marble, eased edges, 1.25 inch thick."</p>
+
+  <h3>Selection Details</h3>
+  <p>If this is a Selection (Cabinet, Plumbing Fixture, Lighting, etc.), you also see:</p>
+  <ul>
+    <li><strong>Selection Category</strong> — finer-grained type (e.g. "Pendant Light")</li>
+    <li><strong>Manufacturer</strong> — brand</li>
+    <li><strong>Model Number</strong> — SKU/part number</li>
+    <li><strong>Finish</strong> — material/color</li>
+    <li><strong>Deadline</strong> — when the selection decision is due</li>
+  </ul>
+
+  <h3>Scope of Work</h3>
+  <p>What you (or the responsible sub) need to do for this component. Read this carefully — it often contains install requirements, prep specs, or coordination notes.</p>
+
+  <h3>Notes</h3>
+  <p>Anything else the designer or PM wanted you to know. Always read the notes.</p>
+
+  <div class="callout">
+    <div class="callout-label">When a field is blank</div>
+    <div class="callout-body">An empty field means it hasn't been filled in yet. Either the designer is still figuring it out, or the PM hasn't gotten there. Don't assume the answer is "none" — ask.</div>
+  </div>
+</section>
+
+<section class="section" id="sec-8">
+  <h2><span class="num">8.</span>Working With Photos</h2>
+  <p>Many components have a reference image attached. Tap the image to enlarge it.</p>
+  <p>Photos are typically:</p>
+  <ul>
+    <li><strong>Product shots</strong> from a vendor's website</li>
+    <li><strong>Inspiration images</strong> the designer or homeowner picked</li>
+    <li><strong>Reference samples</strong> from the showroom visit</li>
+    <li><strong>Technical drawings</strong> for custom millwork</li>
+  </ul>
+  <p>When you have a question about whether the thing in front of you matches what the designer wanted, the photo is the answer 80% of the time.</p>
+
+  <h3>When the photo is wrong</h3>
+  <p>If you're sure the photo doesn't match what's actually been ordered or what's in the field, tell the PM. PMM on the Ground shows the latest photo from the project Sheet — if it's wrong there, fixing it there fixes it for everyone.</p>
+
+  <h3>No photo yet</h3>
+  <p>Some components don't have photos attached. That's normal — not everything needs one. If you need a photo to do your work, ask the PM and they'll add one.</p>
+</section>
+
+<!-- ─── PART 3 ─── -->
+<section class="part-divider">
+  <p class="label">Part Three</p>
+  <h2>Reference</h2>
+  <p class="description">Field meanings and quick lookups.</p>
+</section>
+
+<section class="section" id="sec-9">
+  <h2><span class="num">9.</span>What Each Field Means</h2>
+  <p>A glossary for when you see a field and aren't sure what it's telling you.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Field</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td>Title</td><td>What the component is called in this project</td></tr>
+        <tr><td>Description</td><td>Detailed description of the component</td></tr>
+        <tr><td>Cost Category</td><td>The trade/division (e.g. "06 - Carpentry")</td></tr>
+        <tr><td>Cost Code</td><td>Specific BT cost code</td></tr>
+        <tr><td>Cost Type</td><td>Material, Labor, Subcontract, Equipment, or Other</td></tr>
+        <tr><td>Selection Category</td><td>More specific type (Pendant Light, Vanity, Faucet)</td></tr>
+        <tr><td>Unit</td><td>Unit of measure: EA, LF, SF, PR, SET</td></tr>
+        <tr><td>Quantity</td><td>How many</td></tr>
+        <tr><td>Unit Price</td><td>Price per unit</td></tr>
+        <tr><td>Amount</td><td>Total cost = Quantity × Unit Price</td></tr>
+        <tr><td>Allowance</td><td>Client-facing dollar allowance</td></tr>
+        <tr><td>Vendor</td><td>Supplier or sub responsible</td></tr>
+        <tr><td>Deadline</td><td>When a decision or delivery is due</td></tr>
+        <tr><td>Instructions</td><td>Direct instructions for the sub or vendor</td></tr>
+        <tr><td>Selections Notes</td><td>Notes specific to BT Selections workflow</td></tr>
+        <tr><td>Scope of Work</td><td>What needs to be done for this component</td></tr>
+        <tr><td>PO Date</td><td>Purchase order date</td></tr>
+        <tr><td>PO Notes</td><td>Purchase order notes</td></tr>
+        <tr><td>Image URL</td><td>Reference photo (shown in the card)</td></tr>
+        <tr><td>Notes</td><td>General notes</td></tr>
+        <tr><td>Status</td><td>Where this component is in the workflow</td></tr>
+        <tr><td>Project Phase</td><td>What phase of the project this was decided in</td></tr>
+        <tr><td>Location</td><td>Which room/space</td></tr>
+        <tr><td>Storey</td><td>Which floor</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="sec-10">
+  <h2><span class="num">10.</span>Status &amp; Phase Quick Guide</h2>
+  <p>Two fields tell you where a component is in the workflow.</p>
+
+  <h3>Status</h3>
+  <div class="status-grid">
+    <div class="status-card"><div class="name">Concept</div><div class="desc">Idea stage — not committed yet</div></div>
+    <div class="status-card"><div class="name">Pending Review</div><div class="desc">Designer has proposed; awaiting client approval</div></div>
+    <div class="status-card"><div class="name">Approved</div><div class="desc">Decision is made — go ahead</div></div>
+    <div class="status-card"><div class="name">Revised</div><div class="desc">Was approved, then changed — read carefully</div></div>
+    <div class="status-card"><div class="name">Construction</div><div class="desc">Currently being built or installed</div></div>
+    <div class="status-card"><div class="name">Installed</div><div class="desc">Complete and in place</div></div>
+    <div class="status-card"><div class="name">As-Built</div><div class="desc">Final, documented as built</div></div>
+  </div>
+  <p>If you see <strong>Pending Review</strong> or <strong>Concept</strong>, <em>don't order anything yet.</em> Wait for <strong>Approved</strong>.</p>
+
+  <h3>Project Phase</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Phase</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td>Schematic Design</td><td>Earliest — concept, layout</td></tr>
+        <tr><td>Design Development</td><td>Refining the design</td></tr>
+        <tr><td>Construction Documents</td><td>Final drawings being prepared</td></tr>
+        <tr><td>Bidding</td><td>Subs being selected</td></tr>
+        <tr><td>Construction Administration</td><td>Active build phase</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Most components you'll see are in <strong>Construction Administration</strong> — they've been decided and are being built. If something's still in <strong>Design Development</strong>, the spec might change.</p>
+</section>
+
+<!-- ─── PART 4 ─── -->
+<section class="part-divider">
+  <p class="label">Part Four</p>
+  <h2>Practical Notes</h2>
+  <p class="description">Troubleshooting and frequently asked questions.</p>
+</section>
+
+<section class="section" id="sec-11">
+  <h2><span class="num">11.</span>Troubleshooting</h2>
+
+  <h3>"The page won't load"</h3>
+  <p>Check your phone has internet. PMM on the Ground works over normal cell data or Wi-Fi. If you have signal but the page doesn't load:</p>
+  <ol>
+    <li>Close the page and reopen the link</li>
+    <li>Try opening it in a different browser</li>
+    <li>Ask your PM to verify the link is correct</li>
+  </ol>
+
+  <h3>"I can't find a component I know is on this project"</h3>
+  <p>A few things to try:</p>
+  <ul>
+    <li>Try simpler search terms (<code>vanity</code> instead of <code>master bedroom vanity 36 inch</code>)</li>
+    <li>Clear the category filter (tap <strong>All Categories</strong>)</li>
+    <li>Browse by category instead of searching</li>
+    <li>Ask the PM to confirm the component is in the project — sometimes things get added late</li>
+  </ul>
+
+  <h3>"The price/vendor I see doesn't match what I was told"</h3>
+  <p>Trust the page. PMM on the Ground shows the current state of the project. If the page disagrees with an old email or PDF, the page wins. If you're confident the page is wrong, tell the PM — they'll update the project Sheet.</p>
+
+  <h3>"I see 'No data from PMM Horizon yet'"</h3>
+  <p>This component exists in the system but hasn't had its commercial data pushed yet. The designer has tagged it but the PM hasn't filled in vendor/price. Ask the PM.</p>
+
+  <h3>"I tapped a category chip and now everything is empty"</h3>
+  <p>That category has nothing in it. Tap <strong>All Categories</strong> to clear the filter.</p>
+
+  <h3>"I changed my phone and now I can't find the link"</h3>
+  <p>Ask your PM for the link again. They have it.</p>
+
+  <h3>"The link my PM sent doesn't work"</h3>
+  <p>Most likely the URL got cut off in the text or email. Ask for it again, copy it carefully (include everything — it's a long random string).</p>
+
+  <h3>"Something seems wrong with what's shown"</h3>
+  <p>Always trust your eyes over what's on the screen, but also tell the PM. PMM on the Ground is fed by the project's master Sheet. If the page is wrong, the Sheet is wrong, and that needs fixing for everyone.</p>
+</section>
+
+<section class="section" id="sec-12">
+  <h2><span class="num">12.</span>Privacy &amp; Access</h2>
+
+  <h3>Who can see this?</h3>
+  <p>Anyone with the link can see the project's component list — vendors, prices, descriptions, photos, everything. <strong>Don't share the link outside your project team.</strong></p>
+  <p>If the homeowner asks for access, refer them to the PM. PMs decide who gets the link.</p>
+
+  <h3>Can I edit anything?</h3>
+  <p>No. PMM on the Ground is read-only. You can't change prices, vendors, or notes from your phone. If something needs changing, ask the PM and they'll update the master Sheet (which auto-updates the page).</p>
+
+  <h3>Will photos of me/the site appear here?</h3>
+  <p>No. PMM on the Ground only shows component reference photos that the designer attached. It doesn't access your phone's camera, photos, or location.</p>
+
+  <h3>Is this saving my searches?</h3>
+  <p>No. PMM on the Ground doesn't track what you search for or store any personal info about you.</p>
+</section>
+
+<section class="section" id="sec-13">
+  <h2><span class="num">13.</span>Credits</h2>
+  <p>PMM on the Ground is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p>
+  <ul>
+    <li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li>
+    <li><strong>Implementation</strong> — Claude (Anthropic)</li>
+    <li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li>
+  </ul>
+  <p>This guide and the website both follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, and PMM Relay.</p>
+  <p>PMM on the Ground User Guide — version matched to release <strong>v0.3.2</strong>.</p>
+</section>
+
+<footer class="page-footer">
+  <p>Trilogy Design Intelligence  ·  PMM on the Ground User Guide  ·  v0.3.2</p>
+  <p class="tagline">Trilogy Partners. Boots on the Ground, Eyes on the Sky.</p>
+</footer>
+
+</main>
+
+<script>
+  function toggleDrawer() {
+    document.querySelector('.drawer').classList.toggle('open');
+    document.querySelector('.drawer-overlay').classList.toggle('show');
+  }
+
+  // Close drawer on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelector('.drawer').classList.remove('open');
+      document.querySelector('.drawer-overlay').classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>

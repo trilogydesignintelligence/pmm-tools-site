@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMM Bridge — User Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Eagle Light';
+  src: url('../assets/fonts/eagle-light.ttf') format('truetype');
+  font-weight: 300; font-style: normal; font-display: swap;
+}
+/* ── Eagle Light retrofit — display-only, body stays Libre Baskerville ── */
+.masthead-name,
+h2,
+.toc-title,
+.section-num,
+.masthead-suite,
+.masthead-meta strong,
+h3,
+h4,
+.guide-table th,
+.tab-badge,
+.flow-box {
+  font-family: 'Eagle Light', 'Bebas Neue', 'Barlow Condensed', sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase;
+}
+.masthead-name em,
+h2 em {
+  font-family: 'Cormorant Garamond', Georgia, serif !important;
+  font-style: italic;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  text-transform: none;
+}
+.toc-title,
+.section-num,
+.masthead-suite,
+.masthead-meta strong,
+h4,
+.guide-table th,
+.callout strong:first-child {
+  letter-spacing: 0.22em !important;
+}
+:root {
+  --cream-50:  #FDFAF5;
+  --cream-100: #F5F0E5;
+  --cream-200: #EDE5D5;
+  --cream-300: #D8CAAA;
+  --cream-400: #C4B088;
+  --burg-900: #3A0C08;
+  --burg-800: #5A1A10;
+  --burg-700: #7A2818;
+  --burg-600: #9A3820;
+  --burg-500: #B84830;
+  --burg-100: #F5E8E5;
+  --gold-900: #5A3408;
+  --gold-700: #8B6020;
+  --gold-500: #C8922A;
+  --gold-400: #D8A840;
+  --gold-100: #FBF3DC;
+  --success-text: #1E5E1E;
+  --success-bg:   #EAF5EA;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'Libre Baskerville', Georgia, serif;
+  --font-ui:      'Barlow Condensed', sans-serif;
+  --font-prose:   'Barlow', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--cream-50);
+  color: var(--burg-900);
+  line-height: 1.7;
+}
+
+.page { max-width: 860px; margin: 0 auto; padding: 4rem 2rem 6rem; }
+
+.masthead {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 2rem;
+  margin-bottom: 3rem;
+  border-bottom: 2px solid var(--burg-700);
+}
+.masthead-brand { display: flex; flex-direction: column; gap: 0.2rem; }
+.masthead-suite {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+}
+.masthead-name {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--burg-800);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.masthead-name em { font-style: italic; color: var(--gold-500); }
+.masthead-doc {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--cream-400);
+  margin-top: 0.25rem;
+}
+.masthead-meta {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--cream-400);
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+}
+.masthead-meta strong { display: block; color: var(--gold-700); font-size: 0.62rem; margin-bottom: 2px; }
+
+.toc {
+  background: var(--cream-100);
+  border: 1px solid var(--cream-300);
+  border-left: 4px solid var(--gold-500);
+  border-radius: 4px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 3rem;
+}
+.toc-title {
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  margin-bottom: 1rem;
+}
+.toc ol { list-style: none; counter-reset: toc; }
+.toc li { counter-increment: toc; display: flex; align-items: baseline; gap: 0.5rem; padding: 0.2rem 0; }
+.toc li::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--gold-500);
+  flex-shrink: 0;
+}
+.toc a {
+  font-family: var(--font-prose);
+  font-size: 0.88rem;
+  color: var(--burg-700);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--cream-300);
+}
+.toc a:hover { color: var(--burg-500); border-bottom-color: var(--burg-400); }
+.toc .sub { padding-left: 1.5rem; }
+.toc .sub li::before { content: "—"; color: var(--cream-400); }
+
+.section { margin-bottom: 3.5rem; }
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: var(--gold-500);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+h2 {
+  font-family: var(--font-display);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--burg-800);
+  line-height: 1.15;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--cream-300);
+  margin-bottom: 1.25rem;
+}
+h3 {
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--burg-700);
+  margin: 1.75rem 0 0.6rem;
+}
+h4 {
+  font-family: var(--font-ui);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  margin: 1.25rem 0 0.4rem;
+}
+p {
+  font-family: var(--font-prose);
+  font-size: 0.9rem;
+  color: var(--burg-800);
+  line-height: 1.75;
+  margin-bottom: 0.85rem;
+}
+
+.callout {
+  background: var(--gold-100);
+  border: 1px solid var(--gold-400);
+  border-left: 4px solid var(--gold-500);
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-family: var(--font-prose);
+  font-size: 0.85rem;
+  color: var(--gold-900);
+  line-height: 1.6;
+}
+.callout strong { color: var(--gold-700); }
+.callout-tip {
+  background: var(--success-bg);
+  border-color: #90C890;
+  border-left-color: var(--success-text);
+  color: var(--success-text);
+}
+.callout-tip strong { color: var(--success-text); }
+.callout-warn {
+  background: var(--burg-100);
+  border-color: var(--burg-500);
+  border-left-color: var(--burg-700);
+  color: var(--burg-800);
+}
+
+.steps { list-style: none; counter-reset: steps; margin: 1rem 0; }
+.steps li {
+  counter-increment: steps;
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+  align-items: flex-start;
+}
+.steps li::before {
+  content: counter(steps);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--burg-700);
+  color: var(--cream-50);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.steps li p { margin: 0; }
+
+ul.bullets { list-style: none; margin: 0.75rem 0; padding: 0; }
+ul.bullets li {
+  display: flex;
+  gap: 0.75rem;
+  font-family: var(--font-prose);
+  font-size: 0.88rem;
+  color: var(--burg-800);
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+ul.bullets li::before {
+  content: "·";
+  color: var(--gold-500);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  flex-shrink: 0;
+}
+
+.guide-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+.guide-table thead tr { background: var(--cream-200); }
+.guide-table th {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-700);
+  padding: 0.6rem 0.85rem;
+  text-align: left;
+  border-bottom: 1px solid var(--cream-300);
+}
+.guide-table td {
+  padding: 0.55rem 0.85rem;
+  border-bottom: 1px solid var(--cream-200);
+  font-family: var(--font-prose);
+  color: var(--burg-800);
+  vertical-align: top;
+}
+.guide-table tr:last-child td { border-bottom: none; }
+.guide-table tr:hover td { background: var(--cream-100); }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  background: var(--cream-200);
+  color: var(--burg-700);
+  padding: 1px 6px;
+  border-radius: 3px;
+}
+
+.tab-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-ui);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.65rem;
+  border-radius: 20px;
+  vertical-align: middle;
+}
+.tab-sel  { background: var(--gold-100);   color: var(--gold-900);   border: 1px solid var(--gold-400); }
+.tab-est  { background: var(--burg-100);   color: var(--burg-700);   border: 1px solid var(--burg-500); }
+.tab-sync { background: var(--success-bg); color: var(--success-text); border: 1px solid #90C890; }
+
+.divider { border: none; border-top: 1px solid var(--cream-300); margin: 2.5rem 0; }
+
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 1.25rem 0;
+  flex-wrap: wrap;
+}
+.flow-box {
+  background: var(--cream-100);
+  border: 1px solid var(--cream-300);
+  border-radius: 4px;
+  padding: 0.5rem 0.85rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--burg-800);
+  white-space: nowrap;
+}
+.flow-box.highlight { background: var(--gold-100); border-color: var(--gold-400); color: var(--gold-900); font-weight: 500; }
+.flow-arrow { color: var(--gold-500); font-size: 1.2rem; padding: 0 0.35rem; }
+
+footer {
+  border-top: 1px solid var(--cream-300);
+  margin-top: 4rem;
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand { font-family: var(--font-display); font-style: italic; font-size: 0.85rem; color: var(--cream-400); }
+.footer-meta { font-family: var(--font-mono); font-size: 0.58rem; color: var(--cream-300); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 3px; }
+
+@media print {
+  body { background: white; }
+  .page { padding: 2rem; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <div class="masthead-brand">
+      <div class="masthead-suite">PMM Tools · Trilogy Design Intelligence</div>
+      <div class="masthead-name">PMM <em>Bridge</em></div>
+      <div class="masthead-doc">User Guide — Web Application</div>
+    </div>
+    <div class="masthead-meta">
+      <strong>Integration</strong>
+      SketchUp ⟷ Buildertrend<br>
+      <strong>Version</strong>
+      1.0<br>
+      <strong>Audience</strong>
+      Project Managers · Designers
+    </div>
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">Contents</div>
+    <ol>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#getting-started">Getting Started</a></li>
+      <li><a href="#selections">Selections Import</a></li>
+      <li><a href="#estimate">Estimate Import</a></li>
+      <li><a href="#po-sync">BT PO → SketchUp Model · PMM Sync</a></li>
+      <li><a href="#workflow">Full Workflow</a></li>
+      <li><a href="#tips">Tips &amp; Troubleshooting</a></li>
+    </ol>
+  </div>
+
+  <div class="section" id="overview">
+    <div class="section-num">01</div>
+    <h2>Overview</h2>
+    <p>PMM Bridge is a web-based CSV import tool that sits between your SketchUp model and Buildertrend. It takes data exported from SketchUp, reformats it to match Buildertrend's import templates, and — after a Purchase Order is confirmed — reconciles the approved PO data back into your SketchUp model to keep everything in sync.</p>
+    <div class="flow">
+      <div class="flow-box">SketchUp Model</div><div class="flow-arrow">→</div>
+      <div class="flow-box highlight">PMM Bridge</div><div class="flow-arrow">→</div>
+      <div class="flow-box">Buildertrend</div><div class="flow-arrow">⟷</div>
+      <div class="flow-box highlight">PMM Bridge</div><div class="flow-arrow">→</div>
+      <div class="flow-box">SketchUp Model</div>
+    </div>
+    <h3>The Three Modes</h3>
+    <table class="guide-table">
+      <thead><tr><th>Tab</th><th>Direction</th><th>What it does</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tab-badge tab-sel">🎨 Selections Import</span></td><td>SU → BT</td><td>Formats your SketchUp component data for Buildertrend's Selections sheet — Title, Category, Location, Allowance, Deadline, Instructions</td></tr>
+        <tr><td><span class="tab-badge tab-est">📋 Estimate Import</span></td><td>SU → BT</td><td>Formats your SketchUp component data for Buildertrend's Estimate — Title, Cost Code, Cost Type, Quantity, Unit Price, Amount, and optional Allowance flagging</td></tr>
+        <tr><td><span class="tab-badge tab-sync">🔄 BT PO → SketchUp</span></td><td>BT → SU</td><td>After a BT estimate is approved and converted to a Purchase Order, reconciles the confirmed PO data back into your SketchUp model attributes. BT always wins on conflicts.</td></tr>
+      </tbody>
+    </table>
+    <h3>The PMM ID — Your Sync Key</h3>
+    <p>Every component in SketchUp gets a unique <code>pmm_id</code> stamped into its attributes by the PMM Bridge Exporter plugin the first time it's exported. This ID survives every round trip between SketchUp and Buildertrend and is the key that lets PMM Bridge know which BT line item corresponds to which model element.</p>
+    <div class="callout"><strong>Important:</strong> The <code>pmm_id</code> is generated automatically — never edit or delete it manually. Without it, the BT PO → SketchUp sync cannot match records.</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="getting-started">
+    <div class="section-num">02</div>
+    <h2>Getting Started</h2>
+    <h3>What You Need</h3>
+    <ul class="bullets">
+      <li>PMM Bridge open at <code>trilogydesignintelligence.github.io/PMM-Bridge</code> in Chrome</li>
+      <li>The PMM Bridge Exporter SketchUp plugin installed (for initial export)</li>
+      <li>A Google account with access to your project's Drive folder</li>
+      <li>A CSV exported from SketchUp via the PMM Bridge Exporter plugin</li>
+    </ul>
+    <h3>Loading a File</h3>
+    <p>Every mode starts with loading a source CSV. You have two options:</p>
+    <ol class="steps">
+      <li><p><strong>Google Drive</strong> — click the Google Drive button, sign in with your Google account, and select your CSV from Drive. Shared drives and workspace files are both accessible.</p></li>
+      <li><p><strong>Local file</strong> — click Browse Local File (or drag and drop) to load a CSV from your computer.</p></li>
+    </ol>
+    <div class="callout callout-tip"><strong>Tip:</strong> Use Google Drive whenever possible — it keeps the source file in your canonical PMM in the Sky Sheet location and ensures the whole team is working from the same data.</div>
+    <h3>The Four-Step Pipeline</h3>
+    <p>All three modes follow the same pipeline shown at the top of the page:</p>
+    <table class="guide-table">
+      <thead><tr><th>Step</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1 · Load File</strong></td><td>Load your source CSV from Drive or locally</td></tr>
+        <tr><td><strong>2 · Map Columns</strong></td><td>Tell PMM Bridge which CSV column corresponds to each Buildertrend field. PMM Bridge auto-detects common column names.</td></tr>
+        <tr><td><strong>3 · Options</strong></td><td>Set grouping, unit labels, amount calculation, filename, and any mode-specific settings</td></tr>
+        <tr><td><strong>4 · Download</strong></td><td>Review the output preview and download your formatted CSV</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="selections">
+    <div class="section-num">03</div>
+    <h2>Selections Import <span class="tab-badge tab-sel" style="vertical-align:middle;margin-left:0.5rem;">🎨</span></h2>
+    <p>Use this mode when you want to populate Buildertrend's Selections sheet with items from your SketchUp model — typically finish selections, material allowances, and client-choice items.</p>
+    <h3>Output Fields</h3>
+    <table class="guide-table">
+      <thead><tr><th>Field</th><th>Required</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Title</td><td>✓ Required</td><td>Selection item name</td></tr>
+        <tr><td>Category</td><td>✓ Required</td><td>e.g. Flooring, Plumbing Fixtures, Appliances</td></tr>
+        <tr><td>Location</td><td>Optional</td><td>Room or area, e.g. Primary Suite, Kitchen</td></tr>
+        <tr><td>Allowance</td><td>Optional</td><td>Dollar amount budgeted for this selection</td></tr>
+        <tr><td>Deadline</td><td>Optional</td><td>Date by which client must decide. Can set a default for all rows.</td></tr>
+        <tr><td>Instructions</td><td>Optional</td><td>Public-facing notes visible to the client in BT</td></tr>
+        <tr><td>Selections Notes</td><td>Optional</td><td>Internal notes — not visible to client</td></tr>
+        <tr><td>Cost Code</td><td>Optional</td><td>BT cost code for accounting</td></tr>
+      </tbody>
+    </table>
+    <h3>Options</h3>
+    <ul class="bullets">
+      <li><strong>Group by field</strong> — group rows into sections by any source column (e.g. by room/area)</li>
+      <li><strong>Default deadline</strong> — applied to any row where a deadline isn't mapped</li>
+      <li><strong>Include Allowance column</strong> — toggle whether to include the dollar allowance in the output</li>
+    </ul>
+    <h3>How to Import into Buildertrend</h3>
+    <ol class="steps">
+      <li><p>Download your formatted CSV from PMM Bridge</p></li>
+      <li><p>In Buildertrend, go to <strong>Selections → Import</strong></p></li>
+      <li><p>Upload the CSV and use BT's column mapping wizard to match fields</p></li>
+      <li><p>Review and confirm</p></li>
+    </ol>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="estimate">
+    <div class="section-num">04</div>
+    <h2>Estimate Import <span class="tab-badge tab-est" style="vertical-align:middle;margin-left:0.5rem;">📋</span></h2>
+    <p>Use this mode to format your SketchUp component data for Buildertrend's Estimate import wizard. This is typically your first step when setting up a new project in BT from a SketchUp model.</p>
+    <h3>Output Fields</h3>
+    <table class="guide-table">
+      <thead><tr><th>Field</th><th>Required</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Title</td><td>✓ Required</td><td>Line item name</td></tr>
+        <tr><td>Cost Code</td><td>✓ Required</td><td>BT cost code / accounting category</td></tr>
+        <tr><td>Cost Type</td><td>Optional</td><td>Labor, Material, Sub, Equipment, Other</td></tr>
+        <tr><td>Group</td><td>Optional</td><td>Phase or trade grouping</td></tr>
+        <tr><td>Description</td><td>Optional</td><td>Detailed description of the line item</td></tr>
+        <tr><td>Quantity</td><td>✓ Required</td><td>Numeric quantity</td></tr>
+        <tr><td>Unit</td><td>Optional</td><td>EA, LF, SF, LS — defaults to EA if not mapped</td></tr>
+        <tr><td>Unit Price</td><td>✓ Required</td><td>Cost per unit</td></tr>
+        <tr><td>Amount</td><td>Optional</td><td>Can be calculated automatically (Qty × Unit Price)</td></tr>
+        <tr><td>Vendor / Sub</td><td>Optional</td><td>Assigned vendor or subcontractor</td></tr>
+        <tr><td>Internal Notes</td><td>Optional</td><td>Not visible to client</td></tr>
+        <tr><td>Mark As</td><td>Optional</td><td>Set to "Allowance" to route items to the Selections sheet</td></tr>
+      </tbody>
+    </table>
+    <h3>Allowance Flagging</h3>
+    <p>The Allowance Flagging section in the Options panel lets you automatically mark certain rows as <strong>Allowance</strong> in the output. When BT imports these, it routes them to the Selections sheet instead of the standard estimate line items.</p>
+    <ol class="steps">
+      <li><p>Enable <strong>Allowance Flagging</strong> in the Options panel</p></li>
+      <li><p>Choose which source column to check (e.g. <code>type</code> or <code>category</code>)</p></li>
+      <li><p>Enter the value to match (e.g. <code>selection</code> or <code>allowance</code>) — leave blank to flag all rows</p></li>
+      <li><p>Matching rows will show <strong>● Allowance</strong> in the output preview and the <code>Mark As</code> column in the downloaded CSV</p></li>
+    </ol>
+    <h3>Amount Calculation</h3>
+    <ul class="bullets">
+      <li><strong>Calculate (Qty × Unit Price)</strong> — PMM Bridge computes the total automatically</li>
+      <li><strong>Use source column</strong> — map an existing amount column from your CSV</li>
+      <li><strong>Omit</strong> — leave the Amount column blank</li>
+    </ul>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="po-sync">
+    <div class="section-num">05</div>
+    <h2>BT PO → SketchUp Model · PMM Sync <span class="tab-badge tab-sync" style="vertical-align:middle;margin-left:0.5rem;">🔄</span></h2>
+    <p>After a Buildertrend estimate is approved by the client and converted into a confirmed Purchase Order, use PMM Sync to reconcile the PO data back into your SketchUp model. This keeps your model attributes in sync with what was actually ordered — quantities, pricing, vendor assignments, and cost codes.</p>
+    <div class="callout callout-warn"><strong>BT always wins.</strong> In any field conflict between your SketchUp export and the Buildertrend PO, the BT value overwrites the SketchUp value. This is by design — the confirmed PO is the source of truth.</div>
+    <h3>What You Need</h3>
+    <ul class="bullets">
+      <li>Your <strong>original SketchUp export CSV</strong> — the file you exported before sending to BT, which contains the <code>pmm_id</code> column</li>
+      <li>Your <strong>Buildertrend PO export CSV</strong> — exported from BT after the estimate was approved and converted to a PO</li>
+    </ul>
+    <h3>Step by Step</h3>
+    <ol class="steps">
+      <li><p>Click the <strong>BT PO → SketchUp Model · PMM Sync</strong> tab — a Back button appears to return to the main modes</p></li>
+      <li><p>Load your <strong>SketchUp Export CSV</strong> using Google Drive or Browse Local (top left zone)</p></li>
+      <li><p>Load your <strong>Buildertrend PO Export CSV</strong> using Google Drive or Browse Local (top right zone)</p></li>
+      <li><p>Map the BT column mapping fields — especially the <strong>PMM ID (match key)</strong> which is required. PMM Bridge will auto-detect common column names.</p></li>
+      <li><p>Click <strong>Reconcile &amp; Diff</strong></p></li>
+    </ol>
+    <h3>Field Coverage Report</h3>
+    <p>Before reconciling, PMM Bridge validates every field and shows you a coverage report:</p>
+    <table class="guide-table">
+      <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+      <tbody>
+        <tr><td>✓ <strong style="color:#1E5E1E;">Will sync</strong></td><td>Field exists in both files and is correctly mapped — will update SketchUp</td></tr>
+        <tr><td>⚠ <strong style="color:#6B4A08;">Unmapped</strong></td><td>Field exists in SU export but no BT column is mapped to it — will be skipped. A 💡 means a likely match was detected — scroll up and map it.</td></tr>
+        <tr><td>✕ <strong style="color:#7A2818;">Bad column</strong></td><td>Mapped to a BT column that doesn't exist in the loaded file — check the column name</td></tr>
+        <tr><td>ℹ <strong style="color:#C4B088;">BT only</strong></td><td>Mapped but the field isn't in your SU export — won't write back</td></tr>
+      </tbody>
+    </table>
+    <h3>The Change Report</h3>
+    <p>After reconciling, you'll see a summary with four stat boxes and a diff table showing exactly what changed:</p>
+    <ul class="bullets">
+      <li><strong>Total Components</strong> — all rows in your SU export</li>
+      <li><strong>Unchanged</strong> — matched in BT, no differences found</li>
+      <li><strong>Fields Updated</strong> — matched in BT, BT values applied</li>
+      <li><strong>Unmatched in BT</strong> — <code>pmm_id</code> not found in the BT export (component may have been removed or renamed in BT)</li>
+    </ul>
+    <p>Use the tabs to filter the view: <strong>All / Changed / Unmatched / Unchanged</strong>. Changed rows show the old SU value struck through and the new BT value in gold.</p>
+    <h3>Downloads</h3>
+    <ul class="bullets">
+      <li><strong>Download Reconciled CSV</strong> — the updated file with all BT values applied. Import this into SketchUp using the PMM Bridge Importer plugin.</li>
+      <li><strong>Change Log</strong> — a separate CSV listing every field that changed, with old and new values. Keep this for your project audit trail.</li>
+    </ul>
+    <h3>Importing Back into SketchUp</h3>
+    <ol class="steps">
+      <li><p>Open your SketchUp model</p></li>
+      <li><p>Go to <strong>Plugins → PMM Bridge — Import from BT</strong></p></li>
+      <li><p>Select the Reconciled CSV downloaded from PMM Bridge</p></li>
+      <li><p>The importer matches each row by <code>pmm_id</code> and writes the updated values back into the component's <code>dynamic_attributes</code> dictionary</p></li>
+      <li><p>A summary dialog shows how many components were updated and saves a timestamped change log CSV alongside the source file</p></li>
+    </ol>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="workflow">
+    <div class="section-num">06</div>
+    <h2>Full Project Workflow</h2>
+    <p>Here's how PMM Bridge fits into the complete PMM Tools project lifecycle:</p>
+    <h3>Phase 1 — Model Setup</h3>
+    <ol class="steps">
+      <li><p>Build your SketchUp model. Use your template plugin to add <code>type</code>, <code>cost_code</code>, <code>category</code>, and other PMM attributes to each component.</p></li>
+      <li><p>Run <strong>Plugins → PMM Bridge — Export to CSV</strong>. This stamps a <code>pmm_id</code> on each component and exports one CSV per component type (selections, estimate, PO).</p></li>
+      <li><p>Save the export CSVs to your PMM in the Sky Google Sheet folder.</p></li>
+    </ol>
+    <h3>Phase 2 — Buildertrend Setup</h3>
+    <ol class="steps">
+      <li><p>Open PMM Bridge → <strong>Selections Import</strong>. Load your selections CSV from Drive, map columns, download the BT-formatted CSV.</p></li>
+      <li><p>Import the Selections CSV into Buildertrend's Selections sheet.</p></li>
+      <li><p>Open PMM Bridge → <strong>Estimate Import</strong>. Load your estimate CSV from Drive, map columns, download the BT-formatted CSV.</p></li>
+      <li><p>Import the Estimate CSV into Buildertrend's Estimate module.</p></li>
+    </ol>
+    <h3>Phase 3 — PO Confirmation &amp; Sync</h3>
+    <ol class="steps">
+      <li><p>In Buildertrend, work through your estimate. When the client approves, BT converts the estimate to a Purchase Order.</p></li>
+      <li><p>Export the confirmed PO from Buildertrend as a CSV.</p></li>
+      <li><p>Open PMM Bridge → <strong>BT PO → SketchUp Model · PMM Sync</strong>.</p></li>
+      <li><p>Load your original SU export + the BT PO export. Map fields, reconcile, review the change report.</p></li>
+      <li><p>Download the Reconciled CSV and Change Log.</p></li>
+      <li><p>In SketchUp: <strong>Plugins → PMM Bridge — Import from BT</strong> → select the Reconciled CSV. Model attributes update automatically.</p></li>
+    </ol>
+    <div class="callout callout-tip"><strong>Your model stays current.</strong> After Phase 3, your SketchUp model reflects the exact quantities, pricing, and vendor assignments in the confirmed Purchase Order — no manual re-entry needed.</div>
+  </div>
+
+  <hr class="divider">
+
+  <div class="section" id="tips">
+    <div class="section-num">07</div>
+    <h2>Tips &amp; Troubleshooting</h2>
+    <h3>Google Drive Picker</h3>
+    <ul class="bullets">
+      <li>Use <strong>Chrome</strong> — Safari has cookie restrictions that prevent the Drive picker from opening</li>
+      <li>If the picker shows a 403 error, check that your Google account is listed as a test user in the Google Cloud Console</li>
+      <li>Run PMM Bridge from <code>trilogydesignintelligence.github.io</code> — the Drive picker won't work from a local <code>file://</code> URL</li>
+      <li>If you get a token expired error mid-session, click the Drive button again — PMM Bridge will re-authenticate automatically</li>
+    </ul>
+    <h3>Column Mapping</h3>
+    <ul class="bullets">
+      <li>PMM Bridge auto-detects common column names — if your SketchUp export uses the standard PMM attribute keys (<code>title</code>, <code>cost_code</code>, <code>quantity</code>, etc.) most fields will pre-fill automatically</li>
+      <li>If a required field shows red, check that the corresponding column exists in your source CSV</li>
+      <li>The source preview (first 5 rows) helps you verify the right column is mapped to each field</li>
+    </ul>
+    <h3>PMM Sync — No Matches Found</h3>
+    <ul class="bullets">
+      <li>Make sure your SketchUp export CSV has a <code>pmm_id</code> column — if not, export fresh using the PMM Bridge Exporter plugin</li>
+      <li>Make sure the <strong>PMM ID (match key)</strong> field in the BT column mapping is set to the column in your BT export that contains the <code>pmm_id</code> values</li>
+      <li>If many rows show Unmatched, check whether BT renamed or reorganised line items — those won't match automatically</li>
+    </ul>
+    <h3>CSV Formatting</h3>
+    <ul class="bullets">
+      <li>PMM Bridge handles standard comma-separated CSVs with or without quoted fields</li>
+      <li>Enable <strong>Trim whitespace</strong> (on by default) to clean up any extra spaces in your source data</li>
+      <li>Enable <strong>Skip rows where Quantity = 0</strong> to exclude placeholder components not yet priced</li>
+    </ul>
+    <h3>Filename Tips</h3>
+    <ul class="bullets">
+      <li>Set a descriptive output filename in the Options panel before downloading — e.g. <code>HighMeadow_Selections_R1</code></li>
+      <li>Include a revision number or date so you can track which BT import corresponds to which model version</li>
+    </ul>
+    <div class="callout"><strong>Need help?</strong> Contact Trilogy Design Intelligence at <strong><a href="mailto:christianah@trilogybuilds.com" style="color:inherit;">christianah@trilogybuilds.com</a></strong> or reach out through your project coordinator.</div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-brand">Boots on the Ground, Eyes on the Sky. Connect. Create. Construct.</div>
+      <div class="footer-meta">PMM Bridge User Guide · Trilogy Design Intelligence · PMM Tools</div>
+    </div>
+    <div style="text-align:right;">
+      <div class="footer-meta">trilogydesignintelligence.github.io/PMM-Bridge</div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

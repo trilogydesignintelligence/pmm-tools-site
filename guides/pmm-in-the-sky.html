@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMM in the Sky — User Guide · PMM Tools</title>
+<link rel="stylesheet" href="../assets/css/guide.css">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Barlow+Condensed:wght@300;400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="guide-topbar">
+  <a href="../index.html" class="guide-back">← Back to PMM Tools</a>
+  <a href="../index.html" class="guide-tools-link">PMM <em>Tools</em></a>
+</header>
+
+<div class="guide-layout">
+
+  <aside class="guide-toc">
+    <div class="toc-eyebrow">Tool · 02</div>
+    <h2 class="toc-title">PMM <em>in the Sky</em></h2>
+    <div class="toc-rule"></div>
+    <ul class="toc-list">
+      <li><span class="toc-part">Part I · Foundations</span></li>
+      <li><a href="#what-it-is">1. What PMM in the Sky Is</a></li>
+      <li><a href="#access">2. Access &amp; Permissions</a></li>
+      <li><a href="#first-time">3. First-Time Setup</a></li>
+      <li><span class="toc-part">Part II · Daily Use</span></li>
+      <li><a href="#category-tabs">4. Working in Category Tabs</a></li>
+      <li><a href="#selections">5. Marking Selections / Allowances</a></li>
+      <li><a href="#vendors">6. Vendors &amp; Cost Codes</a></li>
+      <li><span class="toc-part">Part III · Reference</span></li>
+      <li><a href="#schema">7. Schema v1.0</a></li>
+      <li><a href="#protected">8. Protected Ranges</a></li>
+      <li><span class="toc-part">Part IV · Care &amp; Repair</span></li>
+      <li><a href="#troubleshooting">9. Troubleshooting</a></li>
+      <li><a href="#credits">10. Credits</a></li>
+    </ul>
+  </aside>
+
+  <article class="guide-article">
+
+    <header class="guide-masthead">
+      <div class="guide-eyebrow">
+        <span class="dot"></span>
+        TRILOGY DESIGN INTELLIGENCE
+        <span class="dot"></span>
+        USER GUIDE 02
+      </div>
+      <h1 class="guide-title">PMM <em>in the Sky</em></h1>
+      <p class="guide-subtitle">The canonical project Google Sheet — single source of truth for everything commercial.</p>
+      <div class="guide-meta">
+        <span>Google Sheets</span>
+        <span>No-Install</span>
+        <span>Schema v1.0</span>
+        <span>Audience · All Users</span>
+      </div>
+    </header>
+
+    <p class="lede">PMM in the Sky is the project's Google Sheet — the canonical source of truth for everything commercial. Prices, vendors, cost codes, specifications, statuses. It is where the PM works, where the estimator works, and where every other tool in the suite reads from.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · I</span>
+  <span class="part-title">Foundations</span>
+</div>
+<h2 id="what-it-is">1. What PMM in the Sky Is</h2>
+<p>PMM in the Sky is a structured Google Sheet, not a separate application. Every project has its own Sheet, organized into a fixed set of tabs that all PMM tools recognize:</p><ul><li><code>_Index</code> — every PMM-tagged component in the model, one row each, keyed by <code>PMM ID</code></li><li><code>_Meta</code> — project-level metadata (project name, schema version, last sync)</li><li><strong>Category tabs</strong> — one tab per Cost Category (e.g. <code>06 - Carpentry</code>, <code>22 - Plumbing</code>, <code>26 - Electrical</code>)</li></ul><p>PMM Horizon writes to this Sheet from SketchUp. PMM Compass and PMM on the Ground read from it. PMM Relay watches it for changes and pushes confirmed commercial data to Buildertrend.</p><div class="callout"><div class="callout-tag">DESIGN PRINCIPLE</div><p>The Sheet is the truth. Every other tool — Horizon, Compass, Relay, on the Ground — is a view onto this Sheet. Turn off any of them and zero data is lost.</p></div>
+<h2 id="access">2. Access &amp; Permissions</h2>
+<p>Sheets live in the project's Google Drive folder. The standard share matrix:</p><table><thead><tr><th>Role</th><th>Access</th></tr></thead><tbody><tr><td>PM / Estimator</td><td>Editor</td></tr><tr><td>Designer (push from Horizon)</td><td>Editor (limited tabs)</td></tr><tr><td>PMM Relay service account</td><td>Viewer</td></tr><tr><td>Subcontractor</td><td>Never direct — they use PMM on the Ground</td></tr><tr><td>Client</td><td>Never direct</td></tr></tbody></table><p>The Relay service account email (the <code>client_email</code> in your service-account JSON) needs Viewer access on every project Sheet. Add it like sharing a Doc with a person.</p>
+<h2 id="first-time">3. First-Time Setup</h2>
+<p>You can either create a Sheet from PMM Horizon (recommended) or link an existing one:</p><h4>Option A — Create from Horizon</h4><ol><li>Open the project model in SketchUp</li><li><strong>Extensions → PMM Horizon → Create New Sheet…</strong></li><li>Horizon creates the Sheet, scaffolds tabs, and links the model</li></ol><h4>Option B — Link an existing Sheet</h4><ol><li>Open or create the Sheet manually from a master template</li><li>Copy the Sheet ID from the URL (the long string between <code>/d/</code> and <code>/edit</code>)</li><li>In SketchUp: <strong>Extensions → PMM Horizon → Link to Existing Sheet…</strong></li><li>Paste the Sheet ID</li></ol>
+
+<div class="part-header">
+  <span class="part-number">PART · II</span>
+  <span class="part-title">Daily Use</span>
+</div>
+<h2 id="category-tabs">4. Working in Category Tabs</h2>
+<p>Each Cost Category gets its own tab — <code>06 - Carpentry</code>, <code>22 - Plumbing</code>, etc. Tabs are auto-created the first time a component with that Cost Category is pushed.</p><p>Columns split into three zones:</p><ul><li><strong>Layer 1 — Identity &amp; Sync</strong> (PMM ID, Sync Status, Last Modified). <em>Auto-managed</em>; do not edit.</li><li><strong>Layer 2 — Model</strong> (Component Name, Length, Width, Height, Quantity, Location, Storey). Pushed from SketchUp.</li><li><strong>Layer 3 — Commercial</strong> (Title, Description, Cost Code, Cost Type, Unit Price, Vendor, Allowance, Deadline, Notes). <em>Edit freely</em>. PMM Horizon pulls these back into SketchUp for read-only display.</li></ul><p>Headers use Title Case With Spaces (e.g. <code>Unit Price</code>, not <code>unit_price</code>) per Schema v1.0.</p>
+<h2 id="selections">5. Marking Selections / Allowances</h2>
+<p>To route a component to BT's Selections sheet (instead of the Estimate), set its <code>Mark As</code> column to <code>Allowance</code>. PMM Relay reads this on its next sync and BT's import wizard handles the routing.</p><p>Set <code>Selection Category</code> and <code>Allowance Amount</code> to populate the Selections record fully.</p>
+<h2 id="vendors">6. Vendors &amp; Cost Codes</h2>
+<p>Vendor names and cost codes flow from the Sheet to Buildertrend via Relay. Two rules:</p><ol><li>Vendor names must match BT exactly (Relay does not fuzzy-match). If your Sheet says <em>"Acme Lumber Co"</em> but BT has <em>"Acme Lumber Company"</em>, Relay will surface a vendor lookup error.</li><li>Cost Codes use the format <code>NN.NN.NN</code> (e.g. <code>06.20.10</code>) per the BT cost-code reference.</li></ol>
+
+<div class="part-header">
+  <span class="part-number">PART · III</span>
+  <span class="part-title">Reference</span>
+</div>
+<h2 id="schema">7. Schema v1.0</h2>
+<p>PMM in the Sky conforms to <strong>PMM Attribute Schema v1.0</strong>. See the <a href="pmm-connection.html#schema">PMM Connection → Schema reference</a> for the complete field list across all four layers (Identity &amp; Sync, Model, Commercial, Type-specific).</p><p>Schema version is tracked in the <code>_Meta</code> tab so tools can validate compatibility.</p>
+<h2 id="protected">8. Protected Ranges</h2>
+<p>Several ranges are locked by default to prevent accidental edits:</p><ul><li>Header row (row 1) on every tab</li><li>The <code>PMM ID</code> column</li><li>The <code>_Index</code> tab structure (columns and rows)</li><li>The <code>_Meta</code> tab (values are editable; structure is not)</li></ul><p>If you need to edit a protected range, ask your PM. They hold the unlock permission.</p>
+
+<div class="part-header">
+  <span class="part-number">PART · IV</span>
+  <span class="part-title">Care &amp; Repair</span>
+</div>
+<h2 id="troubleshooting">9. Troubleshooting</h2>
+<h3>"This action requires permission"</h3><p>You're trying to edit a protected range. Either you're editing a column you shouldn't (Layer 1), or you need PM-level access.</p><h3>Horizon push reports "Sheet not found"</h3><p>The Sheet was renamed or moved. Re-paste the Sheet ID into Horizon's Settings.</p><h3>Two rows for the same component</h3><p>Almost always caused by copy-paste in SketchUp creating duplicate <code>PMM ID</code>s. Run <strong>Audit Missing UUIDs</strong> in Horizon to detect, then re-stamp.</p><h3>Relay reports "Vendor lookup failed"</h3><p>Vendor name in the Sheet doesn't match any vendor in Buildertrend. Either add the vendor in BT first, or fix the spelling in the Sheet.</p>
+<h2 id="credits">10. Credits</h2>
+<p>PMM is part of the <strong>PMM Tools</strong> suite by <strong>Trilogy Design Intelligence</strong>, a service of <strong>Trilogy Partners</strong>.</p><ul><li><strong>Design and requirements</strong> — Trilogy Design Intelligence</li><li><strong>Implementation</strong> — Claude (Anthropic)</li><li><strong>Questions or issues</strong> — <a href="mailto:christianah@trilogybuilds.com">christianah@trilogybuilds.com</a></li></ul><p>This guide and the tool follow the <strong>PMM Attribute Schema v1.0</strong> — the canonical contract shared across PMM Connection, PMM Horizon, PMM in the Sky, PMM on the Ground, PMM Compass, PMM Bridge, PMM Relay, and PMM Converter.</p><p><em>Trilogy Partners. Boots on the Ground, Eyes on the Sky.</em></p>
+
+    <footer class="guide-footer">
+      <span class="credit">PMM in the Sky User Guide · v1.0</span>
+      <div class="tag"><em>Trilogy Partners. Boots on the Ground, Eyes on the Sky.</em></div>
+    </footer>
+
+  </article>
+</div>
+
+<script>
+(function () {
+  const links = document.querySelectorAll('.toc-list a');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+      }
+    });
+  }, { rootMargin: '-100px 0px -60% 0px', threshold: 0 });
+  sections.forEach(s => io.observe(s));
+})();
+</script>
+
+</body>
+</html>
