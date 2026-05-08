@@ -1,0 +1,6 @@
+git init
+git add .
+git commit -m "Initial PMM Tools showcase site"
+git branch -M main
+git remote add origin git@github.com:&lt;you&gt;/pmm-tools-site.git
+git push -u origin main
